@@ -11,11 +11,6 @@ I am a passionate digital artist and 3D visual designer based in Kunming, Yunnan
 - **Digital Art**: Creating captivating digital illustrations and concepts for various media.
 - **Writing & Knowledge Management**: Sharing insights on design, animation, and creative processes while continuously learning and evolving.
 
-### 🚀 Current Goals
-
-- **Short-term**: Mastering self-media operations to better share my work and engage with a broader audience.
-- **Long-term**: Developing my own original animated films, games, or products, and building a personal brand that stands out in the creative industry.
-
 ### 🔧 Tools & Technologies
 
 - **3D Tools**: Cinema4D, ZBrush
@@ -24,11 +19,4 @@ I am a passionate digital artist and 3D visual designer based in Kunming, Yunnan
 - **Programming**: C#, JavaScript
 - **Project Management**: Obsidian, Notion
 
-### 🌱 I’m currently learning
-
-- **Self-media operations**: How to effectively manage and promote my work across various social platforms.
-- **Advanced game development techniques**: Exploring deeper integration of gameplay mechanics with visual storytelling.
-
-### 🌍 Let's connect!
-
-- [My Portfolio](https://cgartlab.com)
+### Happy Coding & Rendering!
