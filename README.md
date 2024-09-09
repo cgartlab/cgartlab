@@ -1,4 +1,4 @@
-# Hi there 👋, I'm [CGArtLab]
+# Hi there 👋, I'm CGArtLab
 
 ### 🎨 Digital Artist & 3D Visual Designer | 🎮 CG Animation & Game Development
 
