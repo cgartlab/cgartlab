@@ -1,16 +1,34 @@
-## Hi there 👋
+# Hi there 👋, I'm [CGArtLab]
 
-<!--
-**cgartlab/cgartlab** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+### 🎨 Digital Artist & 3D Visual Designer | 🎮 CG Animation & Game Development
 
-Here are some ideas to get you started:
+I am a passionate digital artist and 3D visual designer based in Kunming, Yunnan, China. My work focuses on creating immersive visual experiences through CG animation and game development. With a strong background in design and technology, I blend creativity with technical expertise to craft engaging content across various platforms.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### 🌟 What I do
+
+- **CG Animation**: Bringing characters and stories to life through detailed animation and visual storytelling.
+- **Game Development**: Designing interactive and visually stunning game environments, assets, and characters.
+- **Digital Art**: Creating captivating digital illustrations and concepts for various media.
+- **Writing & Knowledge Management**: Sharing insights on design, animation, and creative processes while continuously learning and evolving.
+
+### 🚀 Current Goals
+
+- **Short-term**: Mastering self-media operations to better share my work and engage with a broader audience.
+- **Long-term**: Developing my own original animated films, games, or products, and building a personal brand that stands out in the creative industry.
+
+### 🔧 Tools & Technologies
+
+- **3D Tools**: Cinema4D, ZBrush
+- **Game Engines**: Unity
+- **Design Tools**: Photoshop, Illustrator, After Effects
+- **Programming**: C#, JavaScript
+- **Project Management**: Obsidian, Notion
+
+### 🌱 I’m currently learning
+
+- **Self-media operations**: How to effectively manage and promote my work across various social platforms.
+- **Advanced game development techniques**: Exploring deeper integration of gameplay mechanics with visual storytelling.
+
+### 🌍 Let's connect!
+
+- [My Portfolio](https://cgartlab.com)
