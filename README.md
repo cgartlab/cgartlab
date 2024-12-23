@@ -21,9 +21,5 @@ I am a passionate digital artist and 3D visual designer based in Kunming, Yunnan
 - **Programming**: C#, JavaScript
 - **Project Management**: Obsidian, Notion
 
-📕 &nbsp;**Latest Blog Posts**
-<!-- BLOG-POST-LIST:START -->
-<!-- BLOG-POST-LIST:END -->
-
 ### Happy Coding & Rendering!
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=cgartlab) 
