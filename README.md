@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=260&&section=header&text=HI%20THERE&fontSize=90&fontAlign=50&fontAlignY=28&desc=I%20am%ChenYang%F0%9F%98%81&descAlign=50&descSize=30&descAlignY=56&animation=twinkling" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=260&&section=header&text=HI%20THERE&fontSize=90&fontAlign=50&fontAlignY=28&desc=I%20am%20ChenYang%F0%9F%98%81&descAlign=50&descSize=30&descAlignY=56&animation=twinkling" />
 </p>
 
 # Hi there 👋, I'm CGArtLab
@@ -29,7 +29,3 @@ I am a passionate digital artist and 3D visual designer based in Kunming, Yunnan
 
 ### Happy Coding & Rendering!
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=cgartlab) 
-
-![Ashutosh's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=cgartlab)
-
-![trophy](https://github-profile-trophy.vercel.app/?username=cgartlab)
