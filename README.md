@@ -22,8 +22,6 @@ I am a passionate digital artist and 3D visual designer based in Kunming, Yunnan
 ### Happy Coding & Rendering!
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=cgartlab) 
 
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=cgartlab)
+![Ashutosh's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=cgartlab)
 
 ![trophy](https://github-profile-trophy.vercel.app/?username=cgartlab)
-
-![Ashutosh's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=cgartlab)
