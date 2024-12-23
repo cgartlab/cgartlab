@@ -2,8 +2,6 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=260&&section=header&text=HI%20THERE&fontSize=90&fontAlign=50&fontAlignY=28&desc=I%20am%20ChenYang%F0%9F%98%81&descAlign=50&descSize=30&descAlignY=56&animation=twinkling" />
 </p>
 
-# Hi there 👋, I'm CGArtLab
-
 ## 🎨 Digital Artist & 3D Visual Designer | 🎮 CG Animation & Game Development
 
 I am a passionate digital artist and 3D visual designer based in Kunming, Yunnan, China. My work focuses on creating immersive visual experiences through CG animation and game development. With a strong background in design and technology, I blend creativity with technical expertise to craft engaging content across various platforms.
