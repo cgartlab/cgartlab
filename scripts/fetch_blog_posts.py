@@ -45,7 +45,7 @@ def fetch_blog_posts(feed_url: str, max_posts: int = 5) -> List[Dict]:
 
 def generate_markdown(posts: List[Dict]) -> str:
     """
-    生成Markdown格式的文章列表
+    生成Markdown格式的文章列表（中英文双语）
     
     Args:
         posts: 文章列表
@@ -54,17 +54,17 @@ def generate_markdown(posts: List[Dict]) -> str:
         Markdown格式的内容
     """
     if not posts:
-        return "## 📝 最新博客文章\n\n> 暂时无法获取最新文章，请稍后重试\n"
+        return "## 📝 Latest Blog Posts / 最新博客文章\n\n> Temporarily unable to fetch latest posts. Please try again later.\n\n> 暂时无法获取最新文章，请稍后重试\n"
     
-    markdown = "## 📝 最新博客文章\n\n"
-    markdown += f"*最后更新: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
+    markdown = "## 📝 Latest Blog Posts / 最新博客文章\n\n"
+    markdown += f"*Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
     
     for i, post in enumerate(posts, 1):
         # 清理摘要文本
-        summary = post['summary'][:150] + '...' if len(post['summary']) > 150 else post['summary']
+        summary = post['summary'][:120] + '...' if len(post['summary']) > 120 else post['summary']
         
         markdown += f"### {i}. [{post['title']}]({post['link']})\n"
-        markdown += f"**发布时间**: {post['published']}\n\n"
+        markdown += f"**Published**: {post['published']}\n\n"
         markdown += f"> {summary}\n\n"
     
     return markdown
@@ -100,10 +100,10 @@ def main():
     if not all_posts:
         all_posts = [
             {
-                'title': '示例文章 - 配置你的博客订阅源',
+                'title': 'Example Article - Configure Your Blog Feed',
                 'link': 'https://github.com/cgartlab/cgartlab',
                 'published': datetime.now().strftime('%Y-%m-%d'),
-                'summary': '请编辑 scripts/fetch_blog_posts.py 文件，添加你的博客订阅源URL'
+                'summary': 'Please edit the blog_config.json file to add your blog feed URL'
             }
         ]
     
