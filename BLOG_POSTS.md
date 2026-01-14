@@ -1,29 +1,9 @@
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-01-14 23:53:02*
+*Last Updated: 2026-01-14 15:57:02*
 
-### 1. [2025年，我的生产力设备里留下了这些优秀工具](https://cgartlab.com/posts/good-tools-for-production-in-my-2025/)
-**Published**: Tue, 13 Jan 2026 00:00:00 GMT
+### 1. [Example Article - Configure Your Blog Feed](https://github.com/cgartlab/cgartlab)
+**Published**: 2026-01-14
 
-> 顶着这么多年设计师的头衔，我从未整体性地总结过自己用的软件应用。今年第一次冒出了想设计开发一个自己喜欢的产品，对于用户，软件是应用。对于开发者，软件是他们的产品。于是，在软件工具的选择和使用上，我逐渐开始以产品设计思维作为标准，甚至会去搜寻...
-
-### 2. [我的作品集_2020-2024](https://cgartlab.com/posts/demo-2024/)
-**Published**: Sun, 04 Jan 2026 00:00:00 GMT
-
-> 这个作品集 Demo 是我最近几年创作历程的一个缩影。
-
-### 3. [我的作品集_2016-2020](https://cgartlab.com/posts/demo-2020/)
-**Published**: Sun, 14 Dec 2025 00:00:00 GMT
-
-> 这个作品集 Demo 是我多年创作历程的一个缩影，涵盖了从早期的数字艺术实验到近期的项目实践。
-
-### 4. [10 玄光周刊-圣弥厄尔教堂](https://cgartlab.com/posts/weekly-10/)
-**Published**: Sat, 16 Aug 2025 00:00:00 GMT
-
-> 本期封面拍摄自青岛圣弥厄尔大教堂。难得有闲暇时间可以约朋友组队出来玩一圈。国内的旅游方式，主打一个「来都来了」，几个地标还是要打个卡的。这个天主教堂其实没有想象中的大，但第一次见到了一比一的管风琴还是蛮震撼的。奇怪的是，没有见到任何修女或神...
-
-### 5. [09 玄光周刊-OpenAI推出学习模式](https://cgartlab.com/posts/weekly-09/)
-**Published**: Sat, 02 Aug 2025 00:00:00 GMT
-
-> 本期周刊主要讨论了OpenAI新推出的学习模式、Newsletter传播形式的优势，以及推荐了IGLOO公司的创意网站设计。
+> Please edit the blog_config.json file to add your blog feed URL
 
