@@ -1,9 +1,7 @@
-<!-- 默认显示英文版本，通过语言切换显示不同版本 -->
-<div align="center">
 
 # Hi there 👋, I'm CGArtLab
 
-### 🎨 Digital Artist & 3D Visual Designer | 🎮 CG Animation & Game Development
+## 🎨 Digital Artist & 3D Visual Designer | 🎮 CG Animation & Game Development
 
 </div>
 
