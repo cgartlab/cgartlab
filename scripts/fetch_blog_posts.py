@@ -85,7 +85,7 @@ def fetch_blog_posts(feed_url: str, max_posts: int = 5, timeout: int = 10) -> Li
 def generate_markdown(posts: List[Dict]) -> str:
     """
     生成Markdown格式的文章列表（中英文双语，简洁版）
-
+    
     Args:
         posts: 文章列表（会读取 title/link/published）
 
@@ -93,11 +93,15 @@ def generate_markdown(posts: List[Dict]) -> str:
         Markdown格式的内容
     """
     if not posts:
-        return (
-            "## 📝 Latest Blog Posts / 最新博客文章\n\n"
-            "> Temporarily unable to fetch latest posts. Please try again later.\n\n"
-            "> 暂时无法获取最新文章，请稍后重试\n"
-        )
+        return "## 📝 Latest Blog Posts / 最新博客文章\n\n> Temporarily unable to fetch latest posts. Please try again later.\n\n> 暂时无法获取最新文章，请稍后重试\n"
+    
+    markdown = "## 📝 Latest Blog Posts / 最新博客文章\n\n"
+    markdown += f"*Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
+    
+    for i, post in enumerate(posts, 1):
+        markdown += f"**{i}.** [{post['title']}]({post['link']}) - *{post['published']}*\n\n"
+    
+    return markdown
 
     markdown = "## 📝 Latest Blog Posts / 最新博客文章\n\n"
     markdown += f"*Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
