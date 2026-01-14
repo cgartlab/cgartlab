@@ -1,0 +1,17 @@
+{
+  "blog_feeds": [
+    {
+      "name": "你的博客名称",
+      "url": "https://your-blog.com/feed",
+      "type": "rss"
+    },
+    {
+      "name": "另一个博客",
+      "url": "https://another-blog.com/atom.xml",
+      "type": "atom"
+    }
+  ],
+  "max_posts": 5,
+  "update_interval_hours": 24,
+  "cache_duration_minutes": 60
+}
