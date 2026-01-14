@@ -11,7 +11,7 @@
       "type": "rss"
     }
   ],
-  "max_posts": 5,
-  "update_interval_hours": 24,
+  "max_posts": 7,
+  "update_interval_hours": 12,
   "cache_duration_minutes": 60
 }
