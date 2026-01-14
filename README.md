@@ -1,40 +1,34 @@
 
-# Hi there 👋, I'm CGArtLab
+Hello! I'm [CGArtLab](https://cgartlab.com), a passionate digital artist and 3D visual designer based in Kunming, Yunnan, China. My work focuses on creating immersive visual experiences through CG animation and game development. With a strong background in design and technology, I blend creativity with technical expertise to craft engaging content across various platforms.
 
-## 🎨 Digital Artist & 3D Visual Designer | 🎮 CG Animation & Game Development
+<table width="1200px" cellspacing="0" cellpadding="0">
+<tr>
+<td width="600px" valign="top">
 
-</div>
+**Skills & Tools**
 
-## 📝 最新博客文章
+• **3D Modeling & Animation**: Blender, Maya, Cinema 4D
+• **Game Development**: Unity, Unreal Engine
+• **Digital Art**: Photoshop, Illustrator, Procreate
+• **Programming**: Python, JavaScript, C#
+• **Web Development**: React, Vue, Three.js
+• **DevOps**: Git, Docker, CI/CD
+
+</td>
+<td width="600px" valign="top">
+
+**Latest Blog Posts**
 
 <!-- BLOG_POSTS_START -->
-## 📝 最新博客文章
-
-*最后更新: 2026-01-14 15:41:20*
-
-### 1. [示例文章 - 配置你的博客订阅源](https://github.com/cgartlab/cgartlab)
-**发布时间**: 2026-01-14
-
-> 请编辑 scripts/fetch_blog_posts.py 文件，添加你的博客订阅源URL
-
-
+• [2025年，我的生产力设备里留下了这些优秀工具](https://cgartlab.com/posts/good-tools-for-production-in-my-2025/) - 2026-01-13<br>
+• [我的作品集_2020-2024](https://cgartlab.com/posts/demo-2024/) - 2026-01-04<br>
+• [我的作品集_2016-2020](https://cgartlab.com/posts/demo-2020/) - 2025-12-14<br>
+• [10 玄光周刊-圣弥厄尔教堂](https://cgartlab.com/posts/weekly-10/) - 2025-08-16<br>
+• [09 玄光周刊-OpenAI推出学习模式](https://cgartlab.com/posts/weekly-09/) - 2025-08-02
 <!-- BLOG_POSTS_END -->
 
-## 🌟 About Me
+*Last Updated: 2026-01-14 23:59:58*
 
-I am a passionate digital artist and 3D visual designer based in Kunming, Yunnan, China. My work focuses on creating immersive visual experiences through CG animation and game development. With a strong background in design and technology, I blend creativity with technical expertise to craft engaging content across various platforms.
-
-### 🚀 What I Do
-
-- **CG Animation**: Bringing characters and stories to life through detailed animation and visual storytelling
-- **Game Development**: Designing interactive and visually stunning game environments, assets, and characters
-- **Digital Art**: Creating captivating digital illustrations and concepts for various media
-- **Knowledge Management**: Sharing insights on design, animation, and creative processes while continuously learning
-
-### 🛠️ Tools & Technologies
-
-- **3D Tools**: Cinema4D, ZBrush
-- **Game Engines**: Unity
-- **Design Tools**: Photoshop, Illustrator, After Effects
-- **Programming**: C#, JavaScript
-- **Project Management**: Obsidian, Notion
+</td>
+</tr>
+</table>
