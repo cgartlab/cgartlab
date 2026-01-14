@@ -95,10 +95,10 @@ def main():
     if not all_posts:
         all_posts = [
             {
-                'title': '示例文章 - 配置你的博客订阅源',
+                'title': 'Example Article - Configure Your Blog Feed',
                 'link': 'https://github.com/cgartlab/cgartlab',
                 'published': datetime.now().strftime('%Y-%m-%d'),
-                'summary': '请编辑 scripts/fetch_blog_posts.py 文件，添加你的博客订阅源URL'
+                'summary': 'Please edit the blog_config.json file to add your blog feed URL'
             }
         ]
     
