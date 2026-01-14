@@ -1,14 +1,14 @@
 {
   "blog_feeds": [
     {
-      "name": "你的博客名称",
-      "url": "https://your-blog.com/feed",
+      "name": "CGArtLab",
+      "url": "https://cgartlab.com/rss.xml",
       "type": "rss"
     },
     {
-      "name": "另一个博客",
-      "url": "https://another-blog.com/atom.xml",
-      "type": "atom"
+      "name": "玄光周刊",
+      "url": "https://weekly.cgartlab.com/rss.xml",
+      "type": "rss"
     }
   ],
   "max_posts": 5,

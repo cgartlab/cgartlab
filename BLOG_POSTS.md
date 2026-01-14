@@ -1,28 +1,29 @@
 ## 📝 最新博客文章
 
-*最后更新: 2024-01-01 00:00:00*
+*最后更新: 2026-01-14 23:34:36*
 
-### 1. [欢迎使用博客文章列表功能](https://github.com/cgartlab/cgartlab)
-**发布时间**: 2024-01-01
+### 1. [2025年，我的生产力设备里留下了这些优秀工具](https://cgartlab.com/posts/good-tools-for-production-in-my-2025/)
+**发布时间**: Tue, 13 Jan 2026 00:00:00 GMT
 
-> 这是一个示例文章。请编辑 blog_config.json 文件，添加你的博客订阅源URL来显示真实的文章列表。
+> 顶着这么多年设计师的头衔，我从未整体性地总结过自己用的软件应用。今年第一次冒出了想设计开发一个自己喜欢的产品，对于用户，软件是应用。对于开发者，软件是他们的产品。于是，在软件工具的选择和使用上，我逐渐开始以产品设计思维作为标准，甚至会去搜寻作者的幕后采访。随后在使用的时候会不由自主地揣摩开发者的思路...
 
-### 2. [如何配置博客订阅源](https://github.com/cgartlab/cgartlab/blob/main/BLOG_SETUP.md)
-**发布时间**: 2024-01-01
+### 2. [我的作品集_2020-2024](https://cgartlab.com/posts/demo-2024/)
+**发布时间**: Sun, 04 Jan 2026 00:00:00 GMT
 
-> 详细的使用说明和配置指南，帮助你快速设置实时更新的博客文章列表。
+> 这个作品集 Demo 是我最近几年创作历程的一个缩影。
 
-### 3. [支持的主流博客平台](https://github.com/cgartlab/cgartlab/blob/main/BLOG_SETUP.md)
-**发布时间**: 2024-01-01
+### 3. [我的作品集_2016-2020](https://cgartlab.com/posts/demo-2020/)
+**发布时间**: Sun, 14 Dec 2025 00:00:00 GMT
 
-> 支持WordPress、Medium、GitHub Pages、Hugo、Jekyll等主流博客平台的RSS/Atom订阅源。
+> 这个作品集 Demo 是我多年创作历程的一个缩影，涵盖了从早期的数字艺术实验到近期的项目实践。
 
-### 4. [自动更新机制说明](https://github.com/cgartlab/cgartlab/blob/main/.github/workflows/update-blog-posts.yml)
-**发布时间**: 2024-01-01
+### 4. [10 玄光周刊-圣弥厄尔教堂](https://cgartlab.com/posts/weekly-10/)
+**发布时间**: Sat, 16 Aug 2025 00:00:00 GMT
 
-> GitHub Actions每天自动更新文章列表，确保内容实时同步。
+> 本期封面拍摄自青岛圣弥厄尔大教堂。难得有闲暇时间可以约朋友组队出来玩一圈。国内的旅游方式，主打一个「来都来了」，几个地标还是要打个卡的。这个天主教堂其实没有想象中的大，但第一次见到了一比一的管风琴还是蛮震撼的。奇怪的是，没有见到任何修女或神父，貌似旅游旺季，他们或许放假了？
 
-### 5. [自定义和扩展功能](https://github.com/cgartlab/cgartlab/blob/main/scripts/fetch_blog_posts.py)
-**发布时间**: 2024-01-01
+### 5. [09 玄光周刊-OpenAI推出学习模式](https://cgartlab.com/posts/weekly-09/)
+**发布时间**: Sat, 02 Aug 2025 00:00:00 GMT
 
-> 支持多博客源、自定义样式、调试模式等高级功能。
+> 本期周刊主要讨论了OpenAI新推出的学习模式、Newsletter传播形式的优势，以及推荐了IGLOO公司的创意网站设计。
+

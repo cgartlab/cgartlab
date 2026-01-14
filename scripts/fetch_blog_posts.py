@@ -72,14 +72,21 @@ def generate_markdown(posts: List[Dict]) -> str:
 
 def main():
     """主函数"""
-    # 在这里配置你的博客订阅源URL
-    # 支持RSS和Atom格式
-    blog_feeds = [
-        # 示例：替换为你的实际博客订阅源
-        # "https://your-blog.com/feed",
-        # "https://your-blog.com/rss",
-        # "https://your-blog.com/atom.xml"
-    ]
+    # 尝试从配置文件读取订阅源
+    config_file = os.path.join(os.path.dirname(__file__), '..', 'blog_config.json')
+    blog_feeds = []
+    
+    if os.path.exists(config_file):
+        try:
+            with open(config_file, 'r', encoding='utf-8') as f:
+                config = json.load(f)
+                blog_feeds = [feed['url'] for feed in config.get('blog_feeds', []) if 'url' in feed]
+        except Exception as e:
+            print(f"读取配置文件失败: {e}")
+    
+    # 如果没有配置文件或配置为空，使用示例数据
+    if not blog_feeds:
+        blog_feeds = []
     
     all_posts = []
     

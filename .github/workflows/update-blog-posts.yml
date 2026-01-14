@@ -12,6 +12,10 @@ on:
       - 'scripts/fetch_blog_posts.py'
       - '.github/workflows/update-blog-posts.yml'
 
+# 授予写入权限
+permissions:
+  contents: write
+
 jobs:
   update-blog:
     runs-on: ubuntu-latest
@@ -22,6 +26,8 @@ jobs:
       with:
         # 需要完整的提交历史来创建提交
         fetch-depth: 0
+        # 使用个人访问令牌进行推送
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -41,17 +47,17 @@ jobs:
       run: |
         python scripts/update_readme.py
 
-    - name: Commit and push if changed
+    - name: Commit and push changes
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
         
         # 检查是否有文件更改
         if [[ -n $(git status --porcelain) ]]; then
           git add BLOG_POSTS.md README.md
-          git commit -m "🤖 自动更新博客文章列表 [skip ci]"
+          git commit -m "🤖 自动更新博客文章列表"
           git push
-          echo "博客文章列表已更新"
+          echo "✅ 博客文章列表已更新并推送到仓库"
         else
-          echo "没有新的博客文章需要更新"
+          echo "ℹ️ 没有新的博客文章需要更新"
         fi
