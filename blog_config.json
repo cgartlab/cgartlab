@@ -4,11 +4,6 @@
       "name": "CGArtLab",
       "url": "https://cgartlab.com/rss.xml",
       "type": "rss"
-    },
-    {
-      "name": "玄光周刊",
-      "url": "https://weekly.cgartlab.com/rss.xml",
-      "type": "rss"
     }
   ],
   "max_posts": 5,

@@ -61,3 +61,9 @@ jobs:
         else
           echo "ℹ️ 没有新的博客文章需要更新"
         fi
+        
+        # 显示当前文件状态
+        echo "=== 当前文件状态 ==="
+        ls -la
+        echo "=== BLOG_POSTS.md 内容 ==="
+        cat BLOG_POSTS.md || echo "BLOG_POSTS.md 文件不存在"

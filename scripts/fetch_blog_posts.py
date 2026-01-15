@@ -41,7 +41,7 @@ def fetch_blog_posts(feed_url: str, max_posts: int = 5, timeout: int = 10) -> Li
     try:
         resp = requests.get(feed_url, headers=headers, timeout=timeout)
         resp.raise_for_status()
-    except Exception as e:
+    except requests.exceptions.RequestException as e:
         print(f"[fetch_blog_posts] 请求订阅源失败 {feed_url}: {e}")
         return []
 
@@ -49,6 +49,11 @@ def fetch_blog_posts(feed_url: str, max_posts: int = 5, timeout: int = 10) -> Li
         feed = feedparser.parse(resp.content)
     except Exception as e:
         print(f"[fetch_blog_posts] 解析订阅源失败 {feed_url}: {e}")
+        return []
+
+    # 检查是否有文章
+    if not hasattr(feed, 'entries') or not feed.entries:
+        print(f"[fetch_blog_posts] 警告: 订阅源 {feed_url} 没有找到文章")
         return []
 
     posts: List[Dict] = []
@@ -74,6 +79,7 @@ def fetch_blog_posts(feed_url: str, max_posts: int = 5, timeout: int = 10) -> Li
             "summary": summary,
         })
 
+    print(f"[fetch_blog_posts] 成功从 {feed_url} 获取 {len(posts)} 篇文章")
     return posts
 
 def generate_markdown(posts: List[Dict]) -> str:
