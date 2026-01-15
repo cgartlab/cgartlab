@@ -15,6 +15,7 @@ on:
 # 授予写入权限
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update-blog:
@@ -41,11 +42,15 @@ jobs:
 
     - name: Run blog posts fetcher
       run: |
+        echo "开始获取博客文章..."
         python scripts/fetch_blog_posts.py
+        echo "博客文章获取完成"
 
     - name: Update README with blog posts
       run: |
+        echo "开始更新README..."
         python scripts/update_readme.py
+        echo "README更新完成"
 
     - name: Commit and push changes
       run: |

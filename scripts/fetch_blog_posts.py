@@ -99,19 +99,11 @@ def generate_markdown(posts: List[Dict]) -> str:
     markdown += f"*Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
     
     for i, post in enumerate(posts, 1):
-        markdown += f"**{i}.** [{post['title']}]({post['link']}) - *{post['published']}*\n\n"
-    
-    return markdown
-
-    markdown = "## 📝 Latest Blog Posts / 最新博客文章\n\n"
-    markdown += f"*Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
-
-    for i, post in enumerate(posts, 1):
         title = post.get("title", "(no title)")
         link = post.get("link", "")
         published = post.get("published", "")
         markdown += f"**{i}.** [{title}]({link}) - *{published}*\n\n"
-
+    
     return markdown
 
 def main():

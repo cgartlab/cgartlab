@@ -7,6 +7,6 @@
     }
   ],
   "max_posts": 5,
-  "update_interval_hours": 12,
+  "update_interval_hours": 24,
   "cache_duration_minutes": 60
 }
