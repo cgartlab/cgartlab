@@ -43,12 +43,17 @@ jobs:
     - name: Get latest blog posts
       run: |
         echo "=== 开始获取博客文章 ==="
+        set -e
         python scripts/get_latest_posts.py
         echo "=== 博客文章获取完成 ==="
         echo ""
         echo "=== 更新后的README内容（博客部分） ==="
         sed -n '/BLOG_POSTS_START/,/BLOG_POSTS_END/p' README.md || echo "未找到BLOG_POSTS部分"
         echo ""
+        echo "=== 当前 README 摘要（头部 40 行） ==="
+        head -n 40 README.md || true
+        echo ""
+        echo "=== 工作流结束：请检查下一步 Commit 步骤输出以确认是否推送了变更 ==="
 
     - name: Commit and push changes
       run: |
