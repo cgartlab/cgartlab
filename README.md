@@ -1,6 +1,9 @@
-# 👋 Introduction / 介绍
 
-Hello! I'm [CGArtLab](https://cgartlab.com), a passionate digital artist and 3D visual designer based in Kunming, Yunnan, China. My work focuses on creating immersive visual experiences through CG animation and game development. With a strong background in design and technology, I blend creativity with technical expertise to craft engaging content across various platforms.
+## 👋 Hello! I'm [CGArtLab](https://cgartlab.com)
+
+A passionate digital artist and 3D visual designer based in Kunming, Yunnan, China. 
+
+My work focuses on creating immersive visual experiences through CG animation and game development. With a strong background in design and technology, I blend creativity with technical expertise to craft engaging content across various platforms.
 
 <table width="1200px" cellspacing="0" cellpadding="0">
 <tr>
