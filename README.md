@@ -7,7 +7,7 @@ My work focuses on creating immersive visual experiences through CG animation an
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-01-15 12:50:09*
+*Last Updated: 2026-01-15 12:54:47*
 
 **1.** [Example Article - Configure Your Blog Feed](https://github.com/cgartlab/cgartlab) - *2026-01-15*
 
