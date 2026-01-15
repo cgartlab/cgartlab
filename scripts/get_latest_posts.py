@@ -22,8 +22,6 @@ def replace_chunk(content, marker, chunk, inline=False):
     """使用正则表达式替换README中的内容块"""
     pattern = r"<!-- {} starts -->.*?<!-- {} ends -->".format(marker, marker)
     replacement = "<!-- {} starts -->{}<!-- {} ends -->".format(marker, chunk, marker)
-    if not inline:
-        replacement = "\n{}\n".format(replacement.strip())
     result = re.sub(pattern, replacement, content, flags=re.DOTALL)
     if result == content:
         print(f"[warning] 未找到标记 {marker}，内容可能未被替换")
@@ -95,7 +93,6 @@ def build_blog_content(feeds: dict, max_posts_per_feed: int = 5) -> str:
         lines.append(f"**{i}.** [{post['title']}]({post['url']}) - *{post['published']}*")
         lines.append("")
     
-    lines.append("")
     return "\n".join(lines)
 
 
