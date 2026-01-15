@@ -1,91 +1,152 @@
 #!/usr/bin/env python3
 """
 简化版：获取最新博客文章列表（改进版）
-- 更详细的日志
-- 遇到错误时返回非0退出码（便于 CI 识别失败）
-- 当没有更新时明确输出并返回0
+参考 tw93/tw93 的实现方式，支持多个RSS源
+- 使用正则块替换而非简单的标记替换
+- 支持多个RSS源聚合
+- 完善的错误处理和日志
+- 遇到错误时返回非0退出码
 """
 
 import requests
 import feedparser
 import re
 import sys
+import pathlib
 from datetime import datetime
 
-
-def fetch_latest_posts(feed_url: str, max_posts: int = 5) -> str:
-    """从RSS源获取最新文章，返回Markdown格式（失败时抛出异常）"""
-    headers = {
-        "User-Agent": "Mozilla/5.0 (compatible; cgartlab/1.0)",
-    }
-    
-    resp = requests.get(feed_url, headers=headers, timeout=15)
-    resp.raise_for_status()
-    feed = feedparser.parse(resp.content)
-
-    entries = feed.entries or []
-    print(f"[fetch_latest_posts] 找到 {len(entries)} 条条目（取前 {max_posts} 条）")
-
-    if not entries:
-        return ""
-
-    posts = []
-    for entry in entries[:max_posts]:
-        title = entry.get('title', '无标题')
-        link = entry.get('link', '#')
-        pub_time = entry.get('published_parsed') or entry.get('updated_parsed')
-        if pub_time:
-            pub_str = datetime(*pub_time[:6]).strftime('%Y-%m-%d %H:%M:%S')
-        else:
-            pub_str = '未知时间'
-        posts.append(f"**{len(posts) + 1}.** [{title}]({link}) - *{pub_str}*")
-
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    content = f"## 📝 Latest Blog Posts / 最新博客文章\n\n"
-    content += f"*Last Updated: {now}*\n\n"
-    content += "\n\n".join(posts) + "\n\n"
-    return content
+root = pathlib.Path(__file__).parent.parent.resolve()
 
 
-def update_readme(feed_url: str = None) -> int:
-    """更新README.md中的博客列表，返回退出码：0=成功/无变更, 1=失败, 2=已更新"""
-    if feed_url is None:
-        feed_url = "https://cgartlab.com/rss.xml"
+def replace_chunk(content, marker, chunk, inline=False):
+    """使用正则表达式替换README中的内容块"""
+    pattern = r"<!-- {} starts -->.*?<!-- {} ends -->".format(marker, marker)
+    replacement = "<!-- {} starts -->{}<!-- {} ends -->".format(marker, chunk, marker)
+    if not inline:
+        replacement = "\n{}\n".format(replacement.strip())
+    result = re.sub(pattern, replacement, content, flags=re.DOTALL)
+    if result == content:
+        print(f"[warning] 未找到标记 {marker}，内容可能未被替换")
+    return result
 
+
+def fetch_posts_from_feed(feed_url: str, max_posts: int = 5) -> list:
+    """从单个RSS源获取文章列表"""
     try:
-        blog_content = fetch_latest_posts(feed_url)
+        print(f"[fetch] 正在获取: {feed_url}")
+        headers = {"User-Agent": "Mozilla/5.0 (compatible; cgartlab/1.0)"}
+        resp = requests.get(feed_url, headers=headers, timeout=15)
+        resp.raise_for_status()
+        
+        feed = feedparser.parse(resp.content)
+        entries = feed.get("entries", [])
+        
+        if not entries:
+            print(f"[fetch] ⚠️ 源 {feed_url} 未找到条目")
+            return []
+        
+        posts = []
+        for entry in entries[:max_posts]:
+            title = entry.get("title", "无标题")
+            link = entry.get("link", "#")
+            
+            # 优先使用 published_parsed，其次 updated_parsed
+            pub_time = entry.get("published_parsed") or entry.get("updated_parsed")
+            if pub_time:
+                pub_str = datetime(*pub_time[:6]).strftime("%Y-%m-%d")
+            else:
+                pub_str = "未知时间"
+            
+            posts.append({
+                "title": title,
+                "url": link,
+                "published": pub_str
+            })
+        
+        print(f"[fetch] ✓ 从 {feed_url} 获取了 {len(posts)} 篇文章")
+        return posts
+        
     except Exception as e:
-        print(f"❌ 拉取订阅源失败: {e}")
-        return 1
+        print(f"[fetch] ❌ 获取 {feed_url} 失败: {e}")
+        return []
 
+
+def build_blog_content(feeds: dict, max_posts_per_feed: int = 5) -> str:
+    """从多个RSS源构建博客内容"""
+    all_posts = []
+    
+    for feed_name, feed_url in feeds.items():
+        posts = fetch_posts_from_feed(feed_url, max_posts_per_feed)
+        all_posts.extend(posts)
+    
+    if not all_posts:
+        print("[build] ❌ 未获取到任何文章")
+        return ""
+    
+    # 按日期排序（最新优先）
+    all_posts.sort(key=lambda x: x["published"], reverse=True)
+    
+    # 构建Markdown
+    lines = ["## 📝 Latest Blog Posts / 最新博客文章", ""]
+    lines.append(f"*Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*")
+    lines.append("")
+    
+    for i, post in enumerate(all_posts[:10], 1):  # 显示最多10篇
+        lines.append(f"**{i}.** [{post['title']}]({post['url']}) - *{post['published']}*")
+        lines.append("")
+    
+    lines.append("")
+    return "\n".join(lines)
+
+
+def update_readme(feeds: dict = None) -> int:
+    """更新README.md中的博客列表，返回退出码"""
+    if feeds is None:
+        feeds = {
+            "cgartlab": "https://cgartlab.com/rss.xml"
+        }
+    
+    print("[main] 开始更新README.md...")
+    
+    # 构建博客内容
+    blog_content = build_blog_content(feeds)
     if not blog_content:
-        print("❗ 未找到任何文章（订阅源可能为空或解析失败）")
+        print("[main] ❌ 博客内容为空，跳过更新")
         return 1
-
-    # 读取 README
-    with open('README.md', 'r', encoding='utf-8') as f:
-        readme = f.read()
-
-    pattern = r'<!-- BLOG_POSTS_START -->.*?<!-- BLOG_POSTS_END -->'
-    replacement = f'<!-- BLOG_POSTS_START -->\n{blog_content}<!-- BLOG_POSTS_END -->'
-    updated = re.sub(pattern, replacement, readme, flags=re.DOTALL)
-
-    if updated == readme:
-        print("ℹ️ README.md 中的博客列表已是最新，无需更新")
+    
+    # 读取README
+    readme_path = root / "README.md"
+    try:
+        with open(readme_path, "r", encoding="utf-8") as f:
+            readme_content = f.read()
+    except Exception as e:
+        print(f"[main] ❌ 无法读取README.md: {e}")
+        return 1
+    
+    # 替换内容块
+    updated_content = replace_chunk(readme_content, "blog", blog_content)
+    
+    # 检查是否有实际变更
+    if updated_content == readme_content:
+        print("[main] ℹ️ README.md 已是最新，无需更新")
         return 0
-
-    with open('README.md', 'w', encoding='utf-8') as f:
-        f.write(updated)
-
-    print("✅ README.md 已成功更新")
-    return 2
+    
+    # 写入更新
+    try:
+        with open(readme_path, "w", encoding="utf-8") as f:
+            f.write(updated_content)
+        print(f"[main] ✅ README.md 已成功更新")
+        return 2
+    except Exception as e:
+        print(f"[main] ❌ 写入README.md失败: {e}")
+        return 1
 
 
 if __name__ == "__main__":
     exit_code = update_readme()
-    if exit_code == 0:
-        sys.exit(0)
-    elif exit_code == 2:
+    
+    # 返回退出码：0=成功/无变更, 1=失败, 2=已更新
+    if exit_code == 0 or exit_code == 2:
         sys.exit(0)
     else:
         sys.exit(1)
