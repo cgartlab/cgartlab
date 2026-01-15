@@ -9,7 +9,7 @@ on:
   # 当脚本文件有更改时也运行
   push:
     paths:
-      - 'scripts/fetch_blog_posts.py'
+      - 'scripts/get_latest_posts.py'
       - '.github/workflows/update-blog-posts.yml'
 
 # 授予写入权限
@@ -40,30 +40,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install feedparser requests
 
-    - name: Run blog posts fetcher
+    - name: Get latest blog posts
       run: |
         echo "=== 开始获取博客文章 ==="
-        python scripts/fetch_blog_posts.py
+        python scripts/get_latest_posts.py
         echo "=== 博客文章获取完成 ==="
-        echo ""
-        echo "=== BLOG_POSTS.md 内容 ==="
-        if [ -f BLOG_POSTS.md ]; then
-          cat BLOG_POSTS.md
-        else
-          echo "❌ BLOG_POSTS.md 文件不存在!"
-        fi
-        echo ""
-
-    - name: Update README with blog posts
-      run: |
-        echo "=== 开始更新README ==="
-        python scripts/update_readme.py
-        if [ $? -eq 0 ]; then
-          echo "✅ README更新成功"
-        else
-          echo "❌ README更新失败"
-          exit 1
-        fi
         echo ""
         echo "=== 更新后的README内容（博客部分） ==="
         sed -n '/BLOG_POSTS_START/,/BLOG_POSTS_END/p' README.md || echo "未找到BLOG_POSTS部分"
@@ -76,16 +57,10 @@ jobs:
         
         # 检查是否有文件更改
         if [[ -n $(git status --porcelain) ]]; then
-          git add BLOG_POSTS.md README.md
+          git add README.md
           git commit -m "🤖 自动更新博客文章列表"
           git push
           echo "✅ 博客文章列表已更新并推送到仓库"
         else
           echo "ℹ️ 没有新的博客文章需要更新"
         fi
-        
-        # 显示当前文件状态
-        echo "=== 当前文件状态 ==="
-        ls -la
-        echo "=== BLOG_POSTS.md 内容 ==="
-        cat BLOG_POSTS.md || echo "BLOG_POSTS.md 文件不存在"
