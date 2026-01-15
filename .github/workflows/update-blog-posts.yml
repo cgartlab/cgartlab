@@ -42,15 +42,32 @@ jobs:
 
     - name: Run blog posts fetcher
       run: |
-        echo "开始获取博客文章..."
+        echo "=== 开始获取博客文章 ==="
         python scripts/fetch_blog_posts.py
-        echo "博客文章获取完成"
+        echo "=== 博客文章获取完成 ==="
+        echo ""
+        echo "=== BLOG_POSTS.md 内容 ==="
+        if [ -f BLOG_POSTS.md ]; then
+          cat BLOG_POSTS.md
+        else
+          echo "❌ BLOG_POSTS.md 文件不存在!"
+        fi
+        echo ""
 
     - name: Update README with blog posts
       run: |
-        echo "开始更新README..."
+        echo "=== 开始更新README ==="
         python scripts/update_readme.py
-        echo "README更新完成"
+        if [ $? -eq 0 ]; then
+          echo "✅ README更新成功"
+        else
+          echo "❌ README更新失败"
+          exit 1
+        fi
+        echo ""
+        echo "=== 更新后的README内容（博客部分） ==="
+        sed -n '/BLOG_POSTS_START/,/BLOG_POSTS_END/p' README.md || echo "未找到BLOG_POSTS部分"
+        echo ""
 
     - name: Commit and push changes
       run: |

@@ -36,13 +36,27 @@ def fetch_blog_posts(feed_url: str, max_posts: int = 5, timeout: int = 10) -> Li
     Returns:
         文章列表，包含字段 title, link, published (str), published_dt (Optional[datetime]), summary
     """
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; cgartlab-fetch/1.0)"}
+    headers = {
+        "User-Agent": "Mozilla/5.0 (compatible; cgartlab-fetch/1.0)",
+        "Accept": "application/rss+xml, application/atom+xml, */*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache"
+    }
 
     try:
-        resp = requests.get(feed_url, headers=headers, timeout=timeout)
+        print(f"[fetch_blog_posts] 正在请求 {feed_url}，超时时间: {timeout}秒")
+        resp = requests.get(feed_url, headers=headers, timeout=timeout, allow_redirects=True)
         resp.raise_for_status()
+        print(f"[fetch_blog_posts] HTTP {resp.status_code}: 成功获取内容，大小: {len(resp.content)} 字节")
+    except requests.exceptions.Timeout:
+        print(f"[fetch_blog_posts] ❌ 请求超时: {feed_url}")
+        return []
+    except requests.exceptions.ConnectionError as e:
+        print(f"[fetch_blog_posts] ❌ 连接错误: {feed_url} - {e}")
+        return []
     except requests.exceptions.RequestException as e:
-        print(f"[fetch_blog_posts] 请求订阅源失败 {feed_url}: {e}")
+        print(f"[fetch_blog_posts] ❌ 请求订阅源失败 {feed_url}: {e}")
         return []
 
     try:
@@ -112,10 +126,12 @@ def main():
     config_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "blog_config.json"))
     blog_feeds: List[str] = []
 
+    print(f"[main] 配置文件路径: {config_file}")
     if os.path.exists(config_file):
         try:
             with open(config_file, "r", encoding="utf-8") as f:
                 config = json.load(f)
+                print(f"[main] 配置内容: {config}")
                 # 支持两种格式：列表 of strings 或 列表 of objects with url
                 raw = config.get("blog_feeds", [])
                 if isinstance(raw, list):
@@ -124,8 +140,11 @@ def main():
                             blog_feeds.append(item)
                         elif isinstance(item, dict) and "url" in item:
                             blog_feeds.append(item["url"])
+                print(f"[main] 解析出的订阅源: {blog_feeds}")
         except Exception as e:
             print(f"[main] 读取配置文件失败 {config_file}: {e}")
+    else:
+        print(f"[main] 配置文件不存在: {config_file}")
 
     # 如果没有配置订阅源，保留为空，让后面使用示例条目
     all_posts: List[Dict] = []
@@ -134,15 +153,21 @@ def main():
     MAX_TOTAL_POSTS = int(os.environ.get("MAX_TOTAL_POSTS", "8"))
 
     # 尝试从多个订阅源获取文章
+    print(f"[main] 开始获取文章，订阅源数: {len(blog_feeds)}")
     for feed_url in blog_feeds:
         feed_url = (feed_url or "").strip()
         if not feed_url:
             continue
+        print(f"[main] 正在获取: {feed_url}")
         posts = fetch_blog_posts(feed_url, max_posts=MAX_POSTS_PER_FEED)
+        print(f"[main] 从 {feed_url} 获取到 {len(posts)} 篇文章")
         all_posts.extend(posts)
+
+    print(f"[main] 总共获取到 {len(all_posts)} 篇文章")
 
     # 如果没有配置订阅源或抓取失败，使用示例数据
     if not all_posts:
+        print("[main] ⚠️  警告：没有获取到任何文章，将使用示例数据")
         all_posts = [
             {
                 "title": "Example Article - Configure Your Blog Feed",
