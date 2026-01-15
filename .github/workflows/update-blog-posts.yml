@@ -20,6 +20,7 @@ permissions:
 jobs:
   update-blog:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     
     steps:
     - name: Checkout repository
@@ -41,6 +42,7 @@ jobs:
         pip install feedparser requests
 
     - name: Get latest blog posts
+      timeout-minutes: 5
       run: |
         echo "=== 开始获取博客文章 ==="
         set -e
@@ -48,7 +50,7 @@ jobs:
         echo "=== 博客文章获取完成 ==="
         echo ""
         echo "=== 更新后的README内容（博客部分） ==="
-        sed -n '/blog starts/,/blog ends/p' README.md || echo "未找到blog部分"
+        sed -n '/BLOG_POSTS_START/,/BLOG_POSTS_END/p' README.md || echo "未找到blog部分"
         echo ""
         echo "=== 当前 README 摘要（头部 40 行） ==="
         head -n 40 README.md || true
@@ -56,6 +58,7 @@ jobs:
         echo "=== 工作流结束：请检查下一步 Commit 步骤输出以确认是否推送了变更 ==="
 
     - name: Commit and push changes
+      timeout-minutes: 5
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"

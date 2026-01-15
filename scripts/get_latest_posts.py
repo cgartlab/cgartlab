@@ -49,7 +49,8 @@ def fetch_posts_from_feed(feed_url: str, max_posts: int = 5) -> list:
     try:
         print(f"[fetch] 正在获取: {feed_url}")
         headers = {"User-Agent": "Mozilla/5.0 (compatible; cgartlab/1.0)"}
-        resp = requests.get(feed_url, headers=headers, timeout=15)
+        # 增加连接超时，设置总超时时间
+        resp = requests.get(feed_url, headers=headers, timeout=(5, 10))
         resp.raise_for_status()
         
         feed = feedparser.parse(resp.content)
@@ -80,6 +81,9 @@ def fetch_posts_from_feed(feed_url: str, max_posts: int = 5) -> list:
         print(f"[fetch] ✓ 从 {feed_url} 获取了 {len(posts)} 篇文章")
         return posts
         
+    except requests.Timeout:
+        print(f"[fetch] ❌ 获取 {feed_url} 超时（>10秒），可能是网络问题")
+        return []
     except Exception as e:
         print(f"[fetch] ❌ 获取 {feed_url} 失败: {e}")
         return []
