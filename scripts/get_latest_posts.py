@@ -20,10 +20,26 @@ root = pathlib.Path(__file__).parent.parent.resolve()
 
 def replace_chunk(content, marker, chunk, inline=False):
     """使用正则表达式替换README中的内容块"""
-    pattern = r"<!-- {} starts -->.*?<!-- {} ends -->".format(marker, marker)
-    replacement = "<!-- {} starts -->{}<!-- {} ends -->".format(marker, chunk, marker)
-    result = re.sub(pattern, replacement, content, flags=re.DOTALL)
-    if result == content:
+    # 支持多种标记格式
+    patterns_and_replacements = [
+        # 格式1: <!-- BLOG_POSTS_START -->...<!-- BLOG_POSTS_END -->
+        (r"<!-- {}_START -->.*?<!-- {}_END -->".format(marker.upper(), marker.upper()),
+         "<!-- {}_START -->\n{}<!-- {}_END -->".format(marker.upper(), chunk, marker.upper())),
+        # 格式2: <!-- blog starts -->...<!-- blog ends -->
+        (r"<!-- {} starts -->.*?<!-- {} ends -->".format(marker, marker),
+         "<!-- {} starts -->{}<!-- {} ends -->".format(marker, chunk, marker)),
+    ]
+    
+    result = content
+    found = False
+    for pattern, replacement in patterns_and_replacements:
+        new_result = re.sub(pattern, replacement, result, flags=re.DOTALL)
+        if new_result != result:
+            result = new_result
+            found = True
+            break
+    
+    if not found:
         print(f"[warning] 未找到标记 {marker}，内容可能未被替换")
     return result
 
@@ -121,7 +137,7 @@ def update_readme(feeds: dict = None) -> int:
         return 1
     
     # 替换内容块
-    updated_content = replace_chunk(readme_content, "blog", blog_content)
+    updated_content = replace_chunk(readme_content, "BLOG_POSTS", blog_content)
     
     # 检查是否有实际变更
     if updated_content == readme_content:
