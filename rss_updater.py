@@ -45,21 +45,28 @@ class RSSUpdater:
     def fetch_rss_feed(self, feed_url: str) -> Optional[List[Dict]]:
         """获取RSS订阅内容"""
         try:
-            # 设置请求头，避免被阻止
+            # 使用更接近真实浏览器的请求头，优先通过 requests 获取内容
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                'User-Agent': (
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                    'AppleWebKit/537.36 (KHTML, like Gecko) '
+                    'Chrome/116.0.0.0 Safari/537.36'
+                ),
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Connection': 'keep-alive',
             }
-            
-            # 尝试直接解析
-            feed = feedparser.parse(feed_url)
-            
-            # 如果解析失败，尝试使用requests获取
-            if feed.bozo and hasattr(feed.bozo_exception, 'getMessage'):
+
+            try:
                 response = requests.get(feed_url, headers=headers, timeout=30)
                 response.raise_for_status()
                 feed = feedparser.parse(response.content)
-            
-            if not feed.entries:
+            except requests.exceptions.RequestException as req_exc:
+                # 如果 requests 被阻止或出现网络错误，回退到 feedparser 直接解析 URL（可能使用不同的底层实现）
+                print(f"警告: 使用 requests 获取失败 ({req_exc})，尝试直接由 feedparser 解析 {feed_url}")
+                feed = feedparser.parse(feed_url)
+
+            if not getattr(feed, 'entries', None):
                 print(f"警告: 无法从 {feed_url} 获取文章")
                 return None
             
