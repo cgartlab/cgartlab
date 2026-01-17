@@ -26,7 +26,7 @@ class RSSUpdater:
             "feeds": [
                 {
                     "name": "CGArtLab Blog",
-                    "url": "https://cgartlab.com/rss.xml?token=MySecret123",
+                    "url": "https://cgartlab.com/rss.xml",
                     "section_marker": "BLOG_POSTS_START",
                     "max_posts": 5
                 }
