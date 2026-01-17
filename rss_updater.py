@@ -107,9 +107,15 @@ class RSSUpdater:
     def update_readme(self, readme_path: str = "README.md"):
         """更新README文件"""
         try:
+            # 检查文件是否存在
+            if not os.path.exists(readme_path):
+                print(f"错误: README文件不存在 - {readme_path}")
+                return False
+            
             with open(readme_path, 'r', encoding='utf-8') as f:
                 content = f.read()
             
+            original_content = content
             updated_content = content
             
             for feed in self.rss_feeds["feeds"]:
@@ -137,19 +143,28 @@ class RSSUpdater:
                 
                 if pattern.search(updated_content):
                     updated_content = pattern.sub(replacement, updated_content)
+                    print(f"✅ 成功更新 {feed['name']} 的内容区域")
                 else:
                     print(f"警告: 未找到标记 {feed['section_marker']}，将添加到文件末尾")
                     updated_content += f"\n\n{replacement}"
+            
+            # 检查内容是否真的发生了变化
+            if original_content == updated_content:
+                print("⚠️ README内容没有变化，跳过写入")
+                return False
             
             # 写入更新后的内容
             with open(readme_path, 'w', encoding='utf-8') as f:
                 f.write(updated_content)
             
             print("✅ README.md 更新成功!")
+            return True
             
         except Exception as e:
             print(f"错误: 更新README失败 - {e}")
-            sys.exit(1)
+            import traceback
+            traceback.print_exc()
+            return False
 
 def main():
     """主函数"""
@@ -170,9 +185,14 @@ def main():
         print(f"  - {feed['name']}: {feed['url']}")
     
     # 更新README
-    updater.update_readme()
+    success = updater.update_readme()
     
-    print("更新完成!")
+    if success:
+        print("✅ 更新完成!")
+        sys.exit(0)
+    else:
+        print("⚠️ 更新失败或没有变化!")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

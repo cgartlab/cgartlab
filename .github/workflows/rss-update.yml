@@ -5,17 +5,21 @@ on:
     # 每天早上5点运行 (UTC时间，对应北京时间13点)
     - cron: '0 21 * * *'
   workflow_dispatch: # 允许手动触发
-  push:
-    branches: [ main ]
 
 jobs:
   update-rss:
     runs-on: ubuntu-latest
     
+    # 授予工作流写入权限
+    permissions:
+      contents: write
+      pull-requests: write
+    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
+        # 使用具有写入权限的token
         token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
 
@@ -31,17 +35,53 @@ jobs:
 
     - name: Run RSS updater
       run: |
+        echo "🚀 开始运行RSS更新器..."
         python rss_updater.py
+        RSS_EXIT_CODE=$?
+        
+        if [ $RSS_EXIT_CODE -eq 0 ]; then
+          echo "✅ RSS更新器运行成功，可能有更改需要提交"
+        elif [ $RSS_EXIT_CODE -eq 1 ]; then
+          echo "⚠️ RSS更新器运行完成，但没有检测到更改"
+          echo "跳过提交步骤"
+          exit 0
+        else
+          echo "❌ RSS更新器运行失败"
+          exit 1
+        fi
 
     - name: Commit and push if changed
+      if: success()
       run: |
+        echo "🔍 检查文件更改..."
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add README.md
-        # 检查是否有更改
-        if git diff-index --quiet HEAD --; then
-          echo "没有更改需要提交"
-        else
+        
+        # 显示详细的文件状态
+        echo "当前文件状态:"
+        git status --porcelain
+        
+        # 检查README.md是否有更改
+        README_CHANGES=$(git status --porcelain README.md)
+        if [ -n "$README_CHANGES" ]; then
+          echo "📄 README.md有更改: $README_CHANGES"
+          
+          # 添加更改
+          git add README.md
+          
+          # 显示更改内容
+          echo "📋 更改内容:"
+          git diff --staged README.md || echo "无法显示差异"
+          
+          # 提交更改
           git commit -m "🤖 Auto-update RSS feeds [skip ci]"
+          
+          # 推送更改
+          echo "📤 推送更改到远程仓库..."
+          git pull --rebase origin main
           git push origin main
+          
+          echo "✅ 更改已成功提交并推送"
+        else
+          echo "📄 README.md没有检测到更改，跳过提交"
         fi
