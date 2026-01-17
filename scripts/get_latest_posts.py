@@ -13,7 +13,18 @@ import feedparser
 import re
 import sys
 import pathlib
+import logging
 from datetime import datetime
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+logger = logging.getLogger(__name__)
 
 root = pathlib.Path(__file__).parent.parent.resolve()
 
@@ -47,22 +58,23 @@ def replace_chunk(content, marker, chunk, inline=False):
 def fetch_posts_from_feed(feed_url: str, max_posts: int = 5) -> list:
     """从单个RSS源获取文章列表"""
     try:
-        print(f"[fetch] 正在获取: {feed_url}")
+        logger.info(f"正在获取RSS源: {feed_url}")
         headers = {"User-Agent": "Mozilla/5.0 (compatible; cgartlab/1.0)"}
-        # 增加连接超时，设置总超时时间
-        resp = requests.get(feed_url, headers=headers, timeout=(5, 10))
+        
+        # 增加超时设置
+        resp = requests.get(feed_url, headers=headers, timeout=(10, 30))
         resp.raise_for_status()
         
         feed = feedparser.parse(resp.content)
         entries = feed.get("entries", [])
         
         if not entries:
-            print(f"[fetch] ⚠️ 源 {feed_url} 未找到条目")
+            logger.warning(f"RSS源 {feed_url} 未找到文章条目")
             return []
         
         posts = []
         for entry in entries[:max_posts]:
-            title = entry.get("title", "无标题")
+            title = entry.get("title", "无标题").strip()
             link = entry.get("link", "#")
             
             # 优先使用 published_parsed，其次 updated_parsed
@@ -78,14 +90,17 @@ def fetch_posts_from_feed(feed_url: str, max_posts: int = 5) -> list:
                 "published": pub_str
             })
         
-        print(f"[fetch] ✓ 从 {feed_url} 获取了 {len(posts)} 篇文章")
+        logger.info(f"成功从 {feed_url} 获取了 {len(posts)} 篇文章")
         return posts
         
     except requests.Timeout:
-        print(f"[fetch] ❌ 获取 {feed_url} 超时（>10秒），可能是网络问题")
+        logger.error(f"获取 {feed_url} 超时（>30秒），可能是网络问题")
+        return []
+    except requests.RequestException as e:
+        logger.error(f"网络请求失败 {feed_url}: {e}")
         return []
     except Exception as e:
-        print(f"[fetch] ❌ 获取 {feed_url} 失败: {e}")
+        logger.error(f"处理RSS源 {feed_url} 时发生未知错误: {e}")
         return []
 
 
@@ -93,16 +108,20 @@ def build_blog_content(feeds: dict, max_posts_per_feed: int = 5) -> str:
     """从多个RSS源构建博客内容"""
     all_posts = []
     
+    logger.info(f"开始从 {len(feeds)} 个RSS源获取文章")
+    
     for feed_name, feed_url in feeds.items():
         posts = fetch_posts_from_feed(feed_url, max_posts_per_feed)
         all_posts.extend(posts)
     
     if not all_posts:
-        print("[build] ❌ 未获取到任何文章")
+        logger.error("未获取到任何文章，所有RSS源可能都失败了")
         return ""
     
     # 按日期排序（最新优先）
     all_posts.sort(key=lambda x: x["published"], reverse=True)
+    
+    logger.info(f"成功获取了 {len(all_posts)} 篇文章，正在构建Markdown内容")
     
     # 构建Markdown
     lines = ["## 📝 Latest Blog Posts / 最新博客文章", ""]
@@ -123,12 +142,12 @@ def update_readme(feeds: dict = None) -> int:
             "cgartlab": "https://cgartlab.com/rss.xml"
         }
     
-    print("[main] 开始更新README.md...")
+    logger.info("开始更新README.md中的博客列表")
     
     # 构建博客内容
     blog_content = build_blog_content(feeds)
     if not blog_content:
-        print("[main] ❌ 博客内容为空，跳过更新")
+        logger.error("博客内容为空，跳过更新")
         return 1
     
     # 读取README
@@ -136,8 +155,12 @@ def update_readme(feeds: dict = None) -> int:
     try:
         with open(readme_path, "r", encoding="utf-8") as f:
             readme_content = f.read()
+        logger.info("成功读取README.md文件")
+    except FileNotFoundError:
+        logger.error(f"README.md文件不存在: {readme_path}")
+        return 1
     except Exception as e:
-        print(f"[main] ❌ 无法读取README.md: {e}")
+        logger.error(f"无法读取README.md: {e}")
         return 1
     
     # 替换内容块
@@ -145,17 +168,17 @@ def update_readme(feeds: dict = None) -> int:
     
     # 检查是否有实际变更
     if updated_content == readme_content:
-        print("[main] ℹ️ README.md 已是最新，无需更新")
+        logger.info("README.md 已是最新，无需更新")
         return 0
     
     # 写入更新
     try:
         with open(readme_path, "w", encoding="utf-8") as f:
             f.write(updated_content)
-        print(f"[main] ✅ README.md 已成功更新")
+        logger.info("README.md 已成功更新")
         return 2
     except Exception as e:
-        print(f"[main] ❌ 写入README.md失败: {e}")
+        logger.error(f"写入README.md失败: {e}")
         return 1
 
 

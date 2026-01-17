@@ -11,6 +11,7 @@ on:
     paths:
       - 'scripts/get_latest_posts.py'
       - '.github/workflows/update-blog-posts.yml'
+      - 'requirements.txt'
 
 # 授予写入权限
 permissions:
@@ -20,7 +21,7 @@ permissions:
 jobs:
   update-blog:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     
     steps:
     - name: Checkout repository
@@ -39,16 +40,26 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install feedparser requests
+        pip install -r requirements.txt
 
     - name: Get latest blog posts
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: |
         echo "=== 开始获取博客文章 ==="
-        set -e
-        python scripts/get_latest_posts.py
-        echo "=== 博客文章获取完成 ==="
-        echo ""
+        echo "当前目录: $(pwd)"
+        echo "文件列表: $(ls -la)"
+        echo "脚本文件: $(ls -la scripts/)"
+        
+        # 检查Python脚本是否可执行
+        if [ -f "scripts/get_latest_posts.py" ]; then
+          echo "✅ Python脚本存在"
+          python scripts/get_latest_posts.py
+          echo "=== Python脚本执行完成 ==="
+        else
+          echo "❌ Python脚本不存在"
+          exit 1
+        fi
+        
         echo "=== 更新后的README内容（博客部分） ==="
         sed -n '/BLOG_POSTS_START/,/BLOG_POSTS_END/p' README.md || echo "未找到blog部分"
         echo ""
