@@ -57,14 +57,85 @@ class RSSUpdater:
                 'Connection': 'keep-alive',
             }
 
+            # 添加 Referer，某些站点会检查来源
             try:
-                response = requests.get(feed_url, headers=headers, timeout=30)
-                response.raise_for_status()
-                feed = feedparser.parse(response.content)
-            except requests.exceptions.RequestException as req_exc:
-                # 如果 requests 被阻止或出现网络错误，回退到 feedparser 直接解析 URL（可能使用不同的底层实现）
-                print(f"警告: 使用 requests 获取失败 ({req_exc})，尝试直接由 feedparser 解析 {feed_url}")
-                feed = feedparser.parse(feed_url)
+                parsed = urlparse(feed_url)
+                if parsed.scheme and parsed.netloc:
+                    headers['Referer'] = f"{parsed.scheme}://{parsed.netloc}/"
+            except Exception:
+                pass
+
+            session = requests.Session()
+            session.headers.update(headers)
+
+            # 简单重试机制；在 CI 环境（如 GitHub Actions）默认更快回退到代理
+            import time
+            last_exc = None
+            feed = None
+
+
+            in_ci = os.environ.get('GITHUB_ACTIONS', '').lower() == 'true'
+            force_proxy = os.environ.get('RSS_FORCE_PROXY', '').lower() in ('1', 'true', 'yes')
+
+            # 在 CI（如 GitHub Actions）环境里，许多站点会屏蔽公共云/CI IP，优先使用代理服务以提高成功率
+            proxy_mode = in_ci or force_proxy
+            if proxy_mode:
+                try:
+                    normalized = feed_url.split('://', 1)[1]
+                    proxy_url = f"https://r.jina.ai/http://{normalized}"
+                    print(f"提示: 在 CI/强制代理模式下，尝试通过代理获取: {proxy_url}")
+                    resp = session.get(proxy_url, timeout=30)
+                    resp.raise_for_status()
+                    feed = feedparser.parse(resp.content)
+                    if getattr(feed, 'entries', None):
+                        print("提示: 通过代理成功获取 RSS 条目")
+                    else:
+                        print("警告: 代理返回但未解析出条目，回退到直连请求")
+                except Exception as proxy_exc:
+                    print(f"警告: 代理请求失败 ({proxy_exc})，将回退到直连请求")
+
+            # 如果代理没有成功或不是代理模式，则尝试直连请求（带重试）
+            if not getattr(feed, 'entries', None):
+                # 如果在 CI，但未强制代理，则缩短重试次数以尽早发现问题
+                attempts = 1 if in_ci and not force_proxy else 3
+                for attempt in range(attempts):
+                    try:
+                        response = session.get(feed_url, timeout=30)
+                        # 明确处理 403
+                        if response.status_code == 403:
+                            raise requests.exceptions.HTTPError(f"403 Client Error: Forbidden for url: {feed_url}")
+                        response.raise_for_status()
+                        feed = feedparser.parse(response.content)
+
+                        # 如果成功解析且有 entries，结束重试
+                        if getattr(feed, 'entries', None):
+                            break
+
+                        # 有时候服务器返回 HTML 页面或重定向，尝试 feedparser 直接解析 URL
+                        feed = feedparser.parse(feed_url)
+                        if getattr(feed, 'entries', None):
+                            break
+
+                    except requests.exceptions.RequestException as req_exc:
+                        last_exc = req_exc
+                        wait = 2 * (attempt + 1)
+                        print(f"警告: 请求 {feed_url} 第 {attempt + 1} 次失败 ({req_exc})，等待 {wait}s 后重试")
+                        time.sleep(wait)
+                        continue
+
+                # 若直连也失败，则再尝试一次代理（双重保险）
+                if not getattr(feed, 'entries', None):
+                    try:
+                        normalized = feed_url.split('://', 1)[1]
+                        proxy_url = f"https://r.jina.ai/http://{normalized}"
+                        print(f"警告: 直连失败，最后尝试通过代理获取: {proxy_url}")
+                        response = session.get(proxy_url, timeout=30)
+                        response.raise_for_status()
+                        feed = feedparser.parse(response.content)
+                    except Exception as proxy_exc:
+                        print(f"错误: 通过代理获取失败 ({proxy_exc})，最后一次请求错误: {last_exc}")
+                        # 最后回退到 feedparser 直接解析（可能不同的底层实现）
+                        feed = feedparser.parse(feed_url)
 
             if not getattr(feed, 'entries', None):
                 print(f"警告: 无法从 {feed_url} 获取文章")

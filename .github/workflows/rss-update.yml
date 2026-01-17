@@ -54,12 +54,22 @@ jobs:
       if: success()
       run: |
         echo "🔍 检查文件更改..."
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        # 确保git配置正确
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        git config --global push.default simple
+        
+        # 显示详细的git信息
+        echo "当前Git配置:"
+        git config --list
+        echo "当前分支:"
+        git branch
+        echo "远程仓库:"
+        git remote -v
         
         # 显示详细的文件状态
         echo "当前文件状态:"
-        git status --porcelain
+        git status
         
         # 检查README.md是否有更改
         README_CHANGES=$(git status --porcelain README.md)
@@ -78,7 +88,11 @@ jobs:
           
           # 推送更改
           echo "📤 推送更改到远程仓库..."
-          git pull --rebase origin main
+          # 确保我们在正确的分支上
+          git checkout main
+          # 拉取最新更改以避免冲突
+          git pull origin main
+          # 推送更改
           git push origin main
           
           echo "✅ 更改已成功提交并推送"
