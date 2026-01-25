@@ -1,15 +1,17 @@
 
 # 👋 Hello! I'm [CGArtLab](https://cgartlab.com)
 
-A passionate digital artist and 3D visual designer based in Kunming, Yunnan, China.
+Digital creator and technology enthusiast based in Kunming, Yunnan, China.
 
-My work focuses on creating immersive visual experiences through CG animation and game development. With a strong background in design and technology, I blend creativity with technical expertise to craft engaging content across various platforms.
+I specialize in CG art, 3D visualization, and creative technology.s
+Through my blog, I share insights on productivity tools, design workflows, and technical tutorials.
+I hope to help fellow creators optimize their creative process and explore new possibilities in digital art and technology.
 
 <!-- BLOG_POSTS_START -->
 
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-01-25 22:34:31*
+*Last Updated: 2026-01-25 22:45:02*
 
 **1.** [拔草记录和好物推荐-2601](https://cgartlab.com/posts/good-things-2026-01/) - *2026-01-25*
 
@@ -20,6 +22,5 @@ My work focuses on creating immersive visual experiences through CG animation an
 **4.** [2025年，我的生产力设备里留下了这些优秀工具](https://cgartlab.com/posts/good-tools-for-production-in-my-2025/) - *2026-01-13*
 
 **5.** [10 玄光周刊-圣弥厄尔教堂](https://cgartlab.com/posts/weekly-10/) - *2025-08-16*
-
 
 <!-- BLOG_POSTS_END -->
