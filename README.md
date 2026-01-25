@@ -1,11 +1,17 @@
 
-# 👋 Hello! I'm [CGArtLab](https://cgartlab.com)
+# 👋 Hello! I'm Chenyang
 
 Digital creator and technology enthusiast based in Kunming, Yunnan, China.
 
 I specialize in CG art, 3D visualization, and creative technology.s
 Through my blog, I share insights on productivity tools, design workflows, and technical tutorials.
 I hope to help fellow creators optimize their creative process and explore new possibilities in digital art and technology.
+
+My articles are first published on [CGArtLab](https://cgartlab.com)
+
+Also serialized on WeChat Official Account "尘光造梦" (Chen Guang Zao Meng)
+
+<img src="wachat-qr-code.png" alt="WeChat QR code" width="340" />
 
 <!-- BLOG_POSTS_START -->
 
