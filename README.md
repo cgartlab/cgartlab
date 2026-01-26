@@ -9,9 +9,18 @@ I hope to help fellow creators optimize their creative process and explore new p
 
 My articles are first published on [CGArtLab](https://cgartlab.com)
 
-Also serialized on WeChat Official Account "尘光造梦" (Chen Guang Zao Meng)
+Also serialized on WeChat Official Account "尘光造梦" and Telegram Channel "[CGArtLab](https://t.me/cg_artlab)".
 
-<img src="wachat-qr-code.png" alt="WeChat QR code" width="340" />
+<table>
+<tr>
+<td align="center">
+<img src="wachat-qr-code.png" alt="WeChat QR code" width="300" />
+</td>
+<td align="center">
+<img src="telegram-qr-code.png" alt="Telegram channel QR code" width="100" />
+</td>
+</tr>
+</table>
 
 <!-- BLOG_POSTS_START -->
 
@@ -28,6 +37,5 @@ Also serialized on WeChat Official Account "尘光造梦" (Chen Guang Zao Meng)
 **4.** [2025年，我的生产力设备里留下了这些优秀工具](https://cgartlab.com/posts/good-tools-for-production-in-my-2025/) - *2026-01-13*
 
 **5.** [10 玄光周刊-圣弥厄尔教堂](https://cgartlab.com/posts/weekly-10/) - *2025-08-16*
-
 
 <!-- BLOG_POSTS_END -->
