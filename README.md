@@ -14,17 +14,17 @@ My work focuses on creating immersive visual experiences through CG animation an
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-01-15 22:44:23*
+*Last Updated: 2026-01-27 23:48:02*
 
-**1.** [2025年，我的生产力设备里留下了这些优秀工具](https://cgartlab.com/posts/good-tools-for-production-in-my-2025/) - *2026-01-13*
+**1.** [NAS 买回来只会存照片？创作者的第一台“私有云”该怎么玩 - 下篇](https://cgartlab.com/posts/nas-beyond-photos-your-first-private-cloud-2/) - *2026-01-27*
 
-**2.** [我的作品集_2020-2024](https://cgartlab.com/posts/demo-2024/) - *2026-01-04*
+**2.** [拔草记录和好物推荐-2601](https://cgartlab.com/posts/good-things-2026-01/) - *2026-01-25*
 
-**3.** [我的作品集_2016-2020](https://cgartlab.com/posts/demo-2020/) - *2025-12-14*
+**3.** [NAS 买回来只会存照片？创作者的第一台“私有云”该怎么玩 - 上篇](https://cgartlab.com/posts/nas-beyond-photos-your-first-private-cloud-1/) - *2026-01-24*
 
-**4.** [10 玄光周刊-圣弥厄尔教堂](https://cgartlab.com/posts/weekly-10/) - *2025-08-16*
+**4.** [11 玄光周刊-谷歌的UI设计理念](https://cgartlab.com/posts/weekly-11/) - *2026-01-15*
 
-**5.** [09 玄光周刊-OpenAI推出学习模式](https://cgartlab.com/posts/weekly-09/) - *2025-08-02*
+**5.** [2025年，我的生产力设备里留下了这些优秀工具](https://cgartlab.com/posts/good-tools-for-production-in-my-2025/) - *2026-01-13*
 <!-- BLOG_POSTS_END -->
 
 </td>
