@@ -133,8 +133,7 @@ class RSSUpdater:
         """生成Markdown格式的文章列表"""
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
-        markdown = f"""
-## 📝 Latest Blog Posts / 最新博客文章
+        markdown = f"""## 📝 Latest Blog Posts / 最新博客文章
 
 *Last Updated: {current_time}*
 
@@ -176,7 +175,7 @@ class RSSUpdater:
                 end_marker = f"<!-- {feed['section_marker'].replace('START', 'END')} -->"
                 
                 pattern = re.compile(
-                    re.escape(start_marker) + r'.*?' + re.escape(end_marker), 
+                    re.escape(start_marker) + r'[\s\S]*?' + re.escape(end_marker), 
                     re.DOTALL
                 )
                 
@@ -186,8 +185,27 @@ class RSSUpdater:
                     updated_content = pattern.sub(replacement, updated_content)
                     print(f"✅ 成功更新 {feed['name']} 的内容区域")
                 else:
-                    print(f"警告: 未找到标记 {feed['section_marker']}，将添加到文件末尾")
-                    updated_content += f"\n\n{replacement}"
+                    print(f"警告: 未找到标记 {feed['section_marker']}，尝试智能插入")
+                    # 尝试智能插入内容
+                    if start_marker in updated_content and end_marker not in updated_content:
+                        # 如果只有开始标记没有结束标记，在表格结束前添加结束标记
+                        updated_content = re.sub(
+                            r"(<\!-- BLOG_POSTS_START -->[\s\S]*?)(?=</td>\s*</tr>\s*</table>|$)",
+                            r"\1" + f"\n{new_section}\n{end_marker}",
+                            updated_content,
+                            flags=re.DOTALL
+                        )
+                    elif start_marker not in updated_content:
+                        # 如果连开始标记都没有，在表格内添加
+                        updated_content = re.sub(
+                            r"(<td width=\"600px\" valign=\"top\">\s*)(?=</td>|$)",
+                            r"\1" + f"{start_marker}\n{new_section}\n{end_marker}\n",
+                            updated_content,
+                            flags=re.DOTALL
+                        )
+                    else:
+                        # 其他情况，添加到文件末尾
+                        updated_content += f"\n\n{replacement}"
             
             # 检查内容是否真的发生了变化
             if original_content == updated_content:
