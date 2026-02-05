@@ -29,17 +29,18 @@ Also serialized on WeChat Official Account "尘光造梦" and Telegram Channel "
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-01-31 23:49:28*
+*Last Updated: 2026-02-05 17:31:26*
 
-**1.** [就算掌声无法抵达舞台，我依然劝你尽快动笔](https://cgartlab.com/posts/pick-your-pencil-now/) - *2026-01-31*
+**1.** [12 玄光周刊-「左脚踩右脚」的创作方法](https://cgartlab.com/posts/weekly-12/) - *2026-02-03*
 
-**2.** [NAS 买回来只会存照片？创作者的第一台“私有云”该怎么玩 - 下篇](https://cgartlab.com/posts/nas-beyond-photos-your-first-private-cloud-2/) - *2026-01-27*
+**2.** [就算掌声无法抵达舞台，我依然劝你尽快动笔](https://cgartlab.com/posts/pick-your-pencil-now/) - *2026-01-31*
 
-**3.** [拔草记录和好物推荐-2601](https://cgartlab.com/posts/good-things-2026-01/) - *2026-01-25*
+**3.** [NAS 买回来只会存照片？创作者的第一台“私有云”该怎么玩 - 下篇](https://cgartlab.com/posts/nas-beyond-photos-your-first-private-cloud-2/) - *2026-01-27*
 
-**4.** [NAS 买回来只会存照片？创作者的第一台“私有云”该怎么玩 - 上篇](https://cgartlab.com/posts/nas-beyond-photos-your-first-private-cloud-1/) - *2026-01-24*
+**4.** [拔草记录和好物推荐-2601](https://cgartlab.com/posts/good-things-2026-01/) - *2026-01-25*
 
-**5.** [11 玄光周刊-谷歌的UI设计理念](https://cgartlab.com/posts/weekly-11/) - *2026-01-15*
+**5.** [NAS 买回来只会存照片？创作者的第一台“私有云”该怎么玩 - 上篇](https://cgartlab.com/posts/nas-beyond-photos-your-first-private-cloud-1/) - *2026-01-24*
+
 
 <!-- BLOG_POSTS_END -->
 </td>
