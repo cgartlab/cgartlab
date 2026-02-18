@@ -84,17 +84,9 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add README.md .rss_history/
+          git add README.md
           git commit -m "docs: auto-update blog posts [skip ci]" || echo "No changes to commit"
           git push
-      
-      - name: Commit history only
-        if: steps.check_changes.outputs.readme_changed != 'true' && steps.update.outputs.has_new_content == 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add .rss_history/
-          git diff --staged --quiet || (git commit -m "chore: update RSS check history [skip ci]" && git push)
       
       - name: Generate Summary
         run: |
