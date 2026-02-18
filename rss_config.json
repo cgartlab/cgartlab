@@ -4,7 +4,22 @@
       "name": "CGArtLab Blog",
       "url": "https://cgartlab.com/rss.xml",
       "section_marker": "BLOG_POSTS_START",
-      "max_posts": 5
+      "max_posts": 5,
+      "enabled": true
     }
-  ]
+  ],
+  "settings": {
+    "check_interval_minutes": 60,
+    "max_retries": 3,
+    "timeout_seconds": 15,
+    "history_dir": ".rss_history",
+    "log_level": "INFO",
+    "max_history_days": 30
+  },
+  "notifications": {
+    "enabled": false,
+    "webhook_url": "",
+    "telegram_token": "",
+    "telegram_chat_id": ""
+  }
 }

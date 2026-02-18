@@ -1,15 +1,3 @@
-<div align="center">
-
-# 👋 Hello! I'm Chenyang
-
-**Digital Creator & Technology Enthusiast**
-
-📍 *Kunming, Yunnan, China*
-
----
-
-</div>
-
 ## 🎨 About Me
 
 I specialize in **CG art**, **3D visualization**, and **creative technology**.
@@ -20,17 +8,13 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ## 📢 Where to Find Me
 
-<table align="center">
+<table align="left">
 <tr>
-<td align="center" width="50%">
-  <img src="wachat-qr-code.png" alt="微信公众号二维码" width="280"><br>
-  <sub><b>微信公众号</b></sub><br>
-  <sub>尘光造梦</sub>
+<td align="center" height="50%">
+  <img src="wachat-qr-code.png" alt="微信公众号" height="100"><br>
 </td>
-<td align="center" width="50%">
-  <img src="telegram-qr-code.png" alt="Telegram Channel二维码" width="100"><br>
-  <sub><b>Telegram Channel</b></sub><br>
-  <sub>CGArtLab</sub>
+<td align="center" height="60%">
+  <img src="telegram-qr-code.png" alt="Telegram Channel" height="100"><br>
 </td>
 </tr>
 </table>

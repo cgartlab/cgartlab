@@ -2,8 +2,14 @@ name: Update Blog Posts
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force update even if no changes detected'
+        required: false
+        default: 'false'
+        type: boolean
   push:
     branches:
       - main
@@ -11,24 +17,28 @@ on:
     paths:
       - 'rss_config.json'
       - '.github/workflows/update-blog-posts.yml'
+      - 'rss_updater.py'
 
 permissions:
   contents: write
 
+env:
+  PYTHON_VERSION: '3.11'
+
 jobs:
-  update-readme:
+  check-and-update:
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 2
       
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: 'pip'
       
       - name: Install dependencies
@@ -36,32 +46,76 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
-      - name: Run RSS updater
+      - name: Create history directory
+        run: mkdir -p .rss_history
+      
+      - name: Run RSS updater with change detection
         id: update
+        env:
+          FORCE_UPDATE: ${{ github.event.inputs.force_update }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python rss_updater.py
-          if [ $? -eq 0 ]; then
-            echo "updated=true" >> $GITHUB_OUTPUT
+          python rss_updater.py --check-mode 2>&1 | tee update_log.txt
+          exit_code=${PIPESTATUS[0]}
+          
+          if [ $exit_code -eq 0 ]; then
+            if grep -q "NEW_CONTENT_DETECTED=true" update_log.txt; then
+              echo "has_new_content=true" >> $GITHUB_OUTPUT
+              echo "updated=true" >> $GITHUB_OUTPUT
+            elif grep -q "CONTENT_UPDATED=true" update_log.txt; then
+              echo "has_new_content=false" >> $GITHUB_OUTPUT
+              echo "updated=true" >> $GITHUB_OUTPUT
+            else
+              echo "has_new_content=false" >> $GITHUB_OUTPUT
+              echo "updated=false" >> $GITHUB_OUTPUT
+            fi
           else
             echo "updated=false" >> $GITHUB_OUTPUT
+            echo "has_new_content=false" >> $GITHUB_OUTPUT
           fi
       
-      - name: Check for changes
+      - name: Check for README changes
         id: check_changes
         run: |
-          git diff --exit-code README.md || echo "has_changes=true" >> $GITHUB_OUTPUT
+          git diff --exit-code README.md && echo "readme_changed=false" >> $GITHUB_OUTPUT || echo "readme_changed=true" >> $GITHUB_OUTPUT
       
       - name: Commit and push changes
-        if: steps.check_changes.outputs.has_changes == 'true'
+        if: steps.check_changes.outputs.readme_changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add README.md
-          git commit -m "docs: auto-update blog posts [skip ci]"
+          git add README.md .rss_history/
+          git commit -m "docs: auto-update blog posts [skip ci]" || echo "No changes to commit"
           git push
       
-      - name: Summary
-        if: steps.check_changes.outputs.has_changes == 'true'
+      - name: Commit history only
+        if: steps.check_changes.outputs.readme_changed != 'true' && steps.update.outputs.has_new_content == 'true'
         run: |
-          echo "✅ Blog posts updated successfully!" >> $GITHUB_STEP_SUMMARY
-          echo "Updated at: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .rss_history/
+          git diff --staged --quiet || (git commit -m "chore: update RSS check history [skip ci]" && git push)
+      
+      - name: Generate Summary
+        run: |
+          echo "## 📊 RSS Update Check Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Check Time:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f update_log.txt ]; then
+            echo "### 📋 Check Log" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat update_log.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ steps.update.outputs.has_new_content }}" == "true" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 🆕 New Content Detected!" >> $GITHUB_STEP_SUMMARY
+          fi
+      
+      - name: Notify on new content
+        if: steps.update.outputs.has_new_content == 'true' && github.event_name == 'schedule'
+        run: |
+          echo "New blog content detected at $(date -u '+%Y-%m-%d %H:%M:%S UTC')"

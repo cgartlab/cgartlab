@@ -39,6 +39,9 @@ Thumbs.db
 # Logs
 *.log
 
+# RSS History
+.rss_history/
+
 # Temporary files
 *.tmp
 *.temp
