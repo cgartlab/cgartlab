@@ -100,9 +100,11 @@ class HistoryManager:
     def save_history(self, history: Dict):
         try:
             self._cleanup_old_history(history)
-            with open(self.history_file, 'w', encoding='utf-8') as f:
+            temp_file = self.history_file.with_suffix('.tmp')
+            with open(temp_file, 'w', encoding='utf-8') as f:
                 json.dump(history, f, indent=2, ensure_ascii=False)
-        except Exception as e:
+            temp_file.replace(self.history_file)
+        except (IOError, PermissionError) as e:
             self.logger.error(f"Failed to save history: {e}")
     
     def _cleanup_old_history(self, history: Dict):
@@ -336,45 +338,45 @@ class RSSUpdater:
             parsed = urlparse(feed_url)
             if parsed.scheme and parsed.netloc:
                 headers['Referer'] = f"{parsed.scheme}://{parsed.netloc}/"
-        except Exception:
-            pass
+        except Exception as e:
+            self.logger.debug(f"Failed to parse URL for Referer header: {e}")
         
-        session = self._create_session_with_retry()
         timeout = self.settings.get("timeout_seconds", 15)
         
         self.logger.info(f"Fetching RSS feed: {feed_url}")
         
-        try:
-            response = session.get(feed_url, headers=headers, timeout=timeout)
-            response.raise_for_status()
-            feed = feedparser.parse(response.content)
+        with self._create_session_with_retry() as session:
+            try:
+                response = session.get(feed_url, headers=headers, timeout=timeout)
+                response.raise_for_status()
+                feed = feedparser.parse(response.content)
+                
+                if getattr(feed, 'entries', None):
+                    self.logger.info(f"Direct fetch successful, found {len(feed.entries)} entries")
+                    return self._parse_feed_entries(feed)
+                else:
+                    self.logger.warning("Direct fetch returned no entries, trying proxy...")
+            except requests.exceptions.Timeout:
+                self.logger.warning(f"Timeout after {timeout}s, trying proxy...")
+            except requests.exceptions.ConnectionError as e:
+                self.logger.warning(f"Connection error: {e}, trying proxy...")
+            except requests.exceptions.HTTPError as e:
+                self.logger.warning(f"HTTP error: {e}, trying proxy...")
+            except requests.exceptions.RequestException as e:
+                self.logger.warning(f"Direct fetch failed: {e}, trying proxy...")
             
-            if getattr(feed, 'entries', None):
-                self.logger.info(f"Direct fetch successful, found {len(feed.entries)} entries")
-                return self._parse_feed_entries(feed)
-            else:
-                self.logger.warning("Direct fetch returned no entries, trying proxy...")
-        except requests.exceptions.Timeout:
-            self.logger.warning(f"Timeout after {timeout}s, trying proxy...")
-        except requests.exceptions.ConnectionError as e:
-            self.logger.warning(f"Connection error: {e}, trying proxy...")
-        except requests.exceptions.HTTPError as e:
-            self.logger.warning(f"HTTP error: {e}, trying proxy...")
-        except Exception as e:
-            self.logger.warning(f"Direct fetch failed: {e}, trying proxy...")
-        
-        proxy_url = f"https://r.jina.ai/{feed_url}"
-        try:
-            self.logger.info(f"Trying proxy: {proxy_url}")
-            proxy_response = session.get(proxy_url, headers=headers, timeout=timeout + 5)
-            proxy_response.raise_for_status()
-            feed = feedparser.parse(proxy_response.content)
-            
-            if getattr(feed, 'entries', None):
-                self.logger.info(f"Proxy fetch successful, found {len(feed.entries)} entries")
-                return self._parse_feed_entries(feed)
-        except Exception as e:
-            self.logger.warning(f"Proxy fetch failed: {e}")
+            proxy_url = f"https://r.jina.ai/{feed_url}"
+            try:
+                self.logger.info(f"Trying proxy: {proxy_url}")
+                proxy_response = session.get(proxy_url, headers=headers, timeout=timeout + 5)
+                proxy_response.raise_for_status()
+                feed = feedparser.parse(proxy_response.content)
+                
+                if getattr(feed, 'entries', None):
+                    self.logger.info(f"Proxy fetch successful, found {len(feed.entries)} entries")
+                    return self._parse_feed_entries(feed)
+            except requests.exceptions.RequestException as e:
+                self.logger.warning(f"Proxy fetch failed: {e}")
         
         try:
             self.logger.info("Trying feedparser direct parse...")
@@ -391,27 +393,36 @@ class RSSUpdater:
     def _parse_feed_entries(self, feed) -> List[Dict]:
         articles = []
         for entry in feed.entries:
+            if not entry:
+                continue
             date_str = "未知日期"
             
             for attr in ['published_parsed', 'updated_parsed', 'created_parsed']:
                 if hasattr(entry, attr) and getattr(entry, attr):
                     try:
-                        date_obj = datetime(*getattr(entry, attr)[:6])
-                        date_str = date_obj.strftime('%Y-%m-%d')
-                        break
-                    except Exception:
-                        pass
+                        time_tuple = getattr(entry, attr)
+                        if time_tuple and len(time_tuple) >= 6:
+                            date_obj = datetime(*time_tuple[:6])
+                            date_str = date_obj.strftime('%Y-%m-%d')
+                            break
+                    except (ValueError, TypeError) as e:
+                        self.logger.debug(f"Date parsing failed: {e}")
             
             articles.append({
-                'title': entry.get('title', 'Untitled'),
-                'link': entry.get('link', ''),
+                'title': str(entry.get('title') or 'Untitled'),
+                'link': str(entry.get('link') or ''),
                 'date': date_str,
-                'description': entry.get('description', ''),
-                'author': entry.get('author', ''),
-                'guid': entry.get('guid', entry.get('link', ''))
+                'description': str(entry.get('description') or ''),
+                'author': str(entry.get('author') or ''),
+                'guid': str(entry.get('guid') or entry.get('link') or '')
             })
         
         return articles
+    
+    def _escape_markdown(self, text: str) -> str:
+        for char in ['\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '#', '+', '-', '.', '!', '|']:
+            text = text.replace(char, f'\\{char}')
+        return text
     
     def generate_markdown_section(self, articles: List[Dict], feed_name: str, max_posts: int = 5) -> str:
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -423,7 +434,10 @@ class RSSUpdater:
 """
         
         for i, article in enumerate(articles[:max_posts], 1):
-            markdown += f"**{i}.** [{article['title']}]({article['link']}) - *{article['date']}*\n\n"
+            title = self._escape_markdown(article.get('title', 'Untitled'))
+            link = article.get('link', '')
+            date = article.get('date', '未知日期')
+            markdown += f"**{i}.** [{title}]({link}) - *{date}*\n\n"
         
         return markdown
     
@@ -500,9 +514,18 @@ class RSSUpdater:
                 updated_content += f"\n\n{replacement}"
         
         if original_content != updated_content:
-            with open(readme_path, 'w', encoding='utf-8') as f:
-                f.write(updated_content)
-            self.logger.info("README.md updated successfully")
+            readme_path_obj = Path(readme_path)
+            temp_path = readme_path_obj.with_suffix('.tmp')
+            try:
+                with open(temp_path, 'w', encoding='utf-8') as f:
+                    f.write(updated_content)
+                temp_path.replace(readme_path_obj)
+                self.logger.info("README.md updated successfully")
+            except (IOError, PermissionError) as e:
+                self.logger.error(f"Failed to update README.md: {e}")
+                if temp_path.exists():
+                    temp_path.unlink()
+                return False, check_results
             return True, check_results
         
         self.logger.info("No changes to README.md")

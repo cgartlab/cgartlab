@@ -2,7 +2,7 @@ name: Update Blog Posts
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 */4 * * *'
   workflow_dispatch:
     inputs:
       force_update:
@@ -13,11 +13,14 @@ on:
   push:
     branches:
       - main
-      - master
     paths:
       - 'rss_config.json'
       - '.github/workflows/update-blog-posts.yml'
       - 'rss_updater.py'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -28,6 +31,7 @@ env:
 jobs:
   check-and-update:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     
     steps:
       - name: Checkout repository
@@ -46,11 +50,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
-      - name: Create history directory
-        run: mkdir -p .rss_history
+      - name: Cache RSS history
+        uses: actions/cache@v4
+        with:
+          path: .rss_history
+          key: rss-history-${{ github.run_id }}
+          restore-keys: |
+            rss-history-
       
       - name: Run RSS updater with change detection
         id: update
+        timeout-minutes: 10
         env:
           FORCE_UPDATE: ${{ github.event.inputs.force_update }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -75,6 +85,7 @@ jobs:
           fi
       
       - name: Check for README changes
+        if: steps.update.outputs.updated == 'true'
         id: check_changes
         run: |
           git diff --exit-code README.md && echo "readme_changed=false" >> $GITHUB_OUTPUT || echo "readme_changed=true" >> $GITHUB_OUTPUT
@@ -85,7 +96,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git commit -m "docs: auto-update blog posts [skip ci]" || echo "No changes to commit"
+          git commit -m "docs: auto-update blog posts [skip ci]" -m "Updated at $(date -u '+%Y-%m-%d %H:%M:%S UTC')" || echo "No changes to commit"
           git push
       
       - name: Generate Summary
@@ -106,6 +117,11 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 🆕 New Content Detected!" >> $GITHUB_STEP_SUMMARY
           fi
+      
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "::warning::Workflow failed at $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
       
       - name: Notify on new content
         if: steps.update.outputs.has_new_content == 'true' && github.event_name == 'schedule'

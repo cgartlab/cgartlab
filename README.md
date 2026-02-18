@@ -8,7 +8,7 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ## 📢 Where to Find Me
 
-<table align="left">
+<table align="center">
 <tr>
 <td align="center" height="50%">
   <img src="wachat-qr-code.png" alt="微信公众号" height="100"><br>
@@ -36,13 +36,5 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 **5.** [NAS 买回来只会存照片？创作者的第一台“私有云”该怎么玩 - 上篇](https://cgartlab.com/posts/nas-beyond-photos-your-first-private-cloud-1/) - *2026-01-24*
 
-
 <!-- BLOG_POSTS_END -->
 
----
-
-<div align="center">
-
-*✨ Thanks for visiting! ✨*
-
-</div>
