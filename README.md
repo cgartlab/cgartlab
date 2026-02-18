@@ -8,12 +8,12 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ## 📢 Where to Find Me
 
-<table align="left">
+<table align="center">
 <tr>
-<td align="center" height="100%">
+<td align="center" height="120%">
   <img src="wachat-qr-code.png" alt="微信公众号" height="100"><br>
 </td>
-<td align="center" height="100%">
+<td align="center" height="120%">
   <img src="telegram-qr-code.png" alt="Telegram Channel" height="100"><br>
 </td>
 </tr>
