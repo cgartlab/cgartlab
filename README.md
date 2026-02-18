@@ -6,21 +6,6 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ---
 
-## 📢 Where to Find Me
-
-<table align="center">
-<tr>
-<td align="center" height="120%">
-  <img src="wachat-qr-code.png" alt="微信公众号" height="120"><br>
-</td>
-<td align="center" height="120%">
-  <img src="telegram-qr-code.png" alt="Telegram Channel" height="100"><br>
-</td>
-</tr>
-</table>
-
----
-
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
@@ -38,3 +23,17 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 <!-- BLOG_POSTS_END -->
 
+---
+
+## 📢 Where to Find Me
+
+<table align="center">
+<tr>
+<td align="center" height="120%">
+  <img src="wachat-qr-code.png" alt="微信公众号" height="120"><br>
+</td>
+<td align="center" height="120%">
+  <img src="telegram-qr-code.png" alt="Telegram Channel" height="100"><br>
+</td>
+</tr>
+</table>
