@@ -27,7 +27,7 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ## 📢 Where to Find Me
 
-<table align="center">
+<table align="left">
 <tr>
 <td align="center" height="120%">
   <img src="wachat-qr-code.png" alt="微信公众号" height="120"><br>
