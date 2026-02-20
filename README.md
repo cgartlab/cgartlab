@@ -25,7 +25,7 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ---
 
-## 📢 Where to Find Me
+## 📢 Where to Find Me in China
 
 <table align="left">
 <tr>
