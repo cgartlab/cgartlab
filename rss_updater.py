@@ -24,6 +24,13 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+# 跨平台文件锁支持
+try:
+    import fcntl  # Unix/Linux/macOS
+    HAS_FCTL = True
+except ImportError:
+    HAS_FCTL = False  # Windows
+
 
 class UpdateStatus(Enum):
     NEW_CONTENT = "new_content"
@@ -33,12 +40,46 @@ class UpdateStatus(Enum):
 
 
 @dataclass
+class Article:
+    """RSS 文章数据类"""
+    title: str
+    link: str
+    date: str
+    description: str
+    author: str
+    guid: str
+    
+    @classmethod
+    def from_dict(cls, data: Dict) -> 'Article':
+        """从字典创建 Article 实例"""
+        return cls(
+            title=data.get('title', 'Untitled'),
+            link=data.get('link', ''),
+            date=data.get('date', '未知日期'),
+            description=data.get('description', ''),
+            author=data.get('author', ''),
+            guid=data.get('guid', data.get('link', ''))
+        )
+    
+    def to_dict(self) -> Dict:
+        """转换为字典"""
+        return {
+            'title': self.title,
+            'link': self.link,
+            'date': self.date,
+            'description': self.description,
+            'author': self.author,
+            'guid': self.guid
+        }
+
+
+@dataclass
 class CheckResult:
     status: UpdateStatus
     timestamp: str
     feed_name: str
     articles_count: int
-    new_articles: List[Dict]
+    new_articles: List[Article]
     error_message: Optional[str] = None
     content_hash: Optional[str] = None
 
@@ -87,25 +128,73 @@ class HistoryManager:
         self.logger = logger or RSSLogger(history_dir)
         self.history_file = self.history_dir / "check_history.json"
         self.max_history_days = 30
+        self._history_cache: Optional[Dict] = None
+        self._cache_timestamp: float = 0
+    
+    def _acquire_lock(self, lock_file_path: Path):
+        """获取文件锁，防止并发访问"""
+        lock_file = lock_file_path.with_suffix('.lock')
+        lock_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        if HAS_FCTL:
+            # Unix/Linux/macOS - 使用 fcntl
+            fd = os.open(str(lock_file), os.O_CREAT | os.O_RDWR)
+            fcntl.flock(fd, fcntl.LOCK_EX)
+            return fd
+        else:
+            # Windows - 使用简单的文件存在检查
+            # 注意：这不是真正的锁，但在大多数情况下足够用
+            try:
+                fd = os.open(str(lock_file), os.O_CREAT | os.O_RDWR)
+                return fd
+            except Exception:
+                return -1
+    
+    def _release_lock(self, fd: int):
+        """释放文件锁"""
+        if HAS_FCTL and fd >= 0:
+            fcntl.flock(fd, fcntl.LOCK_UN)
+            os.close(fd)
+        elif fd >= 0:
+            try:
+                os.close(fd)
+            except Exception:
+                pass
     
     def load_history(self) -> Dict:
-        if self.history_file.exists():
-            try:
-                with open(self.history_file, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            except Exception as e:
-                self.logger.warning(f"Failed to load history: {e}")
-        return {"checks": [], "last_content_hash": {}}
+        lock_fd = None
+        try:
+            lock_fd = self._acquire_lock(self.history_file)
+            if self.history_file.exists():
+                try:
+                    with open(self.history_file, 'r', encoding='utf-8') as f:
+                        history = json.load(f)
+                        self._history_cache = history
+                        self._cache_timestamp = self.history_file.stat().st_mtime
+                        return history
+                except Exception as e:
+                    self.logger.warning(f"Failed to load history: {e}")
+            return {"checks": [], "last_content_hash": {}}
+        finally:
+            if lock_fd is not None:
+                self._release_lock(lock_fd)
     
     def save_history(self, history: Dict):
+        lock_fd = None
         try:
+            lock_fd = self._acquire_lock(self.history_file)
             self._cleanup_old_history(history)
             temp_file = self.history_file.with_suffix('.tmp')
             with open(temp_file, 'w', encoding='utf-8') as f:
                 json.dump(history, f, indent=2, ensure_ascii=False)
             temp_file.replace(self.history_file)
+            self._history_cache = history
+            self._cache_timestamp = self.history_file.stat().st_mtime
         except (IOError, PermissionError) as e:
             self.logger.error(f"Failed to save history: {e}")
+        finally:
+            if lock_fd is not None:
+                self._release_lock(lock_fd)
     
     def _cleanup_old_history(self, history: Dict):
         cutoff_date = (datetime.now() - timedelta(days=self.max_history_days)).isoformat()
@@ -129,7 +218,19 @@ class HistoryManager:
         history = self.load_history()
         if "checks" not in history:
             history["checks"] = []
-        history["checks"].append(asdict(result))
+        
+        # 将 CheckResult 转换为可序列化的字典
+        result_dict = {
+            'status': result.status.value,
+            'timestamp': result.timestamp,
+            'feed_name': result.feed_name,
+            'articles_count': result.articles_count,
+            'new_articles': [article.to_dict() for article in result.new_articles],
+            'error_message': result.error_message,
+            'content_hash': result.content_hash
+        }
+        
+        history["checks"].append(result_dict)
         self.save_history(history)
     
     def get_recent_checks(self, feed_name: str, limit: int = 10) -> List[Dict]:
@@ -146,11 +247,13 @@ class ContentChangeDetector:
         self.history_manager = history_manager
         self.logger = logger or RSSLogger()
     
-    def compute_content_hash(self, articles: List[Dict]) -> str:
-        content_str = json.dumps(articles, sort_keys=True, ensure_ascii=False)
+    def compute_content_hash(self, articles: List[Article]) -> str:
+        """计算文章列表的内容哈希"""
+        content_str = json.dumps([article.to_dict() for article in articles], sort_keys=True, ensure_ascii=False)
         return hashlib.sha256(content_str.encode('utf-8')).hexdigest()
     
-    def detect_changes(self, feed_name: str, current_articles: List[Dict]) -> Tuple[bool, List[Dict], str]:
+    def detect_changes(self, feed_name: str, current_articles: List[Article]) -> Tuple[bool, List[Article], str]:
+        """检测内容是否发生变化"""
         current_hash = self.compute_content_hash(current_articles)
         last_hash = self.history_manager.get_last_content_hash(feed_name)
         
@@ -169,18 +272,22 @@ class ContentChangeDetector:
         self.history_manager.set_last_content_hash(feed_name, current_hash)
         return True, new_articles, current_hash
     
-    def _identify_new_articles(self, feed_name: str, current_articles: List[Dict]) -> List[Dict]:
+    def _identify_new_articles(self, feed_name: str, current_articles: List[Article]) -> List[Article]:
+        """识别新的文章"""
         history = self.history_manager.load_history()
         known_links = set()
         
         for check in history.get("checks", []):
             if check.get("feed_name") == feed_name:
-                for article in check.get("new_articles", []):
-                    known_links.add(article.get("link"))
+                for article_data in check.get("new_articles", []):
+                    if isinstance(article_data, dict):
+                        known_links.add(article_data.get("link"))
+                    else:
+                        known_links.add(article_data.get("link") if hasattr(article_data, 'get') else article_data.link)
         
         new_articles = [
             article for article in current_articles
-            if article.get("link") not in known_links
+            if article.link not in known_links
         ]
         
         return new_articles
@@ -192,7 +299,7 @@ class NotificationManager:
         self.logger = logger or RSSLogger()
         self.notifications_enabled = config.get("notifications", {}).get("enabled", False)
     
-    def notify_new_content(self, feed_name: str, new_articles: List[Dict]):
+    def notify_new_content(self, feed_name: str, new_articles: List[Article]):
         if not self.notifications_enabled:
             return
         
@@ -207,27 +314,27 @@ class NotificationManager:
         if telegram_token and telegram_chat_id:
             self._send_telegram_notification(telegram_token, telegram_chat_id, feed_name, new_articles)
     
-    def _send_webhook_notification(self, webhook_url: str, feed_name: str, new_articles: List[Dict]):
+    def _send_webhook_notification(self, webhook_url: str, feed_name: str, new_articles: List[Article]):
         try:
             payload = {
                 "feed_name": feed_name,
                 "new_articles_count": len(new_articles),
-                "articles": new_articles[:5],
+                "articles": [article.to_dict() for article in new_articles[:5]],
                 "timestamp": datetime.now().isoformat()
             }
             response = requests.post(webhook_url, json=payload, timeout=10)
             if response.status_code == 200:
-                self.logger.info(f"Webhook notification sent successfully")
+                self.logger.info("Webhook notification sent successfully")
             else:
                 self.logger.warning(f"Webhook notification failed: {response.status_code}")
         except Exception as e:
             self.logger.error(f"Failed to send webhook notification: {e}")
     
-    def _send_telegram_notification(self, token: str, chat_id: str, feed_name: str, new_articles: List[Dict]):
+    def _send_telegram_notification(self, token: str, chat_id: str, feed_name: str, new_articles: List[Article]):
         try:
             message = f"📰 **{feed_name}** 有新文章发布！\n\n"
             for i, article in enumerate(new_articles[:5], 1):
-                message += f"{i}. [{article['title']}]({article['link']})\n"
+                message += f"{i}. [{article.title}]({article.link})\n"
             
             url = f"https://api.telegram.org/bot{token}/sendMessage"
             payload = {
@@ -268,6 +375,55 @@ class RSSUpdater:
             "log_level": "INFO"
         })
     
+    def _validate_config(self, config: Dict) -> bool:
+        """验证配置文件的结构"""
+        if not isinstance(config, dict):
+            self.logger.error("Config must be a dictionary")
+            return False
+        
+        if "feeds" not in config:
+            self.logger.error("Config missing 'feeds' section")
+            return False
+        
+        if not isinstance(config["feeds"], list):
+            self.logger.error("'feeds' must be a list")
+            return False
+        
+        for i, feed in enumerate(config["feeds"]):
+            if not isinstance(feed, dict):
+                self.logger.error(f"Feed {i} must be a dictionary")
+                return False
+            
+            required_fields = ["name", "url", "section_marker"]
+            for field in required_fields:
+                if field not in feed:
+                    self.logger.error(f"Feed {i} missing required field: {field}")
+                    return False
+            
+            if not isinstance(feed.get("enabled", True), bool):
+                self.logger.error(f"Feed {i} 'enabled' must be a boolean")
+                return False
+            
+            if not isinstance(feed.get("max_posts", 5), int) or feed.get("max_posts", 5) < 1:
+                self.logger.error(f"Feed {i} 'max_posts' must be a positive integer")
+                return False
+        
+        if "settings" in config:
+            settings = config["settings"]
+            if not isinstance(settings, dict):
+                self.logger.error("'settings' must be a dictionary")
+                return False
+            
+            if "timeout_seconds" in settings and (not isinstance(settings["timeout_seconds"], (int, float)) or settings["timeout_seconds"] <= 0):
+                self.logger.error("'timeout_seconds' must be a positive number")
+                return False
+            
+            if "max_retries" in settings and (not isinstance(settings["max_retries"], int) or settings["max_retries"] < 0):
+                self.logger.error("'max_retries' must be a non-negative integer")
+                return False
+        
+        return True
+    
     def _load_config(self) -> Dict:
         default_config = {
             "feeds": [
@@ -297,17 +453,26 @@ class RSSUpdater:
         try:
             with open(self.config_file, 'r', encoding='utf-8') as f:
                 config = json.load(f)
+                
+                if not self._validate_config(config):
+                    self.logger.warning("Config validation failed, using default config")
+                    return default_config
+                
                 if "settings" not in config:
                     config["settings"] = default_config["settings"]
                 if "notifications" not in config:
                     config["notifications"] = default_config["notifications"]
                 return config
         except FileNotFoundError:
+            self.logger.info("Config file not found, creating default config")
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump(default_config, f, indent=2, ensure_ascii=False)
             return default_config
         except json.JSONDecodeError as e:
-            print(f"Error parsing config file: {e}")
+            self.logger.error(f"Error parsing config file: {e}")
+            return default_config
+        except Exception as e:
+            self.logger.error(f"Unexpected error loading config: {e}")
             return default_config
     
     def _create_session_with_retry(self) -> requests.Session:
@@ -326,8 +491,9 @@ class RSSUpdater:
         
         return session
     
-    def fetch_rss_feed(self, feed_url: str) -> Optional[List[Dict]]:
-        headers = {
+    def _build_request_headers(self, feed_url: str) -> Dict:
+        """构建 HTTP 请求头"""
+        headers: Dict = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'application/xml,application/rss+xml,text/xml;q=0.9',
             'Accept-Encoding': 'gzip, deflate',
@@ -341,57 +507,88 @@ class RSSUpdater:
         except Exception as e:
             self.logger.debug(f"Failed to parse URL for Referer header: {e}")
         
+        return headers
+    
+    def _fetch_with_direct_connection(self, session: requests.Session, feed_url: str, headers: Dict, timeout: int) -> Optional[List[Article]]:
+        """尝试直接连接获取 RSS 源"""
+        try:
+            response = session.get(feed_url, headers=headers, timeout=timeout)
+            response.raise_for_status()
+            feed = feedparser.parse(response.content)
+            
+            if getattr(feed, 'entries', None):
+                self.logger.info(f"Direct fetch successful, found {len(feed.entries)} entries")
+                return self._parse_feed_entries(feed)
+            else:
+                self.logger.warning("Direct fetch returned no entries")
+                return None
+        except requests.exceptions.Timeout:
+            self.logger.warning(f"Timeout after {timeout}s")
+        except requests.exceptions.ConnectionError as e:
+            self.logger.warning(f"Connection error: {e}")
+        except requests.exceptions.HTTPError as e:
+            self.logger.warning(f"HTTP error: {e}")
+        except requests.exceptions.RequestException as e:
+            self.logger.warning(f"Direct fetch failed: {e}")
+        
+        return None
+    
+    def _fetch_with_proxy(self, session: requests.Session, feed_url: str, headers: Dict, timeout: int) -> Optional[List[Article]]:
+        """通过 Jina AI 代理获取 RSS 源"""
+        proxy_url = f"https://r.jina.ai/{feed_url}"
+        try:
+            self.logger.info(f"Trying proxy: {proxy_url}")
+            proxy_response = session.get(proxy_url, headers=headers, timeout=timeout + 5)
+            proxy_response.raise_for_status()
+            feed = feedparser.parse(proxy_response.content)
+            
+            if getattr(feed, 'entries', None):
+                self.logger.info(f"Proxy fetch successful, found {len(feed.entries)} entries")
+                return self._parse_feed_entries(feed)
+        except requests.exceptions.RequestException as e:
+            self.logger.warning(f"Proxy fetch failed: {e}")
+        
+        return None
+    
+    def _fetch_with_feedparser_direct(self, feed_url: str) -> Optional[List[Article]]:
+        """使用 feedparser 直接解析 RSS 源"""
+        try:
+            self.logger.info("Trying feedparser direct parse...")
+            feed = feedparser.parse(feed_url)
+            if getattr(feed, 'entries', None):
+                self.logger.info("Feedparser direct parse successful")
+                return self._parse_feed_entries(feed)
+        except Exception as e:
+            self.logger.error(f"Feedparser direct parse failed: {e}")
+        
+        return None
+    
+    def fetch_rss_feed(self, feed_url: str) -> Optional[List[Article]]:
+        """获取 RSS 源，支持多种获取方式"""
+        headers = self._build_request_headers(feed_url)
         timeout = self.settings.get("timeout_seconds", 15)
         
         self.logger.info(f"Fetching RSS feed: {feed_url}")
         
         with self._create_session_with_retry() as session:
-            try:
-                response = session.get(feed_url, headers=headers, timeout=timeout)
-                response.raise_for_status()
-                feed = feedparser.parse(response.content)
-                
-                if getattr(feed, 'entries', None):
-                    self.logger.info(f"Direct fetch successful, found {len(feed.entries)} entries")
-                    return self._parse_feed_entries(feed)
-                else:
-                    self.logger.warning("Direct fetch returned no entries, trying proxy...")
-            except requests.exceptions.Timeout:
-                self.logger.warning(f"Timeout after {timeout}s, trying proxy...")
-            except requests.exceptions.ConnectionError as e:
-                self.logger.warning(f"Connection error: {e}, trying proxy...")
-            except requests.exceptions.HTTPError as e:
-                self.logger.warning(f"HTTP error: {e}, trying proxy...")
-            except requests.exceptions.RequestException as e:
-                self.logger.warning(f"Direct fetch failed: {e}, trying proxy...")
+            articles = self._fetch_with_direct_connection(session, feed_url, headers, timeout)
+            if articles:
+                return articles
             
-            proxy_url = f"https://r.jina.ai/{feed_url}"
-            try:
-                self.logger.info(f"Trying proxy: {proxy_url}")
-                proxy_response = session.get(proxy_url, headers=headers, timeout=timeout + 5)
-                proxy_response.raise_for_status()
-                feed = feedparser.parse(proxy_response.content)
-                
-                if getattr(feed, 'entries', None):
-                    self.logger.info(f"Proxy fetch successful, found {len(feed.entries)} entries")
-                    return self._parse_feed_entries(feed)
-            except requests.exceptions.RequestException as e:
-                self.logger.warning(f"Proxy fetch failed: {e}")
+            articles = self._fetch_with_proxy(session, feed_url, headers, timeout)
+            if articles:
+                return articles
         
-        try:
-            self.logger.info("Trying feedparser direct parse...")
-            feed = feedparser.parse(feed_url)
-            if getattr(feed, 'entries', None):
-                self.logger.info(f"Feedparser direct parse successful")
-                return self._parse_feed_entries(feed)
-        except Exception as e:
-            self.logger.error(f"Feedparser direct parse failed: {e}")
+        articles = self._fetch_with_feedparser_direct(feed_url)
+        if articles:
+            return articles
         
         self.logger.error(f"All fetch methods failed for {feed_url}")
         return None
     
-    def _parse_feed_entries(self, feed) -> List[Dict]:
-        articles = []
+    def _parse_feed_entries(self, feed) -> List[Article]:
+        """解析 feedparser 返回的文章条目"""
+        articles: List[Article] = []
         for entry in feed.entries:
             if not entry:
                 continue
@@ -408,23 +605,26 @@ class RSSUpdater:
                     except (ValueError, TypeError) as e:
                         self.logger.debug(f"Date parsing failed: {e}")
             
-            articles.append({
-                'title': str(entry.get('title') or 'Untitled'),
-                'link': str(entry.get('link') or ''),
-                'date': date_str,
-                'description': str(entry.get('description') or ''),
-                'author': str(entry.get('author') or ''),
-                'guid': str(entry.get('guid') or entry.get('link') or '')
-            })
+            article = Article(
+                title=str(entry.get('title') or 'Untitled'),
+                link=str(entry.get('link') or ''),
+                date=date_str,
+                description=str(entry.get('description') or ''),
+                author=str(entry.get('author') or ''),
+                guid=str(entry.get('guid') or entry.get('link') or '')
+            )
+            articles.append(article)
         
         return articles
     
-    def _escape_markdown(self, text: str) -> str:
-        for char in ['\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '#', '+', '-', '.', '!', '|']:
+    def _escape_markdown_text(self, text: str) -> str:
+        """转义 Markdown 文本中的特殊字符，但不影响 URL"""
+        chars_to_escape = ['\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '#', '+', '-', '.', '!', '|']
+        for char in chars_to_escape:
             text = text.replace(char, f'\\{char}')
         return text
     
-    def generate_markdown_section(self, articles: List[Dict], feed_name: str, max_posts: int = 5) -> str:
+    def generate_markdown_section(self, articles: List[Article], feed_name: str, max_posts: int = 5) -> str:
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
         markdown = f"""## 📝 Latest Blog Posts / 最新博客文章
@@ -434,14 +634,112 @@ class RSSUpdater:
 """
         
         for i, article in enumerate(articles[:max_posts], 1):
-            title = self._escape_markdown(article.get('title', 'Untitled'))
-            link = article.get('link', '')
-            date = article.get('date', '未知日期')
+            title = self._escape_markdown_text(article.title)
+            link = article.link
+            date = article.date
             markdown += f"**{i}.** [{title}]({link}) - *{date}*\n\n"
         
         return markdown
     
+    def _process_single_feed(self, feed: Dict, updated_content: str) -> Tuple[str, Optional[CheckResult]]:
+        """处理单个 RSS 源的更新"""
+        if not feed.get("enabled", True):
+            self.logger.info(f"Skipping disabled feed: {feed['name']}")
+            return updated_content, None
+        
+        self.logger.info(f"Processing feed: {feed['name']}")
+        articles = self.fetch_rss_feed(feed["url"])
+        
+        if not articles:
+            self.logger.error(f"Failed to fetch articles for {feed['name']}")
+            result = CheckResult(
+                status=UpdateStatus.ERROR,
+                timestamp=datetime.now().isoformat(),
+                feed_name=feed["name"],
+                articles_count=0,
+                new_articles=[],
+                error_message="Failed to fetch RSS feed"
+            )
+            return updated_content, result
+        
+        self.logger.info(f"Fetched {len(articles)} articles for {feed['name']}")
+        has_changes, new_articles, content_hash = self.change_detector.detect_changes(
+            feed["name"], articles
+        )
+        
+        if has_changes and new_articles:
+            self.logger.info(f"Found {len(new_articles)} new articles for {feed['name']}")
+            self.notification_manager.notify_new_content(feed["name"], new_articles)
+        
+        if has_changes:
+            if new_articles:
+                status = UpdateStatus.NEW_CONTENT
+            else:
+                status = UpdateStatus.UPDATED
+        else:
+            status = UpdateStatus.NO_CHANGE
+        
+        result = CheckResult(
+            status=status,
+            timestamp=datetime.now().isoformat(),
+            feed_name=feed["name"],
+            articles_count=len(articles),
+            new_articles=new_articles,
+            content_hash=content_hash
+        )
+        
+        new_section = self.generate_markdown_section(
+            articles, feed["name"], feed.get("max_posts", 5)
+        )
+        
+        try:
+            updated_content = self._update_content_section(
+                updated_content, new_section, feed.get("section_marker", "BLOG_POSTS_START"), feed["name"]
+            )
+        except Exception as e:
+            self.logger.error(f"Failed to update content section for {feed['name']}: {e}")
+        
+        return updated_content, result
+    
+    def _update_content_section(self, content: str, new_section: str, section_marker: str, feed_name: str) -> str:
+        """更新内容中的特定标记区域"""
+        start_marker = f"<!-- {section_marker} -->"
+        end_marker = f"<!-- {section_marker.replace('START', 'END')} -->"
+        
+        pattern = re.compile(
+            re.escape(start_marker) + r'[\s\S]*?' + re.escape(end_marker),
+            re.DOTALL
+        )
+        
+        replacement = f"{start_marker}\n{new_section}\n{end_marker}"
+        
+        if pattern.search(content):
+            updated = pattern.sub(replacement, content)
+            self.logger.info(f"Updated section for {feed_name}")
+            return updated
+        else:
+            self.logger.warning(f"Markers not found for {feed_name}, appending to end")
+            return content + f"\n\n{replacement}"
+    
+    def _write_readme_file(self, readme_path: str, content: str) -> bool:
+        """原子写入 README 文件"""
+        readme_path_obj = Path(readme_path)
+        temp_path = readme_path_obj.with_suffix('.tmp')
+        
+        try:
+            with open(temp_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            temp_path.replace(readme_path_obj)
+            self.logger.info("README.md updated successfully")
+            return True
+        except (IOError, PermissionError) as e:
+            self.logger.error(f"Failed to update README.md: {e}")
+            if temp_path.exists():
+                temp_path.unlink()
+            return False
+    
     def update_readme(self, readme_path: str = "README.md") -> Tuple[bool, List[CheckResult]]:
+        """更新 README 文件中的博客文章列表"""
         if not os.path.exists(readme_path):
             self.logger.error(f"README file not found: {readme_path}")
             return False, []
@@ -450,83 +748,17 @@ class RSSUpdater:
             original_content = f.read()
         
         updated_content = original_content
-        check_results = []
-        has_new_content = False
+        check_results: List[CheckResult] = []
         
         for feed in self.rss_feeds:
-            if not feed.get("enabled", True):
-                self.logger.info(f"Skipping disabled feed: {feed['name']}")
-                continue
-            
-            articles = self.fetch_rss_feed(feed["url"])
-            
-            if not articles:
-                result = CheckResult(
-                    status=UpdateStatus.ERROR,
-                    timestamp=datetime.now().isoformat(),
-                    feed_name=feed["name"],
-                    articles_count=0,
-                    new_articles=[],
-                    error_message="Failed to fetch RSS feed"
-                )
+            updated_content, result = self._process_single_feed(feed, updated_content)
+            if result:
                 check_results.append(result)
                 self.history_manager.add_check_result(result)
-                continue
-            
-            has_changes, new_articles, content_hash = self.change_detector.detect_changes(
-                feed["name"], articles
-            )
-            
-            if has_changes and new_articles:
-                has_new_content = True
-                self.notification_manager.notify_new_content(feed["name"], new_articles)
-            
-            result = CheckResult(
-                status=UpdateStatus.NEW_CONTENT if has_new_content else UpdateStatus.NO_CHANGE,
-                timestamp=datetime.now().isoformat(),
-                feed_name=feed["name"],
-                articles_count=len(articles),
-                new_articles=new_articles,
-                content_hash=content_hash
-            )
-            check_results.append(result)
-            self.history_manager.add_check_result(result)
-            
-            new_section = self.generate_markdown_section(
-                articles, feed["name"], feed.get("max_posts", 5)
-            )
-            
-            start_marker = f"<!-- {feed['section_marker']} -->"
-            end_marker = f"<!-- {feed['section_marker'].replace('START', 'END')} -->"
-            
-            pattern = re.compile(
-                re.escape(start_marker) + r'[\s\S]*?' + re.escape(end_marker),
-                re.DOTALL
-            )
-            
-            replacement = f"{start_marker}\n{new_section}\n{end_marker}"
-            
-            if pattern.search(updated_content):
-                updated_content = pattern.sub(replacement, updated_content)
-                self.logger.info(f"Updated section for {feed['name']}")
-            else:
-                self.logger.warning(f"Markers not found for {feed['name']}, appending to end")
-                updated_content += f"\n\n{replacement}"
         
         if original_content != updated_content:
-            readme_path_obj = Path(readme_path)
-            temp_path = readme_path_obj.with_suffix('.tmp')
-            try:
-                with open(temp_path, 'w', encoding='utf-8') as f:
-                    f.write(updated_content)
-                temp_path.replace(readme_path_obj)
-                self.logger.info("README.md updated successfully")
-            except (IOError, PermissionError) as e:
-                self.logger.error(f"Failed to update README.md: {e}")
-                if temp_path.exists():
-                    temp_path.unlink()
-                return False, check_results
-            return True, check_results
+            success = self._write_readme_file(readme_path, updated_content)
+            return success, check_results
         
         self.logger.info("No changes to README.md")
         return False, check_results
