@@ -9,7 +9,7 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-03-11 20:22:58*
+*Last Updated: 2026-03-12 01:00:33*
 
 **1.** [世界尽管让它去转，不用担心你学的东西会过时](https://cgartlab.com/posts/dont-worry-what-your-learning-will-pass/) - *2026-03-08*
 
