@@ -9,17 +9,17 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-03-20 12:33:39*
+*Last Updated: 2026-03-20 13:28:47*
 
-**1.** [世界尽管让它去转，不用担心你学的东西会过时](https://cgartlab.com/posts/dont-worry-what-your-learning-will-pass/) - *2026-03-08*
+**1.** [14 玄光周刊\-当AI开始记住你的一切，这是我的使用策略](https://cgartlab.com/posts/weekly-14/) - *2026-03-20*
 
-**2.** [13 玄光周刊\-你和AI聊过的天，可能并不属于你](https://cgartlab.com/posts/weekly-13/) - *2026-02-05*
+**2.** [世界尽管让它去转，不用担心你学的东西会过时](https://cgartlab.com/posts/dont-worry-what-your-learning-will-pass/) - *2026-03-08*
 
-**3.** [12 玄光周刊\-「左脚踩右脚」的创作方法](https://cgartlab.com/posts/weekly-12/) - *2026-02-03*
+**3.** [13 玄光周刊\-你和AI聊过的天，可能并不属于你](https://cgartlab.com/posts/weekly-13/) - *2026-02-05*
 
-**4.** [就算掌声无法抵达舞台，我依然劝你尽快动笔](https://cgartlab.com/posts/pick-your-pencil-now/) - *2026-01-31*
+**4.** [12 玄光周刊\-「左脚踩右脚」的创作方法](https://cgartlab.com/posts/weekly-12/) - *2026-02-03*
 
-**5.** [NAS 买回来只会存照片？创作者的第一台“私有云”该怎么玩 \- 下篇](https://cgartlab.com/posts/nas-beyond-photos-your-first-private-cloud-2/) - *2026-01-27*
+**5.** [就算掌声无法抵达舞台，我依然劝你尽快动笔](https://cgartlab.com/posts/pick-your-pencil-now/) - *2026-01-31*
 
 
 <!-- BLOG_POSTS_END -->
