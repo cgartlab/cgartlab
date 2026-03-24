@@ -7,7 +7,7 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 ---
 
 <!-- BLOG_POSTS_START -->
-## 📝 Latest Blog Posts / 最新博客文章
+## 📝 Latest Blog Posts
 
 *Last Updated: 2026-03-24 12:43:44*
 
