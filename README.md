@@ -9,7 +9,7 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-04-15 20:37:41*
+*Last Updated: 2026-04-16 01:26:08*
 
 **1.** [工具塑造创作方式 \- No\.15 玄光周刊](https://cgartlab.com/posts/weekly-15/) - *2026-04-10*
 
