@@ -9,17 +9,17 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-05-01 16:43:09*
+*Last Updated: 2026-05-01 20:40:25*
 
-**1.** [AI时代的创意工具 \- No\.16玄光周刊](https://cgartlab.com/posts/weekly-16/) - *2026-04-20*
+**1.** [从黑苹果到独立博客，这是我的开源旅程 \- No\.17玄光周刊](https://cgartlab.com/posts/weekly-17/) - *2026-05-02*
 
-**2.** [工具塑造创作方式 \- No\.15 玄光周刊](https://cgartlab.com/posts/weekly-15/) - *2026-04-10*
+**2.** [AI时代的创意工具 \- No\.16玄光周刊](https://cgartlab.com/posts/weekly-16/) - *2026-04-20*
 
-**3.** [当AI开始记住你的一切，这是我的使用策略 \- No\.14 玄光周刊](https://cgartlab.com/posts/weekly-14/) - *2026-03-20*
+**3.** [工具塑造创作方式 \- No\.15 玄光周刊](https://cgartlab.com/posts/weekly-15/) - *2026-04-10*
 
-**4.** [世界尽管让它去转，不用担心你学的东西会过时](https://cgartlab.com/posts/dont-worry-what-your-learning-will-pass/) - *2026-03-08*
+**4.** [当AI开始记住你的一切，这是我的使用策略 \- No\.14 玄光周刊](https://cgartlab.com/posts/weekly-14/) - *2026-03-20*
 
-**5.** [你和AI聊过的天，可能并不属于你 \- No\.13 玄光周刊](https://cgartlab.com/posts/weekly-13/) - *2026-02-05*
+**5.** [世界尽管让它去转，不用担心你学的东西会过时](https://cgartlab.com/posts/dont-worry-what-your-learning-will-pass/) - *2026-03-08*
 
 
 <!-- BLOG_POSTS_END -->
