@@ -353,9 +353,10 @@ class NotificationManager:
 
 
 class RSSUpdater:
-    def __init__(self, config_file: str = "rss_config.json", check_mode: bool = False):
+    def __init__(self, config_file: str = "rss_config.json", check_mode: bool = False, force: bool = False):
         self.config_file = config_file
         self.check_mode = check_mode
+        self.force = force
         self.config = self._load_config()
         
         log_level = self.config.get("settings", {}).get("log_level", "INFO")
@@ -667,6 +668,10 @@ class RSSUpdater:
             feed["name"], articles
         )
         
+        if self.force:
+            has_changes = True
+            self.logger.info("Force mode: treating as content changed")
+        
         if has_changes and new_articles:
             self.logger.info(f"Found {len(new_articles)} new articles for {feed['name']}")
             self.notification_manager.notify_new_content(feed["name"], new_articles)
@@ -676,6 +681,16 @@ class RSSUpdater:
                 status = UpdateStatus.NEW_CONTENT
             else:
                 status = UpdateStatus.UPDATED
+            
+            new_section = self.generate_markdown_section(
+                articles, feed["name"], feed.get("max_posts", 5)
+            )
+            try:
+                updated_content = self._update_content_section(
+                    updated_content, new_section, feed.get("section_marker", "BLOG_POSTS_START"), feed["name"]
+                )
+            except Exception as e:
+                self.logger.error(f"Failed to update content section for {feed['name']}: {e}")
         else:
             status = UpdateStatus.NO_CHANGE
         
@@ -687,17 +702,6 @@ class RSSUpdater:
             new_articles=new_articles,
             content_hash=content_hash
         )
-        
-        new_section = self.generate_markdown_section(
-            articles, feed["name"], feed.get("max_posts", 5)
-        )
-        
-        try:
-            updated_content = self._update_content_section(
-                updated_content, new_section, feed.get("section_marker", "BLOG_POSTS_START"), feed["name"]
-            )
-        except Exception as e:
-            self.logger.error(f"Failed to update content section for {feed['name']}: {e}")
         
         return updated_content, result
     
@@ -756,6 +760,10 @@ class RSSUpdater:
                 check_results.append(result)
                 self.history_manager.add_check_result(result)
         
+        if self.check_mode:
+            self.logger.info("Check mode: skipping README write")
+            return original_content != updated_content, check_results
+        
         if original_content != updated_content:
             success = self._write_readme_file(readme_path, updated_content)
             return success, check_results
@@ -803,7 +811,7 @@ def main():
     
     args = parser.parse_args()
     
-    updater = RSSUpdater(config_file=args.config, check_mode=args.check_mode)
+    updater = RSSUpdater(config_file=args.config, check_mode=args.check_mode, force=args.force)
     
     if args.verbose:
         updater.logger.logger.setLevel(logging.DEBUG)
