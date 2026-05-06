@@ -1,48 +1,52 @@
 # AGENTS.md
 
-## Purpose
-This repo contains a personal blog site (CGArtLab) with an automated RSS updater that fetches blog posts and updates README.md.
+## 用途
 
-## Developer Commands
+个人博客站点 (CGArtLab)，包含自动化 RSS 更新器，自动获取博客文章并更新 README.md。
+
+## 开发命令
 
 ```bash
-# Run RSS updater (checks feeds and updates README.md if new content)
+# 运行 RSS 更新器（检测到新内容才更新 README.md）
 python rss_updater.py
 
-# Check mode (detect changes without updating)
+# 检查模式：只检测变化，不更新文件
 python rss_updater.py --check-mode
 
-# Force update regardless of changes
+# 强制更新：无论是否有变化都更新
 python rss_updater.py --force
 
-# Verbose output
+# 详细输出
 python rss_updater.py --verbose
 ```
 
-## Configuration
+## 配置
 
-Edit `rss_config.json` to manage feeds:
-- `feeds[].url` - RSS feed URL
-- `feeds[].section_marker` - HTML comment marker in README (e.g., `BLOG_POSTS_START`)
-- `feeds[].max_posts` - Number of posts to display
-- `feeds[].enabled` - Enable/disable feed
+编辑 `rss_config.json`：
 
-The updater replaces content between `<!-- {section_marker} -->` and `<!-- {section_marker.replace('START', 'END')} -->`.
+| 字段 | 说明 |
+|------|------|
+| `feeds[].url` | RSS 订阅源 URL |
+| `feeds[].section_marker` | README 中的 HTML 注释标记（如 `BLOG_POSTS_START`） |
+| `feeds[].max_posts` | 显示的文章数量 |
+| `feeds[].enabled` | 启用/禁用该订阅源 |
 
-## Dependencies
+更新器替换 `<!-- {section_marker} -->` 和 `<!-- {section_marker.replace('START', 'END')} -->` 之间的内容。
 
-```
-feedparser==6.0.11
-requests==2.32.3
-urllib3>=2.6.0,<3.0.0
-```
+## 技术细节
 
-Install with: `pip install -r requirements.txt`
+- **Python 版本**：3.11（见 `.github/workflows/update-blog-posts.yml`）
+- **依赖**：`feedparser==6.0.11`, `requests==2.32.3`, `urllib3>=2.6.0,<3.0.0`
+- **RSS 获取策略**：先直连，失败则用 `https://r.jina.ai/{url}` 代理，最后尝试 feedparser 直连
+- **历史缓存**：`.rss_history/` 目录保留检查历史和工作日志
 
 ## GitHub Workflow
 
-- Runs every 4 hours on schedule
-- Also runs on push to `main` when `rss_config.json`, `rss_updater.py`, or workflow file changes
-- Can be triggered manually via `workflow_dispatch`
+- 每 4 小时定时运行
+- 推送到 main 且变更 `rss_config.json`、`rss_updater.py` 或 workflow 文件时触发
+- 支持手动 `workflow_dispatch`，可选 `force_update` 参数
 
-History is cached in `.rss_history/` (preserved across workflow runs).
+工作流流程：
+1. `--check-mode` 检测变化
+2. 检查 `NEW_CONTENT_DETECTED=true` 或 `CONTENT_UPDATED=true` 输出
+3. 有变化则提交 README.md
