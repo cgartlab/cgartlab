@@ -1,8 +1,16 @@
-## 🎨 About Me
+# ◈ CGArtLab
 
-I specialize in **CG art**, **3D visualization**, and **creative technology**.
+> 数字动态视觉设计师 · 创作即意义
 
-Through my blog, I share insights on productivity tools, design workflows, and technical tutorials. I hope to help fellow creators optimize their creative process and explore new possibilities in digital art and technology.
+---
+
+## 关于我
+
+专注 **CG 艺术**、**3D 可视化**与**创意技术**。
+
+在这个博客里，我记录关于效率工具、设计工作流和技术实践的思考。希望能帮助创作者优化流程、拓展数字艺术的边界。
+
+如果你也相信创作本身就是意义，这里可能适合你。
 
 ---
 
@@ -26,15 +34,14 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ---
 
-## 📢 Where to Find Me
+## 找到我
 
-<table align="left">
-<tr>
-<td align="center" height="120%">
-  <img src="wachat-qr-code.png" alt="微信公众号" height="120"><br>
-</td>
-<td align="center" height="120%">
-  <img src="telegram-qr-code.png" alt="Telegram Channel" height="100"><br>
-</td>
-</tr>
-</table>
+| 平台 | 地址 |
+|------|------|
+| 公众号 | 尘光造梦 |
+| Telegram | [@cgartlab](https://t.me/cgartlab) |
+| X | [@cgartlab](https://x.com/cgartlab) |
+| GitHub | [github.com/cgartlab](https://github.com/cgartlab) |
+| 少数派 | [sspai.com/u/cgartlab](https://sspai.com/u/cgartlab) |
+
+![公众号](wachat-qr-code.png) ![Telegram](telegram-qr-code.png)
