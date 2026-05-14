@@ -1,8 +1,10 @@
-# AGENTS.md
+# AGENTS.md — cgartlab
+
+**分层**: 个人品牌 (Personal Brand) — 内容自动化
 
 ## 用途
 
-个人博客站点 (CGArtLab)，包含自动化 RSS 更新器，自动获取博客文章并更新 README.md。
+个人博客站点 RSS 自动化工具。自动抓取博客文章更新 README.md，是 cgartlab.github.io（主站）内容流水线的一部分。
 
 ## 开发命令
 
