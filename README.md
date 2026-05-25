@@ -16,7 +16,7 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ## 🛠️ Tech Stack
 
-<p align="center">
+<p align="left">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
   <img src="https://img.shields.io/badge/Astro-BC52EE?style=for-the-badge&logo=astro&logoColor=white" alt="Astro"/>
   <img src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js"/>
@@ -29,7 +29,7 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ## 💻 Skills
 
-<p align="center">
+<p align="left">
   <img src="https://skillicons.dev/icons?i=python,go,js,ts,react,astro,threejs,tailwind,docker,git,github,figma,blender&perline=7" alt="Skills"/>
 </p>
 
@@ -69,6 +69,7 @@ This README is automatically updated via [RSS Updater](https://github.com/cgartl
   <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml">
     <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="Lint and Test"/>
   </a>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="Visitors"/>
 </p>
 
 ---
@@ -85,7 +86,3 @@ This README is automatically updated via [RSS Updater](https://github.com/cgartl
 </td>
 </tr>
     </table>
-
-<p align="center">
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="Visitors"/>
-</p>
