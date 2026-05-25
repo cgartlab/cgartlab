@@ -22,14 +22,15 @@ class TestMarkdownRenderer:
         with patch("rss_updater.renderer.datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 6, 15, 12, 0, 0, tzinfo=UTC)
             mock_dt.side_effect = lambda *a, **kw: datetime(*a, **kw)
-            result = renderer.render_section(articles, "Test Feed", max_posts=5)
+            result = renderer.render_section(articles, max_posts=5)
 
-        assert "## Test Feed" in result
+        assert "## 📝 Latest Blog Posts / 最新博客文章" in result
         assert "*Last Updated: 2024-06-15 12:00:00 UTC*" in result
-        assert "[Title 1](https://example.com/1) - 2024-01-01" in result
-        assert "[Title 2](https://example.com/2) - 2024-01-02" in result
+        assert "**1.** [Title 1](https://example.com/1) - *2024-01-01*" in result
+        assert "**2.** [Title 2](https://example.com/2) - *2024-01-02*" in result
 
-    def test_render_section_with_description(self) -> None:
+    def test_render_section_without_description(self) -> None:
+        """Verify descriptions are NOT rendered (original format)."""
         renderer = MarkdownRenderer()
         articles = [
             Article(
@@ -42,22 +43,23 @@ class TestMarkdownRenderer:
         with patch("rss_updater.renderer.datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 6, 15, 12, 0, 0, tzinfo=UTC)
             mock_dt.side_effect = lambda *a, **kw: datetime(*a, **kw)
-            result = renderer.render_section(articles, "Feed", max_posts=5)
+            result = renderer.render_section(articles, max_posts=5)
 
-        assert "  > A description" in result
+        assert "A description" not in result
+        assert "**1.** [Desc Article](https://example.com/d) - *2024-03-01*" in result
 
     def test_render_section_max_posts(self) -> None:
         renderer = MarkdownRenderer()
         articles = [Article(title=f"Title {i}", link=f"https://example.com/{i}", date="2024-01-01") for i in range(10)]
-        result = renderer.render_section(articles, "Feed", max_posts=3)
-        assert result.count("https://example.com/") == 3
+        result = renderer.render_section(articles, max_posts=3)
+        assert result.count("**") == 6  # 3 items * 2 bold markers (**{n}.**)
 
     def test_render_section_escapes_title(self) -> None:
         renderer = MarkdownRenderer()
         articles = [
             Article(title="Title *bold*", link="https://example.com/1", date="2024-01-01"),
         ]
-        result = renderer.render_section(articles, "Feed", max_posts=5)
+        result = renderer.render_section(articles, max_posts=5)
         assert r"Title \*bold\*" in result
 
     def test_render_section_empty_title(self) -> None:
@@ -65,8 +67,8 @@ class TestMarkdownRenderer:
         articles = [
             Article(title="", link="https://example.com/1", date="2024-01-01"),
         ]
-        result = renderer.render_section(articles, "Feed", max_posts=5)
-        assert "[无标题]" in result
+        result = renderer.render_section(articles, max_posts=5)
+        assert "无标题" in result
 
     def test_update_content_replace_existing(self) -> None:
         renderer = MarkdownRenderer()
@@ -78,21 +80,21 @@ Old content
 
 Footer
 """
-        new_section = "## New Feed\n\n- [Item](https://example.com)\n"
+        new_section = "## 📝 Latest Blog Posts / 最新博客文章\n\n- [Item](https://example.com)\n"
         result = renderer.update_content(content, new_section, "FEED")
 
         assert "Old content" not in result
-        assert "## New Feed" in result
+        assert "## 📝 Latest Blog Posts / 最新博客文章" in result
         assert "<!-- FEED_START -->" in result
         assert "<!-- FEED_END -->" in result
 
     def test_update_content_append_new(self) -> None:
         renderer = MarkdownRenderer()
         content = "# README\n\nFooter\n"
-        new_section = "## New Feed\n\n- [Item](https://example.com)\n"
+        new_section = "## 📝 Latest Blog Posts / 最新博客文章\n\n- [Item](https://example.com)\n"
         result = renderer.update_content(content, new_section, "FEED")
 
-        assert "## New Feed" in result
+        assert "## 📝 Latest Blog Posts / 最新博客文章" in result
         assert "<!-- FEED_START -->" in result
         assert "<!-- FEED_END -->" in result
         assert "# README" in result

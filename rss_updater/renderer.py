@@ -15,26 +15,23 @@ class MarkdownRenderer:
     def render_section(
         self,
         articles: list[Article],
-        feed_name: str,
+        feed_name: str = "",
         max_posts: int = 5,
     ) -> str:
-        lines: list[str] = [f"## {feed_name}", ""]
+        _ = feed_name  # unused; format uses a static heading
+        lines: list[str] = ["## 📝 Latest Blog Posts / 最新博客文章", ""]
         now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
         lines.append(f"*Last Updated: {now}*")
         lines.append("")
 
-        for article in articles[:max_posts]:
+        for i, article in enumerate(articles[:max_posts], start=1):
             title = self._escape_markdown(article.title) if article.title else "无标题"
             link = article.link or ""
             date = article.date or "未知日期"
-            description = article.description or ""
 
-            lines.append(f"- [{title}]({link}) - {date}")
-            if description:
-                escaped_desc = self._escape_markdown(description)
-                lines.append(f"  > {escaped_desc}")
+            lines.append(f"**{i}.** [{title}]({link}) - *{date}*")
+            lines.append("")
 
-        lines.append("")
         return "\n".join(lines)
 
     def update_content(
