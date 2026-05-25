@@ -6,6 +6,40 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ---
 
+## 🛠️ Tech Stack
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/Astro-BC52EE?style=for-the-badge&logo=astro&logoColor=white" alt="Astro"/>
+  <img src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js"/>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
+  <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind"/>
+  <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go"/>
+</p>
+
+---
+
+## 🚀 Featured Projects
+
+<p align="center">
+  <a href="https://github.com/cgartlab/cgartlab.github.io">
+    <img width="49%" src="https://github-readme-stats.vercel.app/api/pin/?username=cgartlab&repo=cgartlab.github.io&theme=default" alt="CGArtLab Blog"/>
+  </a>
+  <a href="https://github.com/cgartlab/vibeweave">
+    <img width="49%" src="https://github-readme-stats.vercel.app/api/pin/?username=cgartlab&repo=vibeweave&theme=default" alt="Vibeweave"/>
+  </a>
+</p>
+
+---
+
+## 💻 Skills
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=python,go,js,ts,react,astro,threejs,tailwind,docker,git,github,figma,blender&perline=7" alt="Skills"/>
+</p>
+
+---
+
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
@@ -24,6 +58,26 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ---
 
+## 🤖 Automation
+
+This README is automatically updated via [RSS Updater](https://github.com/cgartlab/cgartlab/tree/main/rss_updater) — a Python-based RSS automation pipeline:
+
+- ⏰ **Schedule**: Every 4 hours via GitHub Actions
+- 🔄 **Change Detection**: SHA-256 hash comparison
+- 📝 **Content Source**: [cgartlab.com/rss.xml](https://cgartlab.com/rss.xml)
+- 🛡️ **Quality Gates**: ruff + mypy + pytest with coverage reporting
+
+<p align="center">
+  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml">
+    <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/>
+  </a>
+  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml">
+    <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="Lint and Test"/>
+  </a>
+</p>
+
+---
+
 ## 📢 Where to Find Me
 
 <table align="left">
@@ -36,3 +90,7 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 </td>
 </tr>
     </table>
+
+<p align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="Visitors"/>
+</p>
