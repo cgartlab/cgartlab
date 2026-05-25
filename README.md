@@ -33,8 +33,8 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 ## 🛠️ Tech Stack
 
-<p align="left">
-  ![Skills](https://skillicons.dev/icons?i=blender,cinema4d,unity,ae,zbrush,figma,threejs,python,go,js,ts,react,astro,tailwind,docker,git,github&perline=8)
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=blender,cinema4d,unity,ae,zbrush,figma,threejs,python,go,js,ts,react,astro,tailwind,docker,git,github&perline=8" alt="Tech Stack"/>
 </p>
 
 ---
