@@ -62,7 +62,7 @@ This README is automatically updated via [RSS Updater](https://github.com/cgartl
 - 📝 **Content Source**: [cgartlab.com/rss.xml](https://cgartlab.com/rss.xml)
 - 🛡️ **Quality Gates**: ruff + mypy + pytest with coverage reporting
 
-<p align="center">
+<p align="left">
   <a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml">
     <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/>
   </a>
@@ -76,13 +76,13 @@ This README is automatically updated via [RSS Updater](https://github.com/cgartl
 
 ## 📢 Where to Find Me
 
-<table align="left">
+<table>
 <tr>
-<td align="center" height="120%">
+<td align="center">
   <img src="wachat-qr-code.png" alt="微信公众号" height="120"><br>
 </td>
-<td align="center" height="120%">
+<td align="center">
   <img src="telegram-qr-code.png" alt="Telegram Channel" height="100"><br>
 </td>
 </tr>
-    </table>
+</table>
