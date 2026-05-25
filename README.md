@@ -10,28 +10,7 @@
 
 I specialize in **CG art**, **3D visualization**, and **creative technology**.
 
-Through my blog, I share insights on productivity tools, design workflows, and technical tutorials. I hope to help fellow creators optimize their creative process and explore new possibilities in digital art and technology.
-
----
-
-## 🛠️ Tech Stack
-
-<p align="left">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
-  <img src="https://img.shields.io/badge/Astro-BC52EE?style=for-the-badge&logo=astro&logoColor=white" alt="Astro"/>
-  <img src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js"/>
-  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
-  <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind"/>
-  <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go"/>
-</p>
-
----
-
-## 💻 Skills
-
-<p align="left">
-  <img src="https://skillicons.dev/icons?i=python,go,js,ts,react,astro,threejs,tailwind,docker,git,github,figma,blender&perline=7" alt="Skills"/>
-</p>
+Through my blog, I share insights on productivity tools, design workflows, and technical tutorials. I hope to help fellow creators optimize their creative process and explore new possibilities in digital art and technology
 
 ---
 
@@ -50,6 +29,13 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 
 **5.** [当AI开始记住你的一切，这是我的使用策略 \- No\.14 玄光周刊](https://cgartlab.com/posts/weekly-14/) - *2026-03-20*
 <!-- BLOG_POSTS_END -->
+---
+
+## 🛠️ Tech Stack
+
+<p align="left">
+  ![Skills](https://skillicons.dev/icons?i=blender,cinema4d,unity,ae,zbrush,figma,threejs,python,go,js,ts,react,astro,tailwind,docker,git,github&perline=8)
+</p>
 
 ---
 
