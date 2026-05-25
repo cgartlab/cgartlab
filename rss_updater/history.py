@@ -58,16 +58,34 @@ class HistoryManager:
             raise
 
     def get_last_content_hash(self, feed_name: str) -> str | None:
-        history = self.load_history()
-        feed_data: dict[str, Any] = history.get(feed_name, {})
-        return feed_data.get("last_content_hash")
+        with self.lock:
+            history = self._load_history_unlocked()
+            feed_data: dict[str, Any] = history.get(feed_name, {})
+            return feed_data.get("last_content_hash")
 
     def set_last_content_hash(self, feed_name: str, content_hash: str) -> None:
-        history = self.load_history()
-        if feed_name not in history:
-            history[feed_name] = {}
-        history[feed_name]["last_content_hash"] = content_hash
-        self.save_history(history)
+        with self.lock:
+            history = self._load_history_unlocked()
+            if feed_name not in history:
+                history[feed_name] = {}
+            history[feed_name]["last_content_hash"] = content_hash
+            self._save_history_unlocked(history)
+
+    def get_known_guids(self, feed_name: str) -> set[str]:
+        with self.lock:
+            history = self._load_history_unlocked()
+            feed_data: dict[str, Any] = history.get(feed_name, {})
+            return set(feed_data.get("known_guids", []))
+
+    def add_known_guids(self, feed_name: str, guids: set[str]) -> None:
+        with self.lock:
+            history = self._load_history_unlocked()
+            if feed_name not in history:
+                history[feed_name] = {}
+            existing: set[str] = set(history[feed_name].get("known_guids", []))
+            existing.update(guids)
+            history[feed_name]["known_guids"] = list(existing)
+            self._save_history_unlocked(history)
 
     def add_check_result(self, result: CheckResult) -> None:
         with self.lock:
@@ -75,14 +93,16 @@ class HistoryManager:
             if result.feed_name not in history:
                 history[result.feed_name] = {}
             checks: list[dict[str, Any]] = history[result.feed_name].get("checks", [])
-            checks.append({
-                "status": result.status,
-                "timestamp": result.timestamp,
-                "articles_count": result.articles_count,
-                "new_articles_count": len(result.new_articles),
-                "error_message": result.error_message,
-                "content_hash": result.content_hash,
-            })
+            checks.append(
+                {
+                    "status": result.status,
+                    "timestamp": result.timestamp,
+                    "articles_count": result.articles_count,
+                    "new_articles_count": len(result.new_articles),
+                    "error_message": result.error_message,
+                    "content_hash": result.content_hash,
+                }
+            )
             history[result.feed_name]["checks"] = checks
             self._cleanup_old_checks(history)
             self._save_history_unlocked(history)
@@ -102,10 +122,7 @@ class HistoryManager:
         for feed_name in list(history.keys()):
             feed_data = history.get(feed_name, {})
             checks: list[dict[str, Any]] = feed_data.get("checks", [])
-            cleaned = [
-                c for c in checks
-                if self._parse_timestamp(c.get("timestamp", "")) > cutoff
-            ]
+            cleaned = [c for c in checks if self._parse_timestamp(c.get("timestamp", "")) > cutoff]
             if cleaned:
                 history[feed_name]["checks"] = cleaned
             else:

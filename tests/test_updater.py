@@ -125,14 +125,16 @@ class TestRSSUpdater:
         assert results[0].error_message == "Failed to fetch feed"
 
     def test_disabled_feed_skipped(self, tmp_path: Path) -> None:
-        config = self._make_config([
-            FeedConfig(
-                name="DisabledFeed",
-                url="https://example.com/feed.xml",
-                section_marker="DISABLED",
-                enabled=False,
-            )
-        ])
+        config = self._make_config(
+            [
+                FeedConfig(
+                    name="DisabledFeed",
+                    url="https://example.com/feed.xml",
+                    section_marker="DISABLED",
+                    enabled=False,
+                )
+            ]
+        )
         readme_path = self._make_readme(tmp_path)
 
         updater = RSSUpdater(config)
@@ -149,12 +151,22 @@ class TestRSSUpdater:
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
         updater = RSSUpdater(config)
-        with patch.object(updater, "update_readme", return_value=(True, [
-            CheckResult(
-                status="success", timestamp="2024-01-01T00:00:00+00:00",
-                feed_name="TestFeed", articles_count=1, new_articles=articles,
+        with patch.object(
+            updater,
+            "update_readme",
+            return_value=(
+                True,
+                [
+                    CheckResult(
+                        status="success",
+                        timestamp="2024-01-01T00:00:00+00:00",
+                        feed_name="TestFeed",
+                        articles_count=1,
+                        new_articles=articles,
+                    ),
+                ],
             ),
-        ])):
+        ):
             assert updater.run() == 0
 
     def test_run_returns_1_on_error(self, tmp_path: Path) -> None:
@@ -162,12 +174,23 @@ class TestRSSUpdater:
         _readme_path = self._make_readme(tmp_path)
 
         updater = RSSUpdater(config)
-        with patch.object(updater, "update_readme", return_value=(False, [
-            CheckResult(
-                status="error", timestamp="2024-01-01T00:00:00+00:00",
-                feed_name="TestFeed", articles_count=0, new_articles=[], error_message="fail",
+        with patch.object(
+            updater,
+            "update_readme",
+            return_value=(
+                False,
+                [
+                    CheckResult(
+                        status="error",
+                        timestamp="2024-01-01T00:00:00+00:00",
+                        feed_name="TestFeed",
+                        articles_count=0,
+                        new_articles=[],
+                        error_message="fail",
+                    ),
+                ],
             ),
-        ])):
+        ):
             assert updater.run() == 1
 
     def test_atomic_write(self, tmp_path: Path) -> None:
@@ -183,17 +206,20 @@ class TestRSSUpdater:
         assert results == []
 
     def test_render_readme(self, tmp_path: Path) -> None:
-        config = self._make_config([
-            FeedConfig(
-                name="RenderFeed",
-                url="https://example.com/feed.xml",
-                section_marker="RENDER_FEED",
-                max_posts=2,
-                enabled=True,
-            )
-        ])
+        config = self._make_config(
+            [
+                FeedConfig(
+                    name="RenderFeed",
+                    url="https://example.com/feed.xml",
+                    section_marker="RENDER_FEED",
+                    max_posts=2,
+                    enabled=True,
+                )
+            ]
+        )
         readme_path = self._make_readme(
-            tmp_path, "# README\n\n<!-- RENDER_FEED_START -->\nOld\n<!-- RENDER_FEED_END -->\n",
+            tmp_path,
+            "# README\n\n<!-- RENDER_FEED_START -->\nOld\n<!-- RENDER_FEED_END -->\n",
         )
         articles = [
             Article(title="A", link="https://a.com", date="2024-01-01"),
@@ -215,17 +241,20 @@ class TestRSSUpdater:
         assert "Old" not in new_content
 
     def test_render_readme_fetch_error(self, tmp_path: Path) -> None:
-        config = self._make_config([
-            FeedConfig(
-                name="RenderFeed",
-                url="https://example.com/feed.xml",
-                section_marker="RENDER_FEED",
-                max_posts=2,
-                enabled=True,
-            )
-        ])
+        config = self._make_config(
+            [
+                FeedConfig(
+                    name="RenderFeed",
+                    url="https://example.com/feed.xml",
+                    section_marker="RENDER_FEED",
+                    max_posts=2,
+                    enabled=True,
+                )
+            ]
+        )
         readme_path = self._make_readme(
-            tmp_path, "# README\n\n<!-- RENDER_FEED_START -->\nOld\n<!-- RENDER_FEED_END -->\n",
+            tmp_path,
+            "# README\n\n<!-- RENDER_FEED_START -->\nOld\n<!-- RENDER_FEED_END -->\n",
         )
 
         updater = RSSUpdater(config)

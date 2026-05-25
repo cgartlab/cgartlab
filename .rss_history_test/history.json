@@ -281,7 +281,170 @@
         "new_articles_count": 0,
         "error_message": "Failed to fetch feed",
         "content_hash": null
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:11:47.483922+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:11:47.497770+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:11:47.503924+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "6092c4ebca6290ef019c0bda9acc5b21253ce254139288ae661eed343a0cb462"
+      },
+      {
+        "status": "no_change",
+        "timestamp": "2026-05-25T09:11:47.509346+00:00",
+        "articles_count": 1,
+        "new_articles_count": 0,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "error",
+        "timestamp": "2026-05-25T09:11:47.514968+00:00",
+        "articles_count": 0,
+        "new_articles_count": 0,
+        "error_message": "Failed to fetch feed",
+        "content_hash": null
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:15:32.409798+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:15:32.424067+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:15:32.429258+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "6092c4ebca6290ef019c0bda9acc5b21253ce254139288ae661eed343a0cb462"
+      },
+      {
+        "status": "no_change",
+        "timestamp": "2026-05-25T09:15:32.435499+00:00",
+        "articles_count": 1,
+        "new_articles_count": 0,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "error",
+        "timestamp": "2026-05-25T09:15:32.439031+00:00",
+        "articles_count": 0,
+        "new_articles_count": 0,
+        "error_message": "Failed to fetch feed",
+        "content_hash": null
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:22:11.719831+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:22:11.730436+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:22:11.737911+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "6092c4ebca6290ef019c0bda9acc5b21253ce254139288ae661eed343a0cb462"
+      },
+      {
+        "status": "no_change",
+        "timestamp": "2026-05-25T09:22:11.744850+00:00",
+        "articles_count": 1,
+        "new_articles_count": 0,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "error",
+        "timestamp": "2026-05-25T09:22:11.748267+00:00",
+        "articles_count": 0,
+        "new_articles_count": 0,
+        "error_message": "Failed to fetch feed",
+        "content_hash": null
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:23:04.615576+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:23:04.629001+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:23:04.634576+00:00",
+        "articles_count": 1,
+        "new_articles_count": 1,
+        "error_message": null,
+        "content_hash": "6092c4ebca6290ef019c0bda9acc5b21253ce254139288ae661eed343a0cb462"
+      },
+      {
+        "status": "no_change",
+        "timestamp": "2026-05-25T09:23:04.643592+00:00",
+        "articles_count": 1,
+        "new_articles_count": 0,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "error",
+        "timestamp": "2026-05-25T09:23:04.647440+00:00",
+        "articles_count": 0,
+        "new_articles_count": 0,
+        "error_message": "Failed to fetch feed",
+        "content_hash": null
       }
+    ],
+    "known_guids": [
+      "https://a.com"
     ]
   },
   "RenderFeed": {
@@ -350,7 +513,75 @@
         "new_articles_count": 0,
         "error_message": "Failed to fetch feed",
         "content_hash": null
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:11:47.542191+00:00",
+        "articles_count": 2,
+        "new_articles_count": 2,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "error",
+        "timestamp": "2026-05-25T09:11:47.555288+00:00",
+        "articles_count": 0,
+        "new_articles_count": 0,
+        "error_message": "Failed to fetch feed",
+        "content_hash": null
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:15:32.458565+00:00",
+        "articles_count": 2,
+        "new_articles_count": 2,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "error",
+        "timestamp": "2026-05-25T09:15:32.467375+00:00",
+        "articles_count": 0,
+        "new_articles_count": 0,
+        "error_message": "Failed to fetch feed",
+        "content_hash": null
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:22:11.763374+00:00",
+        "articles_count": 2,
+        "new_articles_count": 2,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "error",
+        "timestamp": "2026-05-25T09:22:11.773756+00:00",
+        "articles_count": 0,
+        "new_articles_count": 0,
+        "error_message": "Failed to fetch feed",
+        "content_hash": null
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-05-25T09:23:04.661282+00:00",
+        "articles_count": 2,
+        "new_articles_count": 2,
+        "error_message": null,
+        "content_hash": "hash1"
+      },
+      {
+        "status": "error",
+        "timestamp": "2026-05-25T09:23:04.674475+00:00",
+        "articles_count": 0,
+        "new_articles_count": 0,
+        "error_message": "Failed to fetch feed",
+        "content_hash": null
       }
+    ],
+    "known_guids": [
+      "https://a.com",
+      "https://b.com"
     ]
   }
 }

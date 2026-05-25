@@ -21,6 +21,7 @@ class CheckResult(BaseModel):
     feed_name: str
     articles_count: int
     new_articles: list[Article]
+    articles: list[Article] = []
     error_message: str | None = None
     content_hash: str | None = None
 
@@ -81,4 +82,3 @@ def load_config(path: str) -> AppConfig:
         data["notifications"] = []
 
     return AppConfig.model_validate(data)
-

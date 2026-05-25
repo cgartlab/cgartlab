@@ -55,6 +55,7 @@ class TestFeedConfig:
 class TestCheckResult:
     def test_status_validation_error(self):
         from pydantic import ValidationError
+
         with pytest.raises(ValidationError) as exc_info:
             CheckResult(
                 status="invalid_status",

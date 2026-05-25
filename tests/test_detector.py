@@ -34,6 +34,7 @@ class TestContentChangeDetector:
         detector = ContentChangeDetector()
         mock_history = MagicMock()
         mock_history.get_last_content_hash.return_value = None
+        mock_history.get_known_guids.return_value = set()
 
         articles = [Article(title="New", link="https://example.com/new", date="2024-01-01")]
         changed, new_articles, current_hash = detector.detect_changes("feed1", articles, mock_history)
@@ -67,6 +68,7 @@ class TestContentChangeDetector:
 
         mock_history = MagicMock()
         mock_history.get_last_content_hash.return_value = old_hash
+        mock_history.get_known_guids.return_value = set()
 
         changed, new_articles, returned_hash = detector.detect_changes("feed1", new_articles_list, mock_history)
 
@@ -77,7 +79,7 @@ class TestContentChangeDetector:
     def test_identify_new_articles_no_history(self) -> None:
         detector = ContentChangeDetector()
         mock_history = MagicMock()
-        mock_history.get_last_content_hash.return_value = None
+        mock_history.get_known_guids.return_value = set()
 
         articles = [Article(title="A", link="https://example.com/a")]
         result = detector._identify_new_articles("feed1", articles, mock_history)
@@ -89,7 +91,8 @@ class TestContentChangeDetector:
         article_b = Article(title="B", link="https://example.com/b")
 
         mock_history = MagicMock()
-        mock_history.get_last_content_hash.return_value = detector.compute_hash([article_a])
+        mock_history.get_known_guids.return_value = {"https://example.com/a"}
 
         result = detector._identify_new_articles("feed1", [article_a, article_b], mock_history)
-        assert len(result) == 2
+        assert len(result) == 1
+        assert result[0].title == "B"

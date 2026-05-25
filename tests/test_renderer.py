@@ -48,10 +48,7 @@ class TestMarkdownRenderer:
 
     def test_render_section_max_posts(self) -> None:
         renderer = MarkdownRenderer()
-        articles = [
-            Article(title=f"Title {i}", link=f"https://example.com/{i}", date="2024-01-01")
-            for i in range(10)
-        ]
+        articles = [Article(title=f"Title {i}", link=f"https://example.com/{i}", date="2024-01-01") for i in range(10)]
         result = renderer.render_section(articles, "Feed", max_posts=3)
         assert result.count("https://example.com/") == 3
 

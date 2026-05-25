@@ -23,6 +23,7 @@ def _reset_logger():
 class TestJsonFormatter:
     def test_json_formatter_with_exception(self):
         from rss_updater.logger import _JsonFormatter
+
         formatter = _JsonFormatter()
         record = logging.LogRecord(
             name="rss_updater",
@@ -55,6 +56,7 @@ class TestSetupLogging:
                 if isinstance(handler, logging.FileHandler):
                     handler.close()
             import shutil
+
             shutil.rmtree(tmpdir, ignore_errors=True)
 
     def test_json_format_file_output(self):
@@ -83,6 +85,7 @@ class TestSetupLogging:
                 if isinstance(handler, logging.FileHandler):
                     handler.close()
             import shutil
+
             shutil.rmtree(tmpdir, ignore_errors=True)
 
     def test_plain_format_file_output(self):
@@ -107,6 +110,7 @@ class TestSetupLogging:
                 if isinstance(handler, logging.FileHandler):
                     handler.close()
             import shutil
+
             shutil.rmtree(tmpdir, ignore_errors=True)
 
     def test_setup_logging_clears_existing_handlers(self):
@@ -122,4 +126,5 @@ class TestSetupLogging:
                 if isinstance(handler, logging.FileHandler):
                     handler.close()
             import shutil
+
             shutil.rmtree(tmpdir, ignore_errors=True)

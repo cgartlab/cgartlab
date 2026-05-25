@@ -20,25 +20,33 @@ class ContentChangeDetector:
         )
         return hashlib.sha256(data.encode("utf-8")).hexdigest()
 
+    @staticmethod
+    def _article_guid(article: Article) -> str:
+        return article.guid or article.link or ""
+
     def _identify_new_articles(
         self,
         feed_name: str,
         current_articles: list[Article],
         history: HistoryManager,
     ) -> list[Article]:
-        last_hash = history.get_last_content_hash(feed_name)
-        if last_hash is None:
-            logger.info("No previous hash for %s, treating all as new", feed_name)
+        known_guids = history.get_known_guids(feed_name)
+        if not known_guids:
+            logger.info("No known GUIDs for %s, treating all as new", feed_name)
             return list(current_articles)
 
         new_articles: list[Article] = []
         for article in current_articles:
-            article_hash = hashlib.sha256(
-                article.model_dump_json().encode("utf-8")
-            ).hexdigest()
-            if article_hash != last_hash:
+            guid = self._article_guid(article)
+            if guid and guid not in known_guids:
                 new_articles.append(article)
 
+        logger.info(
+            "Identified %d new articles out of %d for %s",
+            len(new_articles),
+            len(current_articles),
+            feed_name,
+        )
         return new_articles
 
     def detect_changes(

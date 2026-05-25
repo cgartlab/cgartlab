@@ -60,21 +60,24 @@ class RSSUpdater:
             new_articles = list(articles)
             current_hash = self.detector.compute_hash(articles)
             self.history.set_last_content_hash(feed.name, current_hash)
+            guids = {self.detector._article_guid(a) for a in articles}
+            self.history.add_known_guids(feed.name, guids)
             return CheckResult(
                 status="success",
                 timestamp=timestamp,
                 feed_name=feed.name,
                 articles_count=len(articles),
                 new_articles=new_articles,
+                articles=articles,
                 content_hash=current_hash,
             )
 
-        changed, new_articles, current_hash = self.detector.detect_changes(
-            feed.name, articles, self.history
-        )
+        changed, new_articles, current_hash = self.detector.detect_changes(feed.name, articles, self.history)
 
         if changed:
             self.history.set_last_content_hash(feed.name, current_hash)
+            guids = {self.detector._article_guid(a) for a in articles}
+            self.history.add_known_guids(feed.name, guids)
             status = "success"
         else:
             status = "no_change"
@@ -86,22 +89,9 @@ class RSSUpdater:
             feed_name=feed.name,
             articles_count=len(articles),
             new_articles=new_articles,
+            articles=articles,
             content_hash=current_hash,
         )
-
-    def _render_readme(self, content: str, results: list[CheckResult]) -> str:
-        for result in results:
-            if result.status == "error":
-                continue
-            feed = next((f for f in self.config.feeds if f.name == result.feed_name), None)
-            if feed is None:
-                continue
-            articles = self.fetcher.fetch(feed.url, timeout=self.config.settings.timeout_seconds)
-            if articles is None:
-                continue
-            section = self.renderer.render_section(articles, feed.name, feed.max_posts)
-            content = self.renderer.update_content(content, section, feed.section_marker)
-        return content
 
     def update_readme(self, readme_path: str = "README.md") -> tuple[bool, list[CheckResult]]:
         readme_file = Path(readme_path)
@@ -124,9 +114,7 @@ class RSSUpdater:
             if result.status == "success" and result.new_articles:
                 any_new_content = True
                 if not self.check_mode:
-                    section = self.renderer.render_section(
-                        result.new_articles, feed.name, feed.max_posts
-                    )
+                    section = self.renderer.render_section(result.articles, feed.name, feed.max_posts)
                     content = self.renderer.update_content(content, section, feed.section_marker)
 
                 send_notifications(self.config.notifications, feed.name, result.new_articles)

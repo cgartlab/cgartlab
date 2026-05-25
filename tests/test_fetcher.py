@@ -228,7 +228,8 @@ class TestFeedFetcher:
         mock_session = MagicMock()
         mock_session.get.side_effect = Exception("Always fail")
         with patch.object(
-            FeedFetcher, "_fetch_feedparser_direct",
+            FeedFetcher,
+            "_fetch_feedparser_direct",
             return_value=[Article(title="FPLog", link="https://example.com/3", date="2024-01-03")],
         ):
             fetcher = FeedFetcher(session=mock_session)

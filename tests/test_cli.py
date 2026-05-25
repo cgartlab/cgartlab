@@ -128,11 +128,13 @@ class TestCLIMain:
 class TestSetupStdoutUtf8:
     def test_setup_stdout_utf8_on_windows(self):
         from rss_updater.cli import _setup_stdout_utf8
+
         with patch.object(sys, "platform", "win32"):
             _setup_stdout_utf8()
 
     def test_setup_stdout_utf8_attribute_error(self):
         from rss_updater.cli import _setup_stdout_utf8
+
         with patch.object(sys, "platform", "win32"):
             fake_stdout = MagicMock()
             fake_stdout.reconfigure.side_effect = AttributeError("no reconfigure")
@@ -158,9 +160,7 @@ class TestMainHealthCheck:
 
         with patch("rss_updater.cli.FeedFetcher") as mock_fetcher_cls:
             mock_fetcher = MagicMock()
-            mock_fetcher._fetch_direct.return_value = [MagicMock()]
-            mock_fetcher.session = MagicMock()
-            mock_fetcher._build_headers.return_value = {}
+            mock_fetcher.fetch.return_value = [MagicMock()]
             mock_fetcher_cls.return_value = mock_fetcher
             ret = main(["-c", str(config_path), "--health-check"])
 
@@ -187,9 +187,7 @@ class TestHealthCheck:
 
         with patch("rss_updater.cli.FeedFetcher") as mock_fetcher_cls:
             mock_fetcher = MagicMock()
-            mock_fetcher._fetch_direct.return_value = articles
-            mock_fetcher.session = MagicMock()
-            mock_fetcher._build_headers.return_value = {}
+            mock_fetcher.fetch.return_value = articles
             mock_fetcher_cls.return_value = mock_fetcher
             ret = _health_check(config)
 
@@ -213,9 +211,7 @@ class TestHealthCheck:
 
         with patch("rss_updater.cli.FeedFetcher") as mock_fetcher_cls:
             mock_fetcher = MagicMock()
-            mock_fetcher._fetch_direct.return_value = None
-            mock_fetcher.session = MagicMock()
-            mock_fetcher._build_headers.return_value = {}
+            mock_fetcher.fetch.return_value = None
             mock_fetcher_cls.return_value = mock_fetcher
             ret = _health_check(config)
 
@@ -239,9 +235,7 @@ class TestHealthCheck:
 
         with patch("rss_updater.cli.FeedFetcher") as mock_fetcher_cls:
             mock_fetcher = MagicMock()
-            mock_fetcher._fetch_direct.side_effect = Exception("timeout")
-            mock_fetcher.session = MagicMock()
-            mock_fetcher._build_headers.return_value = {}
+            mock_fetcher.fetch.side_effect = Exception("timeout")
             mock_fetcher_cls.return_value = mock_fetcher
             ret = _health_check(config)
 
@@ -272,4 +266,4 @@ class TestHealthCheck:
         assert ret == 0
         captured = capsys.readouterr()
         assert "Disabled" not in captured.out
-        mock_fetcher._fetch_direct.assert_not_called()
+        mock_fetcher.fetch.assert_not_called()

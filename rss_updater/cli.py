@@ -77,38 +77,39 @@ def _health_check(config: AppConfig) -> int:
             continue
         start = time.time()
         try:
-            articles = fetcher._fetch_direct(
-                fetcher.session,
-                feed.url,
-                fetcher._build_headers(feed.url),
-                config.settings.timeout_seconds,
-            )
+            articles = fetcher.fetch(feed.url, timeout=config.settings.timeout_seconds)
             elapsed = time.time() - start
             if articles is not None:
-                results.append({
-                    "feed_name": feed.name,
-                    "status": "ok",
-                    "response_time": elapsed,
-                    "articles_count": len(articles),
-                    "error_message": None,
-                })
+                results.append(
+                    {
+                        "feed_name": feed.name,
+                        "status": "ok",
+                        "response_time": elapsed,
+                        "articles_count": len(articles),
+                        "error_message": None,
+                    }
+                )
             else:
-                results.append({
-                    "feed_name": feed.name,
-                    "status": "fail",
-                    "response_time": elapsed,
-                    "articles_count": 0,
-                    "error_message": "No articles returned",
-                })
+                results.append(
+                    {
+                        "feed_name": feed.name,
+                        "status": "fail",
+                        "response_time": elapsed,
+                        "articles_count": 0,
+                        "error_message": "No articles returned",
+                    }
+                )
         except Exception as exc:
             elapsed = time.time() - start
-            results.append({
-                "feed_name": feed.name,
-                "status": "error",
-                "response_time": elapsed,
-                "articles_count": 0,
-                "error_message": str(exc),
-            })
+            results.append(
+                {
+                    "feed_name": feed.name,
+                    "status": "error",
+                    "response_time": elapsed,
+                    "articles_count": 0,
+                    "error_message": str(exc),
+                }
+            )
 
     _print_health_table(results)
     return 0
