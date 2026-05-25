@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=2E9EF7&center=true&width=435&lines=Exploring+the+boundary+of+digital+art;Building+tools+for+creators;Sharing+knowledge%2C+one+post+at+a+time" alt="Typing SVG"/>
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=2E9EF7&center=true&width=800&lines=Exploring+the+boundary+of+digital+art;Building+tools+for+creators;Sharing+knowledge%2C+one+post+at+a+time" alt="Typing SVG"/>
 </p>
 
 ## 🎨 About Me
