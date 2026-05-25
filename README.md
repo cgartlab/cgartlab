@@ -1,3 +1,11 @@
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=CGArtLab&fontAlignY=35&desc=CG%20Art%20|%203D%20Visualization%20|%20Creative%20Technology&descAlignY=60" alt="CGArtLab Banner"/>
+</p>
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=2E9EF7&center=true&width=435&lines=Exploring+the+boundary+of+digital+art;Building+tools+for+creators;Sharing+knowledge%2C+one+post+at+a+time" alt="Typing SVG"/>
+</p>
+
 ## 🎨 About Me
 
 I specialize in **CG art**, **3D visualization**, and **creative technology**.
@@ -15,19 +23,6 @@ Through my blog, I share insights on productivity tools, design workflows, and t
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
   <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind"/>
   <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go"/>
-</p>
-
----
-
-## 🚀 Featured Projects
-
-<p align="center">
-  <a href="https://github.com/cgartlab/cgartlab.github.io">
-    <img width="49%" src="https://github-readme-stats.vercel.app/api/pin/?username=cgartlab&repo=cgartlab.github.io&theme=default" alt="CGArtLab Blog"/>
-  </a>
-  <a href="https://github.com/cgartlab/vibeweave">
-    <img width="49%" src="https://github-readme-stats.vercel.app/api/pin/?username=cgartlab&repo=vibeweave&theme=default" alt="Vibeweave"/>
-  </a>
 </p>
 
 ---
