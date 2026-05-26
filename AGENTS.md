@@ -1,72 +1,13 @@
 # AGENTS.md — cgartlab
 
-**Generated:** 2026-05-25 17:02
-**Commit:** `d9aa7c2`
-**Branch:** `main`
 **分层**: 个人品牌 (Personal Brand) — 内容自动化
+**Updated:** 2026-05-25
 
-## OVERVIEW
+## 用途
 
 个人博客站点 RSS 自动化工具。自动抓取博客文章更新 README.md，是 cgartlab.github.io（主站）内容流水线的一部分。
 
-**Stack:** Python 3.11, feedparser, requests, pydantic, pytest, ruff, mypy
-
-## STRUCTURE
-
-```
-cgartlab/
-├── rss_updater/         # 核心包：10 个模块，~830 行
-│   ├── cli.py           # 参数解析 + 入口
-│   ├── models.py        # Pydantic 数据模型 + 配置加载
-│   ├── fetcher.py       # RSS 请求 + 响应解析
-│   ├── detector.py      # 内容变更检测
-│   ├── updater.py       # 主流程编排
-│   ├── renderer.py      # Markdown 渲染
-│   ├── history.py       # 历史记录（JSON + filelock）
-│   ├── notifier.py      # 通知（Webhook/Telegram）
-│   └── logger.py        # JSON 日志格式化
-├── tests/               # 测试包：~1415 行，镜像模块结构
-├── .github/workflows/   # CI: lint-and-test + update-blog-posts
-└── rss_updater.py       # 兼容入口 → cli.main()
-```
-
-## WHERE TO LOOK
-
-| Task | Location | Notes |
-|------|----------|-------|
-| Entry point, CLI args | `rss_updater/cli.py` | `main()` |
-| Data models, config loading | `rss_updater/models.py` | Pydantic v2 |
-| RSS fetching logic | `rss_updater/fetcher.py` | 3-strategy fallback |
-| Change detection | `rss_updater/detector.py` | SHA-256 hash compare |
-| Main update orchestration | `rss_updater/updater.py` | `RSSUpdater` class |
-| History persistence | `rss_updater/history.py` | JSON + filelock |
-| Markdown section replacement | `rss_updater/renderer.py` | regex-based |
-| Notification dispatching | `rss_updater/notifier.py` | Webhook + Telegram |
-| Logging setup | `rss_updater/logger.py` | JSON file + console |
-| Config schema | `rss_config.json` | per-feed `section_marker` |
-| CI pipeline definition | `.github/workflows/` | lint-and-test + deploy |
-
-## CONVENTIONS
-
-- **Type hints**: `from __future__ import annotations` on all modules
-- **Strict mypy**: `strict = true` in `pyproject.toml`; `# type: ignore[code]` only where necessary
-- **Ruff linter**: line-length 120, target py311, selects E/F/I/W/UP/B/C4/SIM
-- **Pydantic v2**: models use `BaseModel`, `Field`, `field_validator`, `ConfigDict`. No `model_` prefix on v1 methods.
-- **Logging**: module-level `logger = logging.getLogger("rss_updater.{module}")`
-- **Test naming**: `tests/test_{module}.py` mirrors `rss_updater/{module}.py`
-- **No `__init__` exports**: `rss_updater/__init__.py` is empty (flat import inside package)
-- **UTF-8**: explicit encoding on all file I/O (`encoding="utf-8"`)
-- **Path handling**: `pathlib.Path` preferred over `os.path`
-
-## ANTI-PATTERNS
-
-- **DO NOT** use `as any` / `# type: ignore` without specific error code
-- **DO NOT** modify `README.md`'s section markers (`<!-- BLOG_POSTS_START/END -->`)
-- **DO NOT** commit `.rss_history/` changes manually — CI manages it
-- **DO NOT** add new dependencies without adding to `requirements.txt` AND CI install step
-- **DO NOT** bypass change detection unless `--force` is explicitly passed
-
-## COMMANDS
+## 开发命令
 
 ```bash
 # 运行 RSS 更新器（检测到新内容才更新 README.md）
@@ -80,18 +21,9 @@ python rss_updater.py --force
 
 # 详细输出
 python rss_updater.py --verbose
-
-# 健康检查
-python rss_updater.py --health-check
-
-# Lint + format + type check + test
-ruff check rss_updater/ tests/
-ruff format --check rss_updater/ tests/
-mypy rss_updater/
-pytest tests/ --cov=rss_updater --cov-report=term
 ```
 
-## CONFIG
+## 配置
 
 编辑 `rss_config.json`：
 
@@ -104,10 +36,22 @@ pytest tests/ --cov=rss_updater --cov-report=term
 
 更新器替换 `<!-- {section_marker} -->` 和 `<!-- {section_marker.replace('START', 'END')} -->` 之间的内容。
 
-## NOTES
+## 技术细节
 
-- **RSS fallback chain**: direct GET → `r.jina.ai` proxy → feedparser direct
-- **3.11+ only**: `datetime.UTC`, `list[Article]` syntax, `str | None` unions
-- **CI cache**: pip + `.rss_history` both cached in GitHub Actions (separate keys)
-- **history.json**: uses atomic file writes (tempfile + os.replace) + FileLock
-- **Notification typing**: `NotificationChannel` has `model_config = ConfigDict(extra="allow")` for heterogeneous channel configs
+- **Python 版本**：3.11（见 `.github/workflows/update-blog-posts.yml`）
+- **依赖**：`feedparser==6.0.11`, `requests==2.32.3`, `urllib3>=2.6.0,<3.0.0`
+- **RSS 获取策略**：先直连，失败则用 `https://r.jina.ai/{url}` 代理，最后尝试 feedparser 直连
+- **模块化重构**：核心功能已拆分为 `rss_fetcher.py` / `rss_parser.py` / `readme_updater.py` 模块
+- **历史缓存**：`.rss_history/` 目录保留检查历史和工作日志
+- **CODE_WIKI.md** — 项目代码百科，位于根目录，详细说明架构和核心逻辑
+
+## GitHub Workflow
+
+- 每 4 小时定时运行
+- 推送到 main 且变更 `rss_config.json`、`rss_updater.py` 或 workflow 文件时触发
+- 支持手动 `workflow_dispatch`，可选 `force_update` 参数
+
+工作流流程：
+1. `--check-mode` 检测变化
+2. 检查 `NEW_CONTENT_DETECTED=true` 或 `CONTENT_UPDATED=true` 输出
+3. 有变化则提交 README.md
