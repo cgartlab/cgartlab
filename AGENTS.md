@@ -1,7 +1,7 @@
 # AGENTS.md — cgartlab
 
 **分层**: 个人品牌 (Personal Brand) — 内容自动化
-**Updated:** 2026-05-25
+**Updated:** 2026-05-29
 
 ## 用途
 
@@ -39,9 +39,10 @@ python rss_updater.py --verbose
 ## 技术细节
 
 - **Python 版本**：3.11（见 `.github/workflows/update-blog-posts.yml`）
-- **依赖**：`feedparser==6.0.11`, `requests==2.32.3`, `urllib3>=2.6.0,<3.0.0`
+- **依赖**：`feedparser==6.0.11`, `requests==2.32.3`, `urllib3>=2.6.0,<3.0.0`, `pydantic>=2.0`, `filelock>=3.0`, `pytest>=8.0`, `pytest-cov>=5.0`, `ruff>=0.6`, `mypy>=1.10`
+- **入口重构**：`rss_updater.py` 现为 6 行薄封装，仅委托给 `rss_updater.cli.main`
+- **核心模块**：`rss_fetcher.py`（RSS 获取）、`rss_parser.py`（解析）、`readme_updater.py`（README 更新）
 - **RSS 获取策略**：先直连，失败则用 `https://r.jina.ai/{url}` 代理，最后尝试 feedparser 直连
-- **模块化重构**：核心功能已拆分为 `rss_fetcher.py` / `rss_parser.py` / `readme_updater.py` 模块
 - **历史缓存**：`.rss_history/` 目录保留检查历史和工作日志
 - **CODE_WIKI.md** — 项目代码百科，位于根目录，详细说明架构和核心逻辑
 
