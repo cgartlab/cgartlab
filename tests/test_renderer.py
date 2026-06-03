@@ -26,8 +26,8 @@ class TestMarkdownRenderer:
 
         assert "## 📝 Latest Blog Posts / 最新博客文章" in result
         assert "*Last Updated: 2024-06-15 12:00:00 UTC*" in result
-        assert "**1.** [Title 1](https://example.com/1) - *2024-01-01*" in result
-        assert "**2.** [Title 2](https://example.com/2) - *2024-01-02*" in result
+        assert "- [Title 1](https://example.com/1) — 2024-01-01" in result
+        assert "- [Title 2](https://example.com/2) — 2024-01-02" in result
 
     def test_render_section_without_description(self) -> None:
         """Verify descriptions are NOT rendered (original format)."""
@@ -46,13 +46,13 @@ class TestMarkdownRenderer:
             result = renderer.render_section(articles, max_posts=5)
 
         assert "A description" not in result
-        assert "**1.** [Desc Article](https://example.com/d) - *2024-03-01*" in result
+        assert "- [Desc Article](https://example.com/d) — 2024-03-01" in result
 
     def test_render_section_max_posts(self) -> None:
         renderer = MarkdownRenderer()
         articles = [Article(title=f"Title {i}", link=f"https://example.com/{i}", date="2024-01-01") for i in range(10)]
         result = renderer.render_section(articles, max_posts=3)
-        assert result.count("**") == 6  # 3 items * 2 bold markers (**{n}.**)
+        assert result.count("\n- [") == 3  # 3 list items
 
     def test_render_section_escapes_title(self) -> None:
         renderer = MarkdownRenderer()

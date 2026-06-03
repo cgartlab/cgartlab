@@ -24,13 +24,12 @@ class MarkdownRenderer:
         lines.append(f"*Last Updated: {now}*")
         lines.append("")
 
-        for i, article in enumerate(articles[:max_posts], start=1):
+        for _, article in enumerate(articles[:max_posts], start=1):
             title = self._escape_markdown(article.title) if article.title else "无标题"
             link = article.link or ""
             date = article.date or "未知日期"
 
-            lines.append(f"**{i}.** [{title}]({link}) - *{date}*")
-            lines.append("")
+            lines.append(f"- [{title}]({link}) — {date}")
 
         return "\n".join(lines)
 

@@ -32,11 +32,11 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 
 *Last Updated: 2026-05-25 09:53:47 UTC*
 
-**1.** [我常用的 OpenClaw 工作流 Skill - No.18 玄光周刊](https://cgartlab.com/posts/weekly-18/) - *2026-05-24*
-**2.** [从黑苹果到独立博客，这是我的开源旅程 - No.17玄光周刊](https://cgartlab.com/posts/weekly-17/) - *2026-05-02*
-**3.** [AI时代的创意工具 - No.16玄光周刊](https://cgartlab.com/posts/weekly-16/) - *2026-04-20*
-**4.** [工具塑造创作方式 - No.15 玄光周刊](https://cgartlab.com/posts/weekly-15/) - *2026-04-10*
-**5.** [当AI开始记住你的一切，这是我的使用策略 - No.14 玄光周刊](https://cgartlab.com/posts/weekly-14/) - *2026-03-20*
+- [我常用的 OpenClaw 工作流 Skill — No.18 玄光周刊](https://cgartlab.com/posts/weekly-18/) — 2026-05-24
+- [从黑苹果到独立博客，这是我的开源旅程 — No.17玄光周刊](https://cgartlab.com/posts/weekly-17/) — 2026-05-02
+- [AI时代的创意工具 — No.16玄光周刊](https://cgartlab.com/posts/weekly-16/) — 2026-04-20
+- [工具塑造创作方式 — No.15 玄光周刊](https://cgartlab.com/posts/weekly-15/) — 2026-04-10
+- [当AI开始记住你的一切，这是我的使用策略 — No.14 玄光周刊](https://cgartlab.com/posts/weekly-14/) — 2026-03-20
 <!-- BLOG_POSTS_END -->
 
 <p align="center">
