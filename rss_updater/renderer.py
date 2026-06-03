@@ -29,8 +29,7 @@ class MarkdownRenderer:
             link = article.link or ""
             date = article.date or "未知日期"
 
-            lines.append(f"**{i}.** [{title}]({link}) - *{date}*")
-            lines.append("")
+            lines.append(f"- [{title}]({link}) — {date}")
 
         return "\n".join(lines)
 
