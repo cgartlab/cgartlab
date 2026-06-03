@@ -1,18 +1,31 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=CGArtLab&fontAlignY=35&desc=CG%20Art%20|%203D%20Visualization%20|%20Creative%20Technology&descAlignY=60" alt="CGArtLab Banner"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=CGArtLab&fontAlignY=35&desc=CG%20Art%20%7C%203D%20Visualization%20%7C%20Creative%20Technology&descAlignY=60" alt="CGArtLab Banner"/>
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=2E9EF7&center=true&width=800&lines=Exploring+the+boundary+of+digital+art;Building+tools+for+creators;Sharing+knowledge%2C+one+post+at+a+time" alt="Typing SVG"/>
+<a href="https://cgartlab.com"><img src="https://cdn.simpleicons.org/googlechrome/2E9EF7" width="28" alt="Blog"/></a> &nbsp;
+<a href="https://github.com/cgartlab"><img src="https://cdn.simpleicons.org/github/2E9EF7" width="28" alt="GitHub"/></a> &nbsp;
+<a href="https://cgartlab.com/rss.xml"><img src="https://cdn.simpleicons.org/rss/2E9EF7" width="28" alt="RSS"/></a> &nbsp;
+<a href="mailto:hi@cgartlab.com"><img src="https://cdn.simpleicons.org/gmail/2E9EF7" width="28" alt="Email"/></a>
 </p>
 
-## 🎨 About Me
+<p align="center">
+<sub>Blog &middot; GitHub &middot; RSS &middot; Email</sub>
+</p>
 
-I specialize in **CG art**, **3D visualization**, and **creative technology**.
+<p align="center">
+<img src="assets/divider.svg" alt="---" width="400"/>
+</p>
 
-Through my blog, I share insights on productivity tools, design workflows, and technical tutorials. I hope to help fellow creators optimize their creative process and explore new possibilities in digital art and technology
+## About
 
----
+CG art, 3D visualization, creative technology. Building tools for creators, one post at a time.
+
+**Now:** cgartlab RSS automation toolkit &middot; OKLch color system &middot; Three.js shader experiments
+
+<p align="center">
+<img src="assets/divider.svg" alt="---" width="400"/>
+</p>
 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
@@ -25,38 +38,78 @@ Through my blog, I share insights on productivity tools, design workflows, and t
 - [工具塑造创作方式 — No.15 玄光周刊](https://cgartlab.com/posts/weekly-15/) — 2026-04-10
 - [当AI开始记住你的一切，这是我的使用策略 — No.14 玄光周刊](https://cgartlab.com/posts/weekly-14/) — 2026-03-20
 <!-- BLOG_POSTS_END -->
----
 
-## 🛠️ Tech Stack
+<p align="center">
+<img src="assets/divider.svg" alt="---" width="400"/>
+</p>
+
+## Tech Stack
 
 <img src="https://skillicons.dev/icons?i=blender,unity,ae,figma,threejs,python,go,js,ts,react,astro,tailwind,docker,git,github,vscode,md&perline=16" alt="Tech Stack" width="100%"/>
 
----
+<details>
+<summary>Stack breakdown</summary>
 
-## 🤖 Automation
+| Creative | Engineering | Web & Infra |
+| :--- | :--- | :--- |
+| Blender | Python | Astro |
+| Unity | Go | Tailwind |
+| Figma | TypeScript | Docker |
+| Three.js | JavaScript | Git |
 
-This README is automatically updated via [RSS Updater](https://github.com/cgartlab/cgartlab/tree/main/rss_updater) — a Python-based RSS automation pipeline:
+</details>
 
-- ⏰ **Schedule**: Every 4 hours via GitHub Actions
-- 🔄 **Change Detection**: SHA-256 hash comparison
-- 📝 **Content Source**: [cgartlab.com/rss.xml](https://cgartlab.com/rss.xml)
-- 🛡️ **Quality Gates**: ruff + mypy + pytest with coverage reporting
+## How It Works
 
-<p align="left">
-  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml">
-    <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/>
-  </a>
-  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml">
-    <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="Lint and Test"/>
-  </a>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="Visitors"/>
+<details>
+<summary>RSS Updater Architecture</summary>
+
+```text
+rss_updater/
+├── cli.py        # argparse + health-check
+├── models.py     # Pydantic v2 data models
+├── fetcher.py    # 3-level fallback fetch
+├── detector.py   # SHA-256 hash diff
+├── renderer.py   # Markdown section renderer
+├── updater.py    # Orchestration
+├── history.py    # JSON + FileLock persistence
+├── notifier.py   # Telegram / Webhook
+└── logger.py     # Dual console+file
+```
+
+Run: `python rss_updater.py --check-mode`
+
+</details>
+
+<p align="center">
+<img src="assets/divider.svg" alt="---" width="400"/>
 </p>
 
----
+<div align="center">
 
-## 📢 Where to Find Me
+<a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/></a> &nbsp;
+<a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="Lint and Test"/></a> &nbsp;
+<img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="Visitors"/>
+
+</div>
 
 <div align="center">
-  <img src="wachat-qr-code.png" alt="微信公众号" height="120" style="display:inline-block;margin:0 12px">
-  <img src="telegram-qr-code.png" alt="Telegram Channel" height="100" style="display:inline-block;margin:0 12px">
+<sub>Python 3.11 &middot; GitHub Actions &middot; RSS Automation</sub>
 </div>
+
+## Contact
+
+<p align="center">
+<a href="https://t.me/cgartlab"><img src="https://cdn.simpleicons.org/telegram/2E9EF7" width="28" alt="Telegram"/></a> &nbsp;
+<a href="https://weixin.qq.com"><img src="https://cdn.simpleicons.org/wechat/2E9EF7" width="28" alt="WeChat"/></a> &nbsp;
+<a href="mailto:hi@cgartlab.com"><img src="https://cdn.simpleicons.org/gmail/2E9EF7" width="28" alt="Email"/></a>
+</p>
+
+<p align="center">
+<a href="https://weixin.qq.com"><img src="wachat-qr-code.png" alt="WeChat" height="100"/></a> &nbsp;
+<a href="https://t.me/cgartlab"><img src="telegram-qr-code.png" alt="Telegram" height="100"/></a>
+</p>
+
+<p align="center">
+<sub>WeChat: CGArtLab &middot; Telegram: @cgartlab</sub>
+</p>
