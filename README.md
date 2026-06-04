@@ -31,12 +31,6 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 
 ## Contact
 
-<p align="center">
-<a href="https://t.me/cgartlab"><img src="https://cdn.simpleicons.org/telegram/2E9EF7" width="28" alt="Telegram"/></a> &nbsp;
-<a href="https://weixin.qq.com"><img src="https://cdn.simpleicons.org/wechat/2E9EF7" width="28" alt="WeChat"/></a> &nbsp;
-<a href="mailto:hi@cgartlab.com"><img src="https://cdn.simpleicons.org/gmail/2E9EF7" width="28" alt="Email"/></a>
-</p>
-
-<p align="center">
+<p align="left">
 <sub>WeChat: cgartlab-com &middot; Telegram: @cgartlab</sub>
 </p>
