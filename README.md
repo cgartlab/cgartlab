@@ -17,8 +17,6 @@
 
 CG art, 3D visualization, creative technology. Building tools for creators, one post at a time.
 
-**Now:** cgartlab RSS automation toolkit &middot; OKLch color system &middot; Three.js shader experiments
-
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
@@ -33,45 +31,7 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 
 ## Tech Stack
 
-<img src="https://skillicons.dev/icons?i=blender,unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker,git,github,vscode&perline=8" alt="Tech Stack" width="100%"/>
-
-<details>
-<summary>Stack breakdown</summary>
-
-| Creative | Engineering | Web & Infra |
-| :--- | :--- | :--- |
-| Blender | Python | Astro |
-| Unity | Go | Tailwind |
-| Figma | TypeScript | Docker |
-| Three.js | JavaScript | Git |
-
-</details>
-
-## How It Works
-
-<details>
-<summary>RSS Updater Architecture</summary>
-
-```text
-rss_updater/
-├── cli.py        # argparse + health-check
-├── models.py     # Pydantic v2 data models
-├── fetcher.py    # 3-level fallback fetch
-├── detector.py   # SHA-256 hash diff
-├── renderer.py   # Markdown section renderer
-├── updater.py    # Orchestration
-├── history.py    # JSON + FileLock persistence
-├── notifier.py   # Telegram / Webhook
-└── logger.py     # Dual console+file
-```
-
-Run: `python rss_updater.py --check-mode`
-
-</details>
-
-<p align="center">
-<img src="assets/divider.svg" alt="---" width="400"/>
-</p>
+<img src="https://skillicons.dev/icons?i=unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker&perline=8" alt="Tech Stack" width="70%"/>
 
 <div align="center">
 
