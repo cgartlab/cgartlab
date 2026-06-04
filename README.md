@@ -3,10 +3,10 @@
 </p>
 
 <p align="center">
-<a href="https://cgartlab.com"><img src="https://cdn.simpleicons.org/googlechrome/2E9EF7" width="28" alt="Blog"/></a> &nbsp;
-<a href="https://github.com/cgartlab"><img src="https://cdn.simpleicons.org/github/2E9EF7" width="28" alt="GitHub"/></a> &nbsp;
-<a href="https://cgartlab.com/rss.xml"><img src="https://cdn.simpleicons.org/rss/2E9EF7" width="28" alt="RSS"/></a> &nbsp;
-<a href="mailto:hi@cgartlab.com"><img src="https://cdn.simpleicons.org/gmail/2E9EF7" width="28" alt="Email"/></a>
+<a href="https://cgartlab.com"><img src="https://cdn.simpleicons.org/googlechrome/oklch(0.52 0.08 115)" width="28" alt="Blog"/></a> &nbsp;
+<a href="https://github.com/cgartlab"><img src="https://cdn.simpleicons.org/github/oklch(0.52 0.08 115)" width="28" alt="GitHub"/></a> &nbsp;
+<a href="https://cgartlab.com/rss.xml"><img src="https://cdn.simpleicons.org/rss/oklch(0.52 0.08 115)" width="28" alt="RSS"/></a> &nbsp;
+<a href="mailto:hi@cgartlab.com"><img src="https://cdn.simpleicons.org/gmail/oklch(0.52 0.08 115)" width="28" alt="Email"/></a>
 </p>
 
 <p align="center">
@@ -33,7 +33,7 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 
 ## Tech Stack
 
-<img src="https://skillicons.dev/icons?i=blender,unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker,git,github,vscode&perline=16" alt="Tech Stack" width="100%"/>
+<img src="https://skillicons.dev/icons?i=blender,unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker,git,github,vscode&perline=8" alt="Tech Stack" width="100%"/>
 
 <details>
 <summary>Stack breakdown</summary>
@@ -75,8 +75,7 @@ Run: `python rss_updater.py --check-mode`
 
 <div align="center">
 
-<a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/></a> &nbsp;
-<a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="Lint and Test"/></a> &nbsp;
+<a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/></a> &nbsp; <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="Lint and Test"/></a> &nbsp;
 <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="Visitors"/>
 
 </div>
@@ -94,10 +93,5 @@ Run: `python rss_updater.py --check-mode`
 </p>
 
 <p align="center">
-<a href="https://weixin.qq.com"><img src="wachat-qr-code.png" alt="WeChat" height="100"/></a> &nbsp;
-<a href="https://t.me/cgartlab"><img src="telegram-qr-code.png" alt="Telegram" height="100"/></a>
-</p>
-
-<p align="center">
-<sub>WeChat: CGArtLab &middot; Telegram: @cgartlab</sub>
+<sub>WeChat: cgartlab-com &middot; Telegram: @cgartlab</sub>
 </p>
