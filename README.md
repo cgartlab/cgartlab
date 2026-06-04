@@ -2,17 +2,6 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=CGArtLab&fontAlignY=35&desc=CG%20Art%20%7C%203D%20Visualization%20%7C%20Creative%20Technology&descAlignY=60" alt="CGArtLab Banner"/>
 </p>
 
-<p align="center">
-<a href="https://cgartlab.com"><img src="https://cdn.simpleicons.org/googlechrome/oklch(0.52 0.08 115)" width="28" alt="Blog"/></a> &nbsp;
-<a href="https://github.com/cgartlab"><img src="https://cdn.simpleicons.org/github/oklch(0.52 0.08 115)" width="28" alt="GitHub"/></a> &nbsp;
-<a href="https://cgartlab.com/rss.xml"><img src="https://cdn.simpleicons.org/rss/oklch(0.52 0.08 115)" width="28" alt="RSS"/></a> &nbsp;
-<a href="mailto:hi@cgartlab.com"><img src="https://cdn.simpleicons.org/gmail/oklch(0.52 0.08 115)" width="28" alt="Email"/></a>
-</p>
-
-<p align="center">
-<sub>Blog &middot; GitHub &middot; RSS &middot; Email</sub>
-</p>
-
 ## About
 
 CG art, 3D visualization, creative technology. Building tools for creators, one post at a time.
@@ -39,8 +28,6 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 ## Tech Stack
 
 <img src="https://skillicons.dev/icons?i=unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker&perline=8" alt="Tech Stack" width="70%"/>
-
-
 
 ## Contact
 
