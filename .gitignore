@@ -51,3 +51,5 @@ Thumbs.db
 
 # Assets (static README dependencies)
 assets/
+# OpenCode runtime cache
+.omo/
