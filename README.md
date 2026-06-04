@@ -13,19 +13,11 @@
 <sub>Blog &middot; GitHub &middot; RSS &middot; Email</sub>
 </p>
 
-<p align="center">
-<img src="assets/divider.svg" alt="---" width="400"/>
-</p>
-
 ## About
 
 CG art, 3D visualization, creative technology. Building tools for creators, one post at a time.
 
 **Now:** cgartlab RSS automation toolkit &middot; OKLch color system &middot; Three.js shader experiments
-
-<p align="center">
-<img src="assets/divider.svg" alt="---" width="400"/>
-</p>
 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
@@ -39,13 +31,9 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 - [当AI开始记住你的一切，这是我的使用策略 — No.14 玄光周刊](https://cgartlab.com/posts/weekly-14/) — 2026-03-20
 <!-- BLOG_POSTS_END -->
 
-<p align="center">
-<img src="assets/divider.svg" alt="---" width="400"/>
-</p>
-
 ## Tech Stack
 
-<img src="https://skillicons.dev/icons?i=blender,unity,ae,figma,threejs,python,go,js,ts,react,astro,tailwind,docker,git,github,vscode,md&perline=16" alt="Tech Stack" width="100%"/>
+<img src="https://skillicons.dev/icons?i=blender,unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker,git,github,vscode&perline=16" alt="Tech Stack" width="100%"/>
 
 <details>
 <summary>Stack breakdown</summary>
