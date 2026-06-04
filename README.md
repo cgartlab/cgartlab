@@ -20,6 +20,13 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
+<div align="left">
+
+<a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/></a> &nbsp; <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="Lint and Test"/></a> &nbsp;
+<img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="Visitors"/>
+
+</div>
+
 *Last Updated: 2026-05-25 09:53:47 UTC*
 
 - [我常用的 OpenClaw 工作流 Skill — No.18 玄光周刊](https://cgartlab.com/posts/weekly-18/) — 2026-05-24
@@ -33,16 +40,7 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 
 <img src="https://skillicons.dev/icons?i=unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker&perline=8" alt="Tech Stack" width="70%"/>
 
-<div align="center">
 
-<a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/></a> &nbsp; <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="Lint and Test"/></a> &nbsp;
-<img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="Visitors"/>
-
-</div>
-
-<div align="center">
-<sub>Python 3.11 &middot; GitHub Actions &middot; RSS Automation</sub>
-</div>
 
 ## Contact
 
