@@ -53,3 +53,7 @@ Thumbs.db
 assets/
 # OpenCode runtime cache
 .omo/
+
+# Debug scripts with API tokens
+.omo/
+
