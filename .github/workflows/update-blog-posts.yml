@@ -70,10 +70,13 @@ jobs:
         id: update
         timeout-minutes: 10
         env:
-          FORCE_UPDATE: ${{ github.event.inputs.force_update }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python rss_updater.py --check-mode 2>&1 | tee update_log.txt
+          if [ "${{ github.event.inputs.force_update }}" == "true" ]; then
+            python rss_updater.py --force 2>&1 | tee update_log.txt
+          else
+            python rss_updater.py 2>&1 | tee update_log.txt
+          fi
           exit_code=${PIPESTATUS[0]}
 
           if [ $exit_code -eq 0 ]; then
