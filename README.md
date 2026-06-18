@@ -2,6 +2,9 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=CGArtLab&fontAlignY=35&desc=CG%20Art%20%7C%203D%20Visualization%20%7C%20Creative%20Technology&descAlignY=60" alt="CGArtLab Banner"/>
 </p>
 
+[![CI](https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg)](https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml)
+[![Argus-Flash Review](https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml/badge.svg)](https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml)
+
 ## About
 
 CG art, 3D visualization, creative technology. Building tools for creators, one post at a time.
