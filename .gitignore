@@ -48,12 +48,12 @@ Thumbs.db
 
 # OpenCode
 .opencode/
+.code-jarvis/
+.sisyphus/
+.trae/
 
 # Assets (static README dependencies)
 assets/
 # OpenCode runtime cache
-.omo/
-
-# Debug scripts with API tokens
 .omo/
 
