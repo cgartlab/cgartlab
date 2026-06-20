@@ -31,6 +31,7 @@ class MarkdownRenderer:
 
             lines.append(f"- [{title}]({link}) — {date}")
 
+        lines.append("")
         return "\n".join(lines)
 
     def update_content(
