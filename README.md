@@ -12,7 +12,7 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-06-26 10:45:10 UTC*
+*Last Updated: 2026-06-26 17:41:41 UTC*
 
 - [EDIC设计系统](https://cgartlab.com/posts/edic-design-system/) — 2026-06-08
 - [我常用的 OpenClaw 工作流 Skill \- No\.18 玄光周刊](https://cgartlab.com/posts/weekly-18/) — 2026-05-24
