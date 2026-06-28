@@ -12,13 +12,13 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-06-28 10:21:55 UTC*
+*Last Updated: 2026-06-28 13:59:32 UTC*
 
+- [自动给文章术语加百科链接，这个方案一分钟搞定](https://cgartlab.com/posts/auto-glossary-term-linking/) — 2026-06-28
 - [EDIC设计系统](https://cgartlab.com/posts/edic-design-system/) — 2026-06-08
 - [我常用的 OpenClaw 工作流 Skill \- No\.18 玄光周刊](https://cgartlab.com/posts/weekly-18/) — 2026-05-24
 - [从黑苹果到独立博客，这是我的开源旅程 \- No\.17玄光周刊](https://cgartlab.com/posts/weekly-17/) — 2026-05-02
 - [AI时代的创意工具 \- No\.16玄光周刊](https://cgartlab.com/posts/weekly-16/) — 2026-04-20
-- [工具塑造创作方式 \- No\.15 玄光周刊](https://cgartlab.com/posts/weekly-15/) — 2026-04-10
 <!-- BLOG_POSTS_END -->
 
 ## Tech Stack
