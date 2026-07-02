@@ -41,12 +41,14 @@ class TestWebhookNotifier:
             Article(title="B", link="https://b.com", date="2024-01-02"),
         ]
 
-        with patch("rss_updater.notifier.requests.post") as mock_post:
-            mock_post.return_value = MagicMock()
+        mock_session = MagicMock()
+        mock_response = MagicMock()
+        mock_session.post.return_value = mock_response
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             asyncio.run(notifier.notify("TestFeed", articles))
 
-        mock_post.assert_called_once()
-        call_args = mock_post.call_args
+        mock_session.post.assert_called_once()
+        call_args = mock_session.post.call_args
         assert call_args[0][0] == "https://example.com/hook"
         payload = call_args[1]["json"]
         assert payload["feed_name"] == "TestFeed"
@@ -57,9 +59,10 @@ class TestWebhookNotifier:
     def test_notify_skips_when_not_configured(self) -> None:
         config = NotificationChannel(type="webhook", webhook_url="")
         notifier = WebhookNotifier(config)
-        with patch("rss_updater.notifier.requests.post") as mock_post:
+        mock_session = MagicMock()
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             asyncio.run(notifier.notify("TestFeed", [Article(title="A", link="https://a.com")]))
-        mock_post.assert_not_called()
+        mock_session.post.assert_not_called()
 
 
 class TestTelegramNotifier:
@@ -83,12 +86,14 @@ class TestTelegramNotifier:
         notifier = TelegramNotifier(config)
         articles = [Article(title="Article 1", link="https://a.com", date="2024-01-01")]
 
-        with patch("rss_updater.notifier.requests.post") as mock_post:
-            mock_post.return_value = MagicMock()
+        mock_session = MagicMock()
+        mock_response = MagicMock()
+        mock_session.post.return_value = mock_response
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             asyncio.run(notifier.notify("MyFeed", articles))
 
-        mock_post.assert_called_once()
-        call_args = mock_post.call_args
+        mock_session.post.assert_called_once()
+        call_args = mock_session.post.call_args
         assert call_args[0][0] == "https://api.telegram.org/botmytoken/sendMessage"
         payload = call_args[1]["json"]
         assert payload["chat_id"] == "456"
@@ -99,9 +104,10 @@ class TestTelegramNotifier:
     def test_notify_skips_when_not_configured(self) -> None:
         config = NotificationChannel(type="telegram", telegram_token="", telegram_chat_id="")
         notifier = TelegramNotifier(config)
-        with patch("rss_updater.notifier.requests.post") as mock_post:
+        mock_session = MagicMock()
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             asyncio.run(notifier.notify("MyFeed", [Article(title="A", link="https://a.com")]))
-        mock_post.assert_not_called()
+        mock_session.post.assert_not_called()
 
 
 class TestBarkNotifier:
@@ -123,23 +129,27 @@ class TestBarkNotifier:
             Article(title="World", link="https://b.com", date="2024-01-02"),
         ]
 
-        with patch("rss_updater.notifier.requests.get") as mock_get:
-            mock_get.return_value = MagicMock()
+        mock_session = MagicMock()
+        mock_response = MagicMock()
+        mock_session.get.return_value = mock_response
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             asyncio.run(notifier.notify("Feed", articles))
 
-        mock_get.assert_called_once()
-        call_url = mock_get.call_args[0][0]
-        assert call_url.startswith("https://api.day.app/mykey/")
-        assert "Feed" in call_url
-        assert "Hello" in call_url
-        assert "World" in call_url
+        mock_session.get.assert_called_once()
+        call_args = mock_session.get.call_args
+        assert call_args[0][0] == "https://api.day.app/mykey"
+        params = call_args[1]["params"]
+        assert params["title"] == "Feed 更新"
+        assert "Hello" in params["body"]
+        assert "World" in params["body"]
 
     def test_notify_skips_when_not_configured(self) -> None:
         config = NotificationChannel(type="bark", bark_key="")
         notifier = BarkNotifier(config)
-        with patch("rss_updater.notifier.requests.get") as mock_get:
+        mock_session = MagicMock()
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             asyncio.run(notifier.notify("Feed", [Article(title="A", link="https://a.com")]))
-        mock_get.assert_not_called()
+        mock_session.get.assert_not_called()
 
 
 class TestNotifierExceptions:
@@ -148,7 +158,9 @@ class TestNotifierExceptions:
         notifier = WebhookNotifier(config)
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
-        with patch("rss_updater.notifier.requests.post", side_effect=Exception("network error")):
+        mock_session = MagicMock()
+        mock_session.post.side_effect = Exception("network error")
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             asyncio.run(notifier.notify("TestFeed", articles))
 
     def test_telegram_notify_exception(self) -> None:
@@ -156,7 +168,9 @@ class TestNotifierExceptions:
         notifier = TelegramNotifier(config)
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
-        with patch("rss_updater.notifier.requests.post", side_effect=Exception("network error")):
+        mock_session = MagicMock()
+        mock_session.post.side_effect = Exception("network error")
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             asyncio.run(notifier.notify("TestFeed", articles))
 
     def test_bark_notify_exception(self) -> None:
@@ -164,7 +178,9 @@ class TestNotifierExceptions:
         notifier = BarkNotifier(config)
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
-        with patch("rss_updater.notifier.requests.get", side_effect=Exception("network error")):
+        mock_session = MagicMock()
+        mock_session.get.side_effect = Exception("network error")
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             asyncio.run(notifier.notify("TestFeed", articles))
 
 
@@ -208,41 +224,68 @@ class TestSendNotifications:
         channel = NotificationChannel(type="webhook", webhook_url="https://example.com/hook")
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
-        with patch("rss_updater.notifier.requests.post") as mock_post:
-            mock_post.return_value = MagicMock()
+        mock_session = MagicMock()
+        mock_response = MagicMock()
+        mock_session.post.return_value = mock_response
+        with patch("rss_updater.notifier._http_session", return_value=mock_session):
             send_notifications([channel], "Feed", articles)
 
-        mock_post.assert_called_once()
+        mock_session.post.assert_called_once()
 
     def test_send_notifications_skips_disabled_channels(self) -> None:
         channel = NotificationChannel(type="webhook", enabled=False, webhook_url="https://example.com/hook")
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
-        with patch("rss_updater.notifier.requests.post") as mock_post:
+        with patch("rss_updater.notifier._http_session") as mock_hs:
             send_notifications([channel], "Feed", articles)
 
-        mock_post.assert_not_called()
+        mock_hs.return_value.post.assert_not_called()
 
     def test_send_notifications_skips_empty_articles(self) -> None:
         channel = NotificationChannel(type="webhook", webhook_url="https://example.com/hook")
-        with patch("rss_updater.notifier.requests.post") as mock_post:
-            send_notifications([channel], "Feed", [])
-        mock_post.assert_not_called()
+        articles: list[Article] = []
+        with patch("rss_updater.notifier._http_session") as mock_hs:
+            send_notifications([channel], "Feed", articles)
+
+        mock_hs.return_value.post.assert_not_called()
+
+
+class TestHttpSession:
+    def test_http_session_creates_configured_session(self) -> None:
+        from rss_updater.notifier import _http_session
+
+        session = _http_session()
+        try:
+            assert session is not None
+            assert hasattr(session, "get")
+            assert hasattr(session, "post")
+            adapters = session.adapters
+            assert "https://" in adapters
+            assert "http://" in adapters
+        finally:
+            session.close()
+
+    def test_http_session_closeable(self) -> None:
+        from rss_updater.notifier import _http_session
+
+        session = _http_session()
+        session.close()
+        assert True
 
     def test_send_notifications_skips_unconfigured(self) -> None:
         channel = NotificationChannel(type="webhook", webhook_url="")
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
-        with patch("rss_updater.notifier.requests.post") as mock_post:
+        with patch("rss_updater.notifier._http_session") as mock_hs:
             send_notifications([channel], "Feed", articles)
 
-        mock_post.assert_not_called()
+        mock_hs.return_value.post.assert_not_called()
 
     def test_send_notifications_skips_unknown_type(self) -> None:
         channel = NotificationChannel(type="unknown_type_xyz")
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
-        with patch("rss_updater.notifier.requests.post") as mock_post:
+        with patch("rss_updater.notifier._http_session") as mock_hs:
             send_notifications([channel], "Feed", articles)
 
-        mock_post.assert_not_called()
+        mock_hs.return_value.post.assert_not_called()
