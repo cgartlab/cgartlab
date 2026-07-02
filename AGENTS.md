@@ -48,7 +48,7 @@ python rss_updater.py --verbose
 
 ## GitHub Workflow
 
-- 每 4 小时定时运行
+- 每 8 小时定时运行
 - 推送到 main 且变更 `rss_config.json`、`rss_updater.py` 或 workflow 文件时触发
 - 支持手动 `workflow_dispatch`，可选 `force_update` 参数
 
