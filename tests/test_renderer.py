@@ -13,6 +13,11 @@ class TestMarkdownRenderer:
         expected = r"Hello \*world\* \[link\]\(url\) \#tag"
         assert MarkdownRenderer._escape_markdown(text) == expected
 
+    def test_escape_markdown_cjk(self) -> None:
+        text = "中文测试 *特殊* [字符](url) #测试"
+        expected = r"中文测试 \*特殊\* \[字符\]\(url\) \#测试"
+        assert MarkdownRenderer._escape_markdown(text) == expected
+
     def test_render_section_basic(self) -> None:
         renderer = MarkdownRenderer()
         articles = [

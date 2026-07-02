@@ -16,6 +16,9 @@ from rss_updater.models import CheckResult
 logger = logging.getLogger("rss_updater.history")
 
 
+HISTORY_RETENTION_DAYS = 30
+
+
 class HistoryManager:
     def __init__(self, history_dir: Path) -> None:
         self.history_dir = Path(history_dir)
@@ -118,7 +121,7 @@ class HistoryManager:
         return sorted_checks[:limit]
 
     def _cleanup_old_checks(self, history: dict[str, Any]) -> None:
-        cutoff = datetime.now(UTC) - timedelta(days=30)
+        cutoff = datetime.now(UTC) - timedelta(days=HISTORY_RETENTION_DAYS)
         for feed_name in list(history.keys()):
             feed_data = history.get(feed_name, {})
             checks: list[dict[str, Any]] = feed_data.get("checks", [])

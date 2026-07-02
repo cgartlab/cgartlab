@@ -15,10 +15,8 @@ class MarkdownRenderer:
     def render_section(
         self,
         articles: list[Article],
-        feed_name: str = "",
         max_posts: int = 5,
     ) -> str:
-        _ = feed_name  # unused; format uses a static heading
         lines: list[str] = ["## 📝 Latest Blog Posts / 最新博客文章", ""]
         now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
         lines.append(f"*Last Updated: {now}*")
