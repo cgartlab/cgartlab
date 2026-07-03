@@ -47,6 +47,6 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
   <img src="assets/telegram-qr-code.png" width="auto" height="120" alt="Telegram"/>
 </p>
 
-<p align="center">
+<p align="left">
 WeChat: cgartlab-com &middot; Telegram: <a href="https://t.me/cgartlab">@cgartlab</a>
 </p>
