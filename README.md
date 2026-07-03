@@ -6,7 +6,7 @@
   <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="CI"/></a>
   <a href="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml/badge.svg" alt="Argus-Flash Review"/></a>
   <a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Blog Posts"/></a>
-  <img src="https://visitor-badge.litebird.com/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
 </p>
 
 ## 📖 About
@@ -36,18 +36,6 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 
 <img src="assets/divider.svg" alt="divider" width="100%"/>
 
-## 🚀 Featured Projects
-
-| Project | Description | Stack |
-|---------|-------------|-------|
-| [CGArtLab 主站](https://cgartlab.com) | 个人品牌站点 — 周刊、博客、作品集 | Astro 6 + Cloudflare Workers |
-| [Vibeweave](https://github.com/cgartlab/vibeweave) | AI 音乐情绪编织 | Astro 6 + React 19 + Supabase |
-| [ArcLab](https://github.com/cgartlab/ArcLab) | Three.js 节点工作流原型 | Three.js + 纯静态 |
-| [LayerRenamer](https://github.com/cgartlab/LayerRenamer) | PS/AE 批量图层重命名 | ExtendScript |
-| [Chat Bubbles](https://github.com/cgartlab/chat-bubbles-for-youtube) | 聊天气泡录制工具 | React + Vite |
-
-<img src="assets/divider.svg" alt="divider" width="100%"/>
-
 ## 🛠️ Tech Stack
 
 <p align="center">
@@ -59,9 +47,9 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 ## 📬 Contact
 
 <p align="center">
-  <img src="assets/wechat-qr-code.png" width="120" alt="WeChat"/>
+  <img src="assets/wechat-qr-code.png" width="120" height="120" alt="WeChat"/>
   &nbsp;&nbsp;&nbsp;
-  <img src="assets/telegram-qr-code.png" width="120" alt="Telegram"/>
+  <img src="assets/telegram-qr-code.png" width="120" height="120" alt="Telegram"/>
 </p>
 
 <p align="center">
