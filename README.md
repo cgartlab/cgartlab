@@ -41,7 +41,7 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 
 ## 📬 Contact
 
-<p align="center">
+<p align="left">
   <img src="assets/wechat-qr-code.png" width="auto" height="120" alt="WeChat"/>
   &nbsp;&nbsp;&nbsp;
   <img src="assets/telegram-qr-code.png" width="auto" height="120" alt="Telegram"/>
