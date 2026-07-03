@@ -15,11 +15,6 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 
 Automating content pipelines, crafting open-source tools, and exploring the intersection of code and visual art. Every project here is a step toward a more creative, automated workflow.
 
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=cgartlab&show_icons=true&theme=transparent&hide_border=true&title_color=2E9EF7&icon_color=2E9EF7&text_color=9fadbd" height="165"/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=cgartlab&layout=compact&theme=transparent&hide_border=true&title_color=2E9EF7&text_color=9fadbd" height="165"/>
-</p>
-
 <img src="assets/divider.svg" alt="divider" width="100%"/>
 
 <!-- BLOG_POSTS_START -->
@@ -38,7 +33,7 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 
 ## 🛠️ Tech Stack
 
-<p align="center">
+<p align="left">
 <img src="https://skillicons.dev/icons?i=unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker&perline=8" alt="Tech Stack" width="70%"/>
 </p>
 
@@ -47,9 +42,9 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 ## 📬 Contact
 
 <p align="center">
-  <img src="assets/wechat-qr-code.png" width="120" height="120" alt="WeChat"/>
+  <img src="assets/wechat-qr-code.png" width="auto" height="120" alt="WeChat"/>
   &nbsp;&nbsp;&nbsp;
-  <img src="assets/telegram-qr-code.png" width="120" height="120" alt="Telegram"/>
+  <img src="assets/telegram-qr-code.png" width="auto" height="120" alt="Telegram"/>
 </p>
 
 <p align="center">
