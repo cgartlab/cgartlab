@@ -1,6 +1,7 @@
-name: Lint and Test
+name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

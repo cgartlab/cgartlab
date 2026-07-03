@@ -114,7 +114,7 @@ class RSSUpdater:
             if result.status == "success" and result.new_articles:
                 any_new_content = True
                 if not self.check_mode:
-                    section = self.renderer.render_section(result.articles, feed.name, feed.max_posts)
+                    section = self.renderer.render_section(result.articles, feed.max_posts)
                     content = self.renderer.update_content(content, section, feed.section_marker)
 
                 send_notifications(self.config.notifications, feed.name, result.new_articles)

@@ -6,10 +6,31 @@ import logging
 from typing import Any
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from rss_updater.models import Article, NotificationChannel
 
 logger = logging.getLogger("rss_updater.notifier")
+
+# Retry config shared across all notifier HTTP calls
+_RETRY_CONFIG = Retry(
+    total=3,
+    backoff_factor=1,
+    status_forcelist={429, 500, 502, 503, 504},
+    allowed_methods=["GET", "POST"],
+)
+
+# Default timeout for notification HTTP calls (seconds)
+_DEFAULT_NOTIFY_TIMEOUT = 30.0
+
+
+def _http_session() -> requests.Session:
+    """Return a requests Session with retry logic pre-configured."""
+    session = requests.Session()
+    session.mount("http://", HTTPAdapter(max_retries=_RETRY_CONFIG))
+    session.mount("https://", HTTPAdapter(max_retries=_RETRY_CONFIG))
+    return session
 
 
 class BaseNotifier(abc.ABC):
@@ -46,7 +67,8 @@ class WebhookNotifier(BaseNotifier):
             "count": len(new_articles),
         }
         try:
-            response = requests.post(webhook_url, json=payload, timeout=30)
+            session = _http_session()
+            response = session.post(webhook_url, json=payload, timeout=_DEFAULT_NOTIFY_TIMEOUT)
             response.raise_for_status()
             logger.info("Webhook notification sent to %s for %s", webhook_url, feed_name)
         except Exception:
@@ -72,7 +94,8 @@ class TelegramNotifier(BaseNotifier):
             "parse_mode": "Markdown",
         }
         try:
-            response = requests.post(api_url, json=payload, timeout=30)
+            session = _http_session()
+            response = session.post(api_url, json=payload, timeout=_DEFAULT_NOTIFY_TIMEOUT)
             response.raise_for_status()
             logger.info("Telegram notification sent for %s", feed_name)
         except Exception:
@@ -92,9 +115,12 @@ class BarkNotifier(BaseNotifier):
         key = _get_config_value(self.config, "bark_key")
         title = f"{feed_name} 更新"
         body = "\n".join(a.title for a in new_articles[:5])
-        url = f"https://api.day.app/{key}/{requests.utils.quote(title)}/{requests.utils.quote(body)}"
+        # Token as query param instead of URL path — avoids token leaking in logs/traces
+        params = {"title": title, "body": body}
+        url = f"https://api.day.app/{key}"
         try:
-            response = requests.get(url, timeout=30)
+            session = _http_session()
+            response = session.get(url, params=params, timeout=_DEFAULT_NOTIFY_TIMEOUT)
             response.raise_for_status()
             logger.info("Bark notification sent for %s", feed_name)
         except Exception:

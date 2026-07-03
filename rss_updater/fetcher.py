@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import time
 
-import feedparser
+import feedparser  # type: ignore[import-untyped]
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
