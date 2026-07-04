@@ -1,10 +1,10 @@
-## About
+## About 
 
 CG art, 3D visualization, creative technology. Building tools for creators, one post at a time.
 
 Automating content pipelines, crafting open-source tools, and exploring the intersection of code and visual art. Every project here is a step toward a more creative, automated workflow.
 
-<img src="assets/divider.svg" alt="divider" width="100%"/>
+<img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
 
 <!-- BLOG_POSTS_START -->
 ## Latest Blog Posts
@@ -13,7 +13,6 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
   <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="CI"/></a>
   <a href="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml/badge.svg" alt="Argus-Flash Review"/></a>
   <a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Blog Posts"/></a>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
 </p>
 
 *Last Updated: 2026-07-04 16:56:04 UTC*
@@ -25,15 +24,11 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 - [AI时代的创意工具 \- No\.16玄光周刊](https://cgartlab.com/posts/weekly-16/) — 2026-04-20
 <!-- BLOG_POSTS_END -->
 
-<img src="assets/divider.svg" alt="divider" width="100%"/>
-
 ## Tech Stack
 
 <p align="left">
 <img src="https://skillicons.dev/icons?i=unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker&perline=8" alt="Tech Stack" width="70%"/>
 </p>
-
-<img src="assets/divider.svg" alt="divider" width="100%"/>
 
 ## Contact
 
