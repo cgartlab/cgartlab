@@ -1,8 +1,8 @@
 ## About 
 
-CG art, 3D visualization, creative technology. Building tools for creators, one post at a time.
+I'm a Motion Visual Designer, Digital Creator, and Writer from China.
 
-Automating content pipelines, crafting open-source tools, and exploring the intersection of code and visual art. Every project here is a step toward a more creative, automated workflow.
+I explore the intersection of Design, AI, Knowledge Management, and Automation, building tools and workflows that help creators work more efficiently.
 
 <!-- BLOG_POSTS_START -->
 ## Latest Blog Posts
@@ -21,12 +21,6 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 - [从黑苹果到独立博客，这是我的开源旅程 \- No\.17玄光周刊](https://cgartlab.com/posts/weekly-17/) — 2026-05-02
 - [AI时代的创意工具 \- No\.16玄光周刊](https://cgartlab.com/posts/weekly-16/) — 2026-04-20
 <!-- BLOG_POSTS_END -->
-
-## Tech Stack
-
-<p align="left">
-<img src="https://skillicons.dev/icons?i=unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker&perline=8" alt="Tech Stack" width="70%"/>
-</p>
 
 ## Contact <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
 
