@@ -4,8 +4,6 @@ CG art, 3D visualization, creative technology. Building tools for creators, one 
 
 Automating content pipelines, crafting open-source tools, and exploring the intersection of code and visual art. Every project here is a step toward a more creative, automated workflow.
 
-<img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
-
 <!-- BLOG_POSTS_START -->
 ## Latest Blog Posts
 
@@ -30,7 +28,7 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 <img src="https://skillicons.dev/icons?i=unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker&perline=8" alt="Tech Stack" width="70%"/>
 </p>
 
-## Contact
+## Contact <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
 
 <p align="left">
   <img src="assets/wechat-qr-code.png" width="auto" height="120" alt="WeChat"/>
@@ -39,5 +37,5 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 </p>
 
 <p align="left">
-WeChat: cgartlab-com &middot; Telegram: <a href="https://t.me/cgartlab">@cgartlab</a>
+WeChat: cgartlab-com | Telegram: <a href="https://t.me/cgartlab">@cgartlab</a>
 </p>
