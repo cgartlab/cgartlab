@@ -1,6 +1,6 @@
 ## About 
 
-I'm a Motion Visual Designer, Digital Creator, and Writer from China.
+I'm a Motion Visual Designer, Content Creator from China.
 
 I explore the intersection of Design, AI, Knowledge Management, and Automation, building tools and workflows that help creators work more efficiently.
 
