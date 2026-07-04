@@ -1,15 +1,4 @@
-<p align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=CGArtLab&fontAlignY=35&desc=CG%20Art%20%7C%203D%20Visualization%20%7C%20Creative%20Technology&descAlignY=60" width="100%" alt="CGArtLab Banner"/>
-</p>
-
-<p align="center">
-  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="CI"/></a>
-  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml/badge.svg" alt="Argus-Flash Review"/></a>
-  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Blog Posts"/></a>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
-</p>
-
-## 📖 About
+## About
 
 CG art, 3D visualization, creative technology. Building tools for creators, one post at a time.
 
@@ -18,7 +7,14 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 <img src="assets/divider.svg" alt="divider" width="100%"/>
 
 <!-- BLOG_POSTS_START -->
-## 📝 Latest Blog Posts / 最新博客文章
+## Latest Blog Posts
+
+<p align="left">
+  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="CI"/></a>
+  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml/badge.svg" alt="Argus-Flash Review"/></a>
+  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Blog Posts"/></a>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
+</p>
 
 *Last Updated: 2026-07-04 16:56:04 UTC*
 
@@ -31,7 +27,7 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 
 <img src="assets/divider.svg" alt="divider" width="100%"/>
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 <p align="left">
 <img src="https://skillicons.dev/icons?i=unity,ae,pr,ai,figma,obsidian,notion,python,js,wordpress,astro,docker&perline=8" alt="Tech Stack" width="70%"/>
@@ -39,7 +35,7 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 
 <img src="assets/divider.svg" alt="divider" width="100%"/>
 
-## 📬 Contact
+## Contact
 
 <p align="left">
   <img src="assets/wechat-qr-code.png" width="auto" height="120" alt="WeChat"/>
