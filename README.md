@@ -20,7 +20,7 @@ Automating content pipelines, crafting open-source tools, and exploring the inte
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-07-04 10:01:18 UTC*
+*Last Updated: 2026-07-04 16:56:04 UTC*
 
 - [自动给文章术语加百科链接，这个方案一分钟搞定](https://cgartlab.com/posts/auto-glossary-term-linking/) — 2026-06-28
 - [EDIC设计系统](https://cgartlab.com/posts/edic-design-system/) — 2026-06-08
