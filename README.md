@@ -5,15 +5,9 @@ I'm a Motion Visual Designer, Content Creator from China.
 I explore the intersection of Design, AI, Knowledge Management, and Automation, building tools and workflows that help creators work more efficiently.
 
 <!-- BLOG_POSTS_START -->
-## Latest Blog Posts
+## 📝 Latest Blog Posts / 最新博客文章
 
-<p align="left">
-  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="CI"/></a>
-  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/argus-review.yml/badge.svg" alt="Argus-Flash Review"/></a>
-  <a href="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml"><img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Blog Posts"/></a>
-</p>
-
-*Last Updated: 2026-07-04 16:56:04 UTC*
+*Last Updated: 2026-07-05 02:22:19 UTC*
 
 - [自动给文章术语加百科链接，这个方案一分钟搞定](https://cgartlab.com/posts/auto-glossary-term-linking/) — 2026-06-28
 - [EDIC设计系统](https://cgartlab.com/posts/edic-design-system/) — 2026-06-08
