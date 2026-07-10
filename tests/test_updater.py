@@ -11,7 +11,7 @@ from rss_updater.updater import RSSUpdater
 
 
 class TestRSSUpdater:
-    def _make_config(self, feeds: list[FeedConfig] | None = None) -> AppConfig:
+    def _make_config(self, tmp_path: Path, feeds: list[FeedConfig] | None = None) -> AppConfig:
         if feeds is None:
             feeds = [
                 FeedConfig(
@@ -22,22 +22,22 @@ class TestRSSUpdater:
                     enabled=True,
                 )
             ]
-        return AppConfig(feeds=feeds, settings=Settings(history_dir=".rss_history_test"))
+        return AppConfig(feeds=feeds, settings=Settings(history_dir=str(tmp_path / ".rss_history")))
 
     def _make_readme(self, tmp_path: Path, content: str = "# README\n") -> str:
         readme = tmp_path / "README.md"
         readme.write_text(content, encoding="utf-8")
         return str(readme)
 
-    def test_init(self) -> None:
-        config = self._make_config()
+    def test_init(self, tmp_path: Path) -> None:
+        config = self._make_config(tmp_path)
         updater = RSSUpdater(config, check_mode=True, force=True)
         assert updater.config == config
         assert updater.check_mode is True
         assert updater.force is True
 
     def test_update_readme_normal_flow(self, tmp_path: Path) -> None:
-        config = self._make_config()
+        config = self._make_config(tmp_path)
         readme_path = self._make_readme(tmp_path)
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
@@ -57,7 +57,7 @@ class TestRSSUpdater:
         assert "A" in new_content
 
     def test_check_mode_does_not_write(self, tmp_path: Path, capsys: Any) -> None:
-        config = self._make_config()
+        config = self._make_config(tmp_path)
         readme_path = self._make_readme(tmp_path, "# README\n")
         original_content = Path(readme_path).read_text(encoding="utf-8")
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
@@ -76,7 +76,7 @@ class TestRSSUpdater:
         assert "NEW_CONTENT_DETECTED=true" in captured.out
 
     def test_force_mode_skips_detection(self, tmp_path: Path) -> None:
-        config = self._make_config()
+        config = self._make_config(tmp_path)
         readme_path = self._make_readme(tmp_path)
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
@@ -93,7 +93,7 @@ class TestRSSUpdater:
         mock_notify.assert_called_once()
 
     def test_no_changes(self, tmp_path: Path, capsys: Any) -> None:
-        config = self._make_config()
+        config = self._make_config(tmp_path)
         readme_path = self._make_readme(tmp_path)
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
@@ -113,7 +113,7 @@ class TestRSSUpdater:
         assert "CONTENT_UPDATED=false" in captured.out
 
     def test_fetch_error(self, tmp_path: Path) -> None:
-        config = self._make_config()
+        config = self._make_config(tmp_path)
         readme_path = self._make_readme(tmp_path)
 
         updater = RSSUpdater(config)
@@ -126,6 +126,7 @@ class TestRSSUpdater:
 
     def test_disabled_feed_skipped(self, tmp_path: Path) -> None:
         config = self._make_config(
+            tmp_path,
             [
                 FeedConfig(
                     name="DisabledFeed",
@@ -133,7 +134,7 @@ class TestRSSUpdater:
                     section_marker="DISABLED",
                     enabled=False,
                 )
-            ]
+            ],
         )
         readme_path = self._make_readme(tmp_path)
 
@@ -146,7 +147,7 @@ class TestRSSUpdater:
         assert updated is False
 
     def test_run_returns_0_on_success(self, tmp_path: Path) -> None:
-        config = self._make_config()
+        config = self._make_config(tmp_path)
         _readme_path = self._make_readme(tmp_path)
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
@@ -170,7 +171,7 @@ class TestRSSUpdater:
             assert updater.run() == 0
 
     def test_run_returns_1_on_error(self, tmp_path: Path) -> None:
-        config = self._make_config()
+        config = self._make_config(tmp_path)
         _readme_path = self._make_readme(tmp_path)
 
         updater = RSSUpdater(config)
@@ -198,8 +199,8 @@ class TestRSSUpdater:
         RSSUpdater._atomic_write(target, "hello world")
         assert target.read_text(encoding="utf-8") == "hello world"
 
-    def test_readme_not_found(self) -> None:
-        config = self._make_config()
+    def test_readme_not_found(self, tmp_path: Path) -> None:
+        config = self._make_config(tmp_path)
         updater = RSSUpdater(config)
         updated, results = updater.update_readme("nonexistent.md")
         assert updated is False
@@ -207,6 +208,7 @@ class TestRSSUpdater:
 
     def test_render_readme(self, tmp_path: Path) -> None:
         config = self._make_config(
+            tmp_path,
             [
                 FeedConfig(
                     name="RenderFeed",
@@ -215,7 +217,7 @@ class TestRSSUpdater:
                     max_posts=2,
                     enabled=True,
                 )
-            ]
+            ],
         )
         readme_path = self._make_readme(
             tmp_path,
@@ -242,6 +244,7 @@ class TestRSSUpdater:
 
     def test_render_readme_fetch_error(self, tmp_path: Path) -> None:
         config = self._make_config(
+            tmp_path,
             [
                 FeedConfig(
                     name="RenderFeed",
@@ -250,7 +253,7 @@ class TestRSSUpdater:
                     max_posts=2,
                     enabled=True,
                 )
-            ]
+            ],
         )
         readme_path = self._make_readme(
             tmp_path,
@@ -270,7 +273,7 @@ class TestRSSUpdater:
             RSSUpdater._atomic_write(target, "hello world")
 
     def test_run_exception(self, tmp_path: Path) -> None:
-        config = self._make_config()
+        config = self._make_config(tmp_path)
         updater = RSSUpdater(config)
         with patch.object(updater, "update_readme", side_effect=Exception("unexpected")):
             assert updater.run() == 1
