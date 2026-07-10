@@ -58,3 +58,7 @@ assets/*
 # OpenCode runtime cache
 .omo/
 
+
+# Coverage
+.coverage
+
