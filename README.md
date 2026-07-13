@@ -7,7 +7,7 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-07-13 10:51:43 UTC*
+*Last Updated: 2026-07-13 17:49:18 UTC*
 
 - [自动给文章术语加百科链接，这个方案一分钟搞定](https://cgartlab.com/posts/auto-glossary-term-linking/) — 2026-06-28
 - [EDIC设计系统](https://cgartlab.com/posts/edic-design-system/) — 2026-06-08
