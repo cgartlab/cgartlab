@@ -1,6 +1,6 @@
 ## About 
 
-I'm a [Motion visual designer](https://cgartlab.com/work), [Content creator](https://cgartlab.com/), [Product engineer](https://github.com/cgartlab) from China.
+I'm a [Motion visual designer](https://cgartlab.com/works), [Content creator](https://cgartlab.com/), Product engineer from China.
 
 I explore the intersection of Design, AI, Knowledge Management, and Automation, building tools and workflows that help creators work more efficiently.
 
