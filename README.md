@@ -7,7 +7,7 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-07-30 10:15:24 UTC*
+*Last Updated: 2026-07-30 17:17:34 UTC*
 
 - [我的上帝模式，一名设计师创作环境的演变](https://cgartlab.com/posts/designer-creative-environment-evolution/) — 2026-07-21
 - [自动给文章术语加百科链接，这个方案一分钟搞定](https://cgartlab.com/posts/auto-glossary-term-linking/) — 2026-06-28
