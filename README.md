@@ -7,13 +7,13 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-08-21 08:29:43 UTC*
+*Last Updated: 2026-08-21 16:22:17 UTC*
 
 - [你不知道的 AI 优雅食用指南（一）：慢一点比较快](https://cgartlab.com/posts/ai-guide-slow-is-fast/) — 2026-08-01
 - [我的上帝模式，一名设计师创作环境的演变](https://cgartlab.com/posts/designer-creative-environment-evolution/) — 2026-07-21
+- [Inkard 卡片生成器](https://cgartlab.com/posts/inkard/) — 2026-06-30
 - [自动给文章术语加百科链接，这个方案一分钟搞定](https://cgartlab.com/posts/auto-glossary-term-linking/) — 2026-06-28
-- [EDIC设计系统](https://cgartlab.com/posts/edic-design-system/) — 2026-06-08
-- [我常用的 OpenClaw 工作流 Skill \- No\.18 玄光周刊](https://cgartlab.com/posts/weekly-18/) — 2026-05-24
+- [Argus 前端设计代码审查 Agent](https://cgartlab.com/posts/argus/) — 2026-06-13
 <!-- BLOG_POSTS_END -->
 
 ## Contact <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
