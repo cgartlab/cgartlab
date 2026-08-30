@@ -7,7 +7,7 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-08-30 02:44:54 UTC*
+*Last Updated: 2026-08-30 13:26:27 UTC*
 
 - [Men（门）Agent 团队](https://cgartlab.com/posts/men/) — 2026-08-27
 - [你不知道的 AI 优雅食用指南（一）：慢一点比较快](https://cgartlab.com/posts/ai-guide-slow-is-fast/) — 2026-08-01
