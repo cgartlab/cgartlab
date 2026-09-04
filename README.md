@@ -7,7 +7,7 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-09-03 18:59:48 UTC*
+*Last Updated: 2026-09-04 02:13:31 UTC*
 
 - [《奥德赛》，客制化 Agent，以及那些真正解决麻烦的 Skill · No\.19](https://cgartlab.com/posts/weekly-19/) — 2026-08-31
 - [Men（门）Agent 团队](https://cgartlab.com/posts/men/) — 2026-08-27
