@@ -24,20 +24,21 @@ def setup_logging(log_dir: Path, level: str = "INFO", json_format: bool = False)
     log_dir.mkdir(parents=True, exist_ok=True)
 
     logger = logging.getLogger("rss_updater")
-    logger.setLevel(getattr(logging, level.upper(), logging.INFO))
+    resolved_level = getattr(logging, level.upper(), logging.INFO)
+    logger.setLevel(resolved_level)
 
     if logger.handlers:
         logger.handlers.clear()
 
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.DEBUG)
+    console_handler.setLevel(resolved_level)
     console_fmt = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
     console_handler.setFormatter(console_fmt)
     logger.addHandler(console_handler)
 
     log_file = log_dir / "rss_updater.log"
     file_handler = logging.FileHandler(str(log_file), encoding="utf-8")
-    file_handler.setLevel(logging.DEBUG)
+    file_handler.setLevel(resolved_level)
     if json_format:
         file_fmt: logging.Formatter = _JsonFormatter()
     else:
