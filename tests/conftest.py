@@ -92,7 +92,7 @@ def config_data_old_style() -> dict[str, Any]:
             "max_retries": 2,
             "timeout_seconds": 10.0,
             "history_dir": ".history",
-            "log_level": "DEBUG",
+            "log_level": "INFO",
         },
         "notifications": {
             "telegram": {"enabled": True, "token": "abc123", "chat_id": "-100"},
