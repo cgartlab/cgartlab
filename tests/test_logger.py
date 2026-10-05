@@ -13,10 +13,10 @@ from rss_updater.logger import setup_logging
 def _reset_logger():
     logger = logging.getLogger("rss_updater")
     logger.handlers.clear()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.NOTSET)
     yield
     logger.handlers.clear()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.NOTSET)
 
 
 class TestJsonFormatter:
@@ -41,6 +41,18 @@ class TestJsonFormatter:
 
 
 class TestSetupLogging:
+    def test_handler_levels_follow_configured_level(self, tmp_path: Path):
+        setup_logging(tmp_path, level="WARNING")
+
+        logger = logging.getLogger("rss_updater")
+        console_handler = logger.handlers[0]
+        file_handler = logger.handlers[1]
+
+        assert logger.level == logging.WARNING
+        assert console_handler.level == logging.WARNING
+        assert file_handler.level == logging.WARNING
+        _close_file_handlers(logger)
+
     def test_info_level_logged(self, caplog, tmp_path: Path):
         setup_logging(tmp_path, level="INFO")
         logger = logging.getLogger("rss_updater")
