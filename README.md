@@ -7,7 +7,7 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-10-09 20:25:01 UTC*
+*Last Updated: 2026-10-10 03:36:24 UTC*
 
 - [设计中的通杀概念 \- No\.23](https://cgartlab.com/posts/weekly-23/) — 2026-10-07
 - [人人可用的互联网基础设施 \- No\.22](https://cgartlab.com/posts/weekly-22/) — 2026-10-03
