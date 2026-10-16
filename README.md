@@ -7,7 +7,7 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-10-16 12:53:52 UTC*
+*Last Updated: 2026-10-16 19:09:08 UTC*
 
 - [阅读，思考，写作，哪个更重要？\-No\.24](https://cgartlab.com/posts/weekly-24/) — 2026-10-13
 - [设计中的通杀概念 \- No\.23](https://cgartlab.com/posts/weekly-23/) — 2026-10-07
