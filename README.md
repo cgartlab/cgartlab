@@ -19,5 +19,7 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 ## Contact
 
 <p align="left">
-WeChat: cgartlab-com | Telegram: <a href="https://t.me/cgartlab">@cgartlab</a> <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
+WeChat: cgartlab-com | Telegram: <a href="https://t.me/cgartlab">@cgartlab</a> 
 </p>
+
+<img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
