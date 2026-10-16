@@ -85,7 +85,7 @@ class TestLoadConfig:
                 "max_retries": 2,
                 "timeout_seconds": 10.0,
                 "history_dir": ".history",
-                "log_level": "DEBUG",
+                "log_level": "INFO",
             },
             "notifications": {
                 "telegram": {
