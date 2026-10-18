@@ -1,18 +1,19 @@
 # cgartlab 自动标签：按分支名 + 实际文件结构（替代通用站点模板，修 #44）
 # 由 .github/workflows/auto-label.yml（actions/labeler@v5, sync-labels) 驱动
 # changed-files 必须用 any-glob-to-any-file 包装（labeler v5 语法）
+# 注意：标签名必须与仓库现有标签一致（feat→enhancement, docs→documentation, deps→dependencies）
 fix:
   - head-branch: ["^fix"]
-feat:
+enhancement:
   - head-branch: ["^feat", "^feature"]
-docs:
+documentation:
   - head-branch: ["^docs"]
   - changed-files:
       - any-glob-to-any-file: ["**/*.md"]
 chore:
   - head-branch: ["^chore"]
-deps:
-  - head-branch: ["^dependabot"]
+dependencies:
+  - head-branch: ["^dependabot", "^deps", "^bump"]
 infra:
   - changed-files:
       - any-glob-to-any-file: [".github/**"]
