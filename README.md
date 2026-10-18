@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="CI"/>
+  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/>
+</p>
+
 ## About 
 
 I'm a [Motion visual designer](https://cgartlab.com/works), [Content creator](https://cgartlab.com/), [Product engineer](https://github.com/cgartlab) from China.
@@ -16,7 +21,11 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 - [文字内容创作的形式 \- No\.20](https://cgartlab.com/posts/weekly-20/) — 2026-09-11
 <!-- BLOG_POSTS_END -->
 
-## Contact <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
+<p align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
+</p>
+
+## Contact
 
 <p align="left">
   <img src="assets/wechat-qr-code.png" width="auto" height="120" alt="WeChat"/>
