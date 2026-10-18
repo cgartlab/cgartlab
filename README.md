@@ -4,8 +4,6 @@ I'm a [Motion visual designer](https://cgartlab.com/works), [Content creator](ht
 
 I explore the intersection of Design, AI, Knowledge Management, and Automation, building tools and workflows that help creators work more efficiently.
 
-## 📝 Latest Blog Posts / 最新博客文章
-
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
@@ -23,14 +21,11 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 WeChat: cgartlab-com | Telegram: [@cgartlab](https://t.me/cgartlab)
 
 <p align="left">
-  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg?branch=main" alt="CI"/>
   <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg?branch=main" alt="Update Blog Posts"/>
-  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/codeql.yml/badge.svg?branch=main" alt="CodeQL"/>
 </p>
 
 <p align="left">
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2Fcgartlab&query=%24.public_repos&label=repos&color=blue" alt="Public repos"/>
   <img src="https://img.shields.io/github/stars/cgartlab?affiliations=OWNER&label=total%20stars" alt="Total stars"/>
-  <img src="https://img.shields.io/github/followers/cgartlab?label=followers" alt="Followers"/>
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fsearch%2Fcommits%3Fq%3Dauthor%253Acgartlab&query=%24.total_count&label=commits&color=green" alt="Commits"/>
 </p>
