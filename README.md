@@ -43,9 +43,9 @@ WeChat: cgartlab-com | Telegram: [@cgartlab](https://t.me/cgartlab)
 ## Status / 项目状态
 
 <p align="left">
-  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="CI"/>
-  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/>
-  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/codeql.yml/badge.svg" alt="CodeQL"/>
+  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg?branch=main" alt="CI"/>
+  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg?branch=main" alt="Update Blog Posts"/>
+  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/codeql.yml/badge.svg?branch=main" alt="CodeQL"/>
 </p>
 
 <p align="left">
