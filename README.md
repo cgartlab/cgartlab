@@ -1,16 +1,12 @@
-<p align="center">
-  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="CI"/>
-  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/>
-</p>
-
 ## About 
 
 I'm a [Motion visual designer](https://cgartlab.com/works), [Content creator](https://cgartlab.com/), [Product engineer](https://github.com/cgartlab) from China.
 
 I explore the intersection of Design, AI, Knowledge Management, and Automation, building tools and workflows that help creators work more efficiently.
 
-<!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
+
+<!-- BLOG_POSTS_START -->
 
 *Last Updated: 2026-10-18 10:11:02 UTC*
 
@@ -19,20 +15,21 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 - [人人可用的互联网基础设施 \- No\.22](https://cgartlab.com/posts/weekly-22/) — 2026-10-03
 - [为什么没感觉到 AI 让你变快？\- No\.21](https://cgartlab.com/posts/weekly-21/) — 2026-09-27
 - [文字内容创作的形式 \- No\.20](https://cgartlab.com/posts/weekly-20/) — 2026-09-11
-<!-- BLOG_POSTS_END -->
 
-<p align="center">
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=cgartlab.cgartlab" alt="visitors"/>
-</p>
+<!-- BLOG_POSTS_END -->
 
 ## Contact
 
+WeChat: cgartlab-com | Telegram: [@cgartlab](https://t.me/cgartlab)
+
 <p align="left">
-  <img src="assets/wechat-qr-code.png" width="auto" height="120" alt="WeChat"/>
-  &nbsp;&nbsp;&nbsp;
-  <img src="assets/telegram-qr-code.png" width="auto" height="120" alt="Telegram"/>
+  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg?branch=main" alt="CI"/>
+  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg?branch=main" alt="Update Blog Posts"/>
+  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/codeql.yml/badge.svg?branch=main" alt="CodeQL"/>
 </p>
 
 <p align="left">
-WeChat: cgartlab-com | Telegram: <a href="https://t.me/cgartlab">@cgartlab</a>
+  <img src="https://img.shields.io/github/last-commit/cgartlab/cgartlab?label=last%20commit" alt="Last commit"/>
+  <img src="https://img.shields.io/github/stars/cgartlab/cgartlab" alt="Stars"/>
+  <img src="https://img.shields.io/github/issues/cgartlab/cgartlab" alt="Open issues"/>
 </p>
