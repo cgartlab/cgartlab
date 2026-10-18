@@ -1,11 +1,18 @@
 <p align="center">
   <img src="https://github.com/cgartlab/cgartlab/actions/workflows/lint-and-test.yml/badge.svg" alt="CI"/>
   <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg" alt="Update Blog Posts"/>
+  <img src="https://github.com/cgartlab/cgartlab/actions/workflows/codeql.yml/badge.svg" alt="CodeQL"/>
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=cgartlab&show_icons=true&theme=default&hide_title=false&count_private=true&include_all_commits=true" alt="cgartlab's GitHub stats"/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=cgartlab&layout=compact&theme=default" alt="Top languages"/>
+  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white" alt="Python 3.11+"/>
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License"/>
+  <img src="https://img.shields.io/badge/code%20style-ruff-000000" alt="ruff"/>
+  <img src="https://img.shields.io/badge/types-mypy%20strict-blue" alt="mypy strict"/>
+  <img src="https://img.shields.io/badge/tests-125%20passed-brightgreen" alt="125 tests passing"/>
+  <img src="https://img.shields.io/github/last-commit/cgartlab/cgartlab?label=last%20commit" alt="Last commit"/>
+  <img src="https://img.shields.io/github/stars/cgartlab/cgartlab?style=flat" alt="Stars"/>
+  <img src="https://img.shields.io/github/issues/cgartlab/cgartlab" alt="Open issues"/>
 </p>
 
 ## About 
@@ -19,8 +26,11 @@ Currently focusing on **RSS automation**, **AI-assisted content pipelines**, and
 ### Featured Projects / 精选项目
 
 - **[cgartlab.github.io](https://github.com/cgartlab/cgartlab.github.io)** — Personal site & portfolio built with Astro.
+  <img src="https://img.shields.io/badge/-Astro-FF5D01?logo=astro&logoColor=white" alt="Astro"/>
 - **[edic-design-system](https://github.com/cgartlab/edic-design-system)** — Reusable design system for consistent visual language.
 - **[rss-updater](https://github.com/cgartlab/cgartlab)** — This repo: automated blog-post sync into README via RSS + CI.
+  <img src="https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white" alt="GitHub Actions"/>
 
 <img src="assets/divider.svg" width="100%" alt="divider"/>
 
