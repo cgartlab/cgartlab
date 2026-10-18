@@ -22,9 +22,6 @@ WeChat: cgartlab-com | Telegram: [@cgartlab](https://t.me/cgartlab)
 
 <p align="left">
   <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg?branch=main" alt="Update Blog Posts"/>
-</p>
-
-<p align="left">
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2Fcgartlab&query=%24.public_repos&label=repos&color=blue" alt="Public repos"/>
   <img src="https://img.shields.io/github/stars/cgartlab?affiliations=OWNER&label=total%20stars" alt="Total stars"/>
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fsearch%2Fcommits%3Fq%3Dauthor%253Acgartlab&query=%24.total_count&label=commits&color=green" alt="Commits"/>
