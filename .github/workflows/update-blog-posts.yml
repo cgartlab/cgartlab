@@ -46,7 +46,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Cache pip
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
@@ -59,7 +59,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Cache RSS history
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .rss_history
           key: rss-history-${{ hashFiles('.rss_history/**') }}
