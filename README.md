@@ -20,6 +20,8 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 
 WeChat: cgartlab-com | Telegram: [@cgartlab](https://t.me/cgartlab)
 
+---
+
 <p align="left">
   <img src="https://github.com/cgartlab/cgartlab/actions/workflows/update-blog-posts.yml/badge.svg?branch=main" alt="Update Blog Posts"/>
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2Fcgartlab&query=%24.public_repos&label=repos&color=blue" alt="Public repos"/>
