@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import sys
 import time
 from typing import Any
@@ -12,11 +13,12 @@ from rss_updater.updater import RSSUpdater
 
 def _setup_stdout_utf8() -> None:
     if sys.platform == "win32":
-        try:
+        # reconfigure() may be absent on non-text streams (e.g. piped stdout
+        # during test capture). contextlib.suppress replaces the empty
+        # except: pass that CodeQL flags as py/empty-except.
+        with contextlib.suppress(AttributeError):
             sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[union-attr]
             sys.stderr.reconfigure(encoding="utf-8")  # type: ignore[union-attr]
-        except AttributeError:
-            pass
 
 
 def _build_parser() -> argparse.ArgumentParser:

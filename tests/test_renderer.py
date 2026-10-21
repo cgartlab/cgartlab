@@ -26,7 +26,7 @@ class TestMarkdownRenderer:
         ]
         with patch("rss_updater.renderer.datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 6, 15, 12, 0, 0, tzinfo=UTC)
-            mock_dt.side_effect = lambda *a, **kw: datetime(*a, **kw)
+            mock_dt.side_effect = datetime
             result = renderer.render_section(articles, max_posts=5)
 
         assert "## 📝 Latest Blog Posts / 最新博客文章" in result
@@ -47,7 +47,7 @@ class TestMarkdownRenderer:
         ]
         with patch("rss_updater.renderer.datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 6, 15, 12, 0, 0, tzinfo=UTC)
-            mock_dt.side_effect = lambda *a, **kw: datetime(*a, **kw)
+            mock_dt.side_effect = datetime
             result = renderer.render_section(articles, max_posts=5)
 
         assert "A description" not in result

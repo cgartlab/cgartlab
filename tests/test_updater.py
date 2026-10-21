@@ -148,7 +148,7 @@ class TestRSSUpdater:
 
     def test_run_returns_0_on_success(self, tmp_path: Path) -> None:
         config = self._make_config(tmp_path)
-        _readme_path = self._make_readme(tmp_path)
+        self._make_readme(tmp_path)
         articles = [Article(title="A", link="https://a.com", date="2024-01-01")]
 
         updater = RSSUpdater(config)
@@ -172,7 +172,7 @@ class TestRSSUpdater:
 
     def test_run_returns_1_on_error(self, tmp_path: Path) -> None:
         config = self._make_config(tmp_path)
-        _readme_path = self._make_readme(tmp_path)
+        self._make_readme(tmp_path)
 
         updater = RSSUpdater(config)
         with patch.object(
