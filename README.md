@@ -7,7 +7,7 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-11-14 04:17:46 UTC*
+*Last Updated: 2026-11-14 14:40:14 UTC*
 
 - [CGArtLab FUI Data 数据控制器插件](https://cgartlab.com/posts/fui-data/) — 2026-11-12
 - [你不知道的 AI 优雅食用指南（二）：先管好数据，再谈提示词](https://cgartlab.com/posts/ai-guide-data-first/) — 2026-11-04
