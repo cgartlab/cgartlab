@@ -7,13 +7,13 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-11-15 15:08:47 UTC*
+*Last Updated: 2026-11-15 20:41:01 UTC*
 
+- [设计师工作难找，是 AI 太强还是你的作品集过时了 \- No\.26](https://cgartlab.com/posts/column-26/) — 2026-11-16
 - [CGArtLab FUI Data 数据控制器插件](https://cgartlab.com/posts/fui-data/) — 2026-11-12
 - [你不知道的 AI 优雅食用指南（二）：先管好数据，再谈提示词](https://cgartlab.com/posts/ai-guide-data-first/) — 2026-11-04
 - [苹果产品那些不够颠覆，却被狠狠学习的细节 \- No\.25](https://cgartlab.com/posts/column-25/) — 2026-11-01
 - [阅读，思考，写作，哪个更重要？\-No\.24](https://cgartlab.com/posts/weekly-24/) — 2026-10-13
-- [设计中的通杀概念 \- No\.23](https://cgartlab.com/posts/weekly-23/) — 2026-10-07
 <!-- BLOG_POSTS_END -->
 
 ## Contact
