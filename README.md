@@ -7,7 +7,7 @@ I explore the intersection of Design, AI, Knowledge Management, and Automation, 
 <!-- BLOG_POSTS_START -->
 ## 📝 Latest Blog Posts / 最新博客文章
 
-*Last Updated: 2026-11-21 15:49:40 UTC*
+*Last Updated: 2026-11-21 21:22:41 UTC*
 
 - [设计师工作难找，是 AI 太强还是你的作品集过时了 \- No\.26](https://cgartlab.com/posts/column-26/) — 2026-11-16
 - [CGArtLab FUI Data 数据控制器插件](https://cgartlab.com/posts/fui-data/) — 2026-11-12
